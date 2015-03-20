@@ -1,0 +1,16 @@
+.class1 {
+  background: #ffffff;
+}
+#cot1 {
+  height: 100px;
+  background-color: green;
+}
+#cot2 {
+  height: 100px;
+  background-color: red;
+}
+@media (max-width: 768px) {
+  #cot2 {
+    display: none;
+  }
+}
