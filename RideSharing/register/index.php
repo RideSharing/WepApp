@@ -17,42 +17,47 @@
 </head>
 <body>
 	<!-- form -->
-	<form class="form-horizontal">
+	<form class="form-horizontal" action="../controller/checkRegister.php" method="post">
 		<fieldset>
 			<legend>Create New Account</legend>
+			<!-- FullName
 			<div class="form-group">
-				<label for="inputtext3" class="col-sm-5 control-label">Full Name</label>
+				<label class="col-sm-5 control-label">Full Name</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="inputtext3"
+					<input type="text" class="form-control" name="fullName"
 						placeholder="Full Name">
 				</div>
 			</div>
+			 -->
 			<div class="form-group">
-				<label for="inputemail3" class="col-sm-5 control-label">Email</label>
+				<label class="col-sm-5 control-label">Email</label>
 				<div class="col-sm-3">
-					<input type="email" class="form-control" id="inputemail3"
+					<input type="email" class="form-control" name="email"
 						placeholder="Email">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputNewPassword3" class="col-sm-5 control-label" style="font-style: italic;" >
+				<label class="col-sm-5 control-label" style="font-style: italic;">
 					Password</label>
 				<div class="col-sm-3">
-					<input type="password" class="form-control" id="inputNewPassword3"
-						placeholder="New Password">
+					<input type="text" class="form-control" name="password"
+						placeholder="New Password" id="password">
 				</div>
 			</div>
+			<!-- 
 			<div class="form-group">
-				<label for="inputRetypePassword3" class="col-sm-5 control-label" style="font-style: italic;" >Retype
+				<label class="col-sm-5 control-label" style="font-style: italic;">Retype
 					Password</label>
 				<div class="col-sm-3">
-					<input type="password" class="form-control"
-						id="inputRetypePassword3" placeholder="Retype Password">
+					<input type="password" class="form-control" name="retypePassword"
+						placeholder="Retype Password" id="retypePassword">
 				</div>
-			</div>
+			</div> 
+			-->
 			<div class="form-group">
 				<div class="col-sm-offset-5 col-sm-3">
-					<a class="btn btn-primary btn-block" href="">Register</a>
+					<input type="submit" class="btn btn-primary btn-block"
+						value="Register" id="register">
 				</div>
 			</div>
 		</fieldset>
@@ -64,4 +69,3 @@
 	<script src="../js/bootstrap.min.js"></script>
 </body>
 </html>
-	

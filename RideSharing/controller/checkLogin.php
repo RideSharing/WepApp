@@ -1,13 +1,11 @@
 <?php
 
 $getreq = array (
-	'email' => 'abc@gmail.com',
-	'password' => '123123'
+	'email' => $_POST['email'],
+	'password' => $_POST['password']
 );
 
 $ch = curl_init();
-
-echo 'abc';
 
 curl_setopt($ch,CURLOPT_URL,"http://192.168.10.74/RESTFul/v1/user/login");
 
@@ -29,12 +27,12 @@ $json = json_decode($result);
 $res = $json->{'error'};
 
 if ($res) {
+	
 	echo "Error!";
-	header("Location: ../manageaccount/");
 	
 }else{
-	
-	echo "Error!";
+
+	header("Location: ../homepage/");
 	
 }
 ?>

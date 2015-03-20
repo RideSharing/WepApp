@@ -20,45 +20,16 @@
 <!-- Bootstrap JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 <!--  -->
-<script>
-$(document).ready(function(){
-	    
-	    $('#login').click(function() {
-	    	  alert('Có lỗi xảy ra');
-	        var data = {"email": $("#email").val(), "password": $("#password").val()};
-	        var strURL = "http://192.168.10.74/RESTFul/v1/user/login";
-	        $.ajax({
-	            url: strURL,
-	            type: 'POST',
-	            cache: false,
-	            data: data,
-	            beforeSend: function(){
-
-	            	$("#login").val("Connecting ...");
-
-		            },
-	            success: function(string){
-	             
-	            	alert('Có lỗi xảy ra ...............');
-	               
-	            },
-	            error: function (){
-	                alert('Có lỗi xảy ra');
-	            }
-	        });
-	    });
-});
-</script>
 </head>
 <body>
 	<!-- form -->
-	<form class="form-horizontal" action="" method="post">
+	<form class="form-horizontal" action="controller/checkLogin.php" method="post">
 		<fieldset>
 			<legend>Ride Sharing</legend>
 			<div class="form-group">
 				<label for="email" class="col-sm-5 control-label">Email</label>
 				<div class="col-sm-3">
-					<input type="text" name="email" class="form-control" id="email"
+					<input type="email" name="email" class="form-control"
 						autocomplete="off" placeholder="Email">
 				</div>
 			</div>
@@ -66,7 +37,7 @@ $(document).ready(function(){
 				<label for="password" class="col-sm-5 control-label">Password</label>
 				<div class="col-sm-3">
 					<input type="password" name="password" class="form-control"
-						id="password" autocomplete="off" placeholder="Password">
+						autocomplete="off" placeholder="Password">
 				</div>
 			</div>
 			<div class="form-group">
@@ -75,11 +46,6 @@ $(document).ready(function(){
 						<label> <input type="checkbox"> Remember me -
 						</label> <a href="">Forgotten Password?</a>
 					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-5 col-sm-3">
-					<input type="text" name="test" class="form-control" id="test" />
 				</div>
 			</div>
 			<div class="form-group">
