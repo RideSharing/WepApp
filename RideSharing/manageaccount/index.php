@@ -14,74 +14,118 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+<script>
+function imageload(){
+	<?php
+	// include ImageManipulator class
+	require_once ('../include/ImageManipulator.php');
+	
+	if ($_FILES ['fileToUpload'] ['error'] > 0) {
+		?>
+		var error = <?php echo "Error: " . $_FILES ['fileToUpload'] ['error'] . "<br />";?>
+		alert(error);
+		<?php
+	} else {
+		// array of valid extensions
+		$validExtensions = array (
+				'.jpg',
+				'.jpeg',
+				'.gif',
+				'.png' 
+		);
+		// get extension of the uploaded file
+		$fileExtension = strrchr ( $_FILES ['fileToUpload'] ['name'], "." );
+		// check if file Extension is on the list of allowed ones
+		if (in_array ( $fileExtension, $validExtensions )) {
+			$newNamePrefix = time () . '_';
+			$manipulator = new ImageManipulator ( $_FILES ['fileToUpload'] ['tmp_name'] );
+			// resizing to 150x150
+			$newImage = $manipulator->resample ( 150, 150 );
+			// saving file to uploads folder
+			$manipulator->save ( '../RideSharing/images/' . $newNamePrefix . $_FILES ['fileToUpload'] ['name'] );
+			?>
+			var src = <?php echo '../RideSharing/images/' . $newNamePrefix . $_FILES ['fileToUpload'] ['name'] ;?>
+			$("#avatar").attr("src",src);
+			<?php 
+		} else {?>
+			alert('You must upload an image...');
+			<?php
+		}
+	}
+	?>
+}
+</script>
 </head>
 <body>
 	<!-- form -->
-	<form class="form-horizontal">
+	<form class="form-horizontal" action="../controller/updateaccount.php"
+		method="post" enctype="multipart/form-data">
 		<fieldset>
 			<legend>Profile</legend>
 			<div class="form-group">
-				<label for="inputavatar3" class="col-sm-5 control-label">Your Avatar</label>
-				<div class="col-sm-3" style="width:150px;height:150px;">
-					<img src="#" class="img-thumbnail" width="150px" height="150px">
+				<label class="col-sm-5 control-label">Your Avatar</label>
+				<div class="col-sm-3" style="width: 150px; height: 150px;">
+					<img src="../images/Photo1.jpg" class="img-thumbnail" width="150px"
+						height="150px" id="avatar" alt="Change Avatar"
+						onclick="$('#inputavatar').trigger('click')" /> <input type="file"
+						id="inputavatar" style="display: none;" onchange="imageload()" />
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputtext3" class="col-sm-5 control-label">Full Name</label>
+				<label class="col-sm-5 control-label">Full Name</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="inputtext3"
-						placeholder="Full Name" disabled>
+					<input type="text" class="form-control" name="fullname"
+						placeholder="Full Name">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputemail3" class="col-sm-5 control-label">Email</label>
+				<label class="col-sm-5 control-label">Email</label>
 				<div class="col-sm-3">
-					<input type="email" class="form-control" id="inputemail3"
-						placeholder="Email" disabled>
+					<input type="email" class="form-control" placeholder="Email"
+						disabled>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputOldPassword3" class="col-sm-5 control-label" style="font-style: italic;" >Old
+				<label class="col-sm-5 control-label" style="font-style: italic;">Old
 					Password</label>
 				<div class="col-sm-3">
-					<input type="password" class="form-control" id="inputOutPassword3"
+					<input type="password" class="form-control" name="oldpassword"
 						placeholder="Old Password">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputNewPassword3" class="col-sm-5 control-label" style="font-style: italic;" >New
+				<label class="col-sm-5 control-label" style="font-style: italic;">New
 					Password</label>
 				<div class="col-sm-3">
-					<input type="password" class="form-control" id="inputNewPassword3"
+					<input type="password" class="form-control"
 						placeholder="New Password">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputRetypePassword3" class="col-sm-5 control-label" style="font-style: italic;" >Retype
+				<label class="col-sm-5 control-label" style="font-style: italic;">Retype
 					Password</label>
 				<div class="col-sm-3">
 					<input type="password" class="form-control"
-						id="inputRetypePassword3" placeholder="Retype Password">
+						placeholder="Retype Password">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputPhoneNumber3" class="col-sm-5 control-label">Phone
-					Number</label>
+				<label class="col-sm-5 control-label">Phone Number</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="inputPhoneNumber3"
+					<input type="text" class="form-control" name="phonenumber"
 						placeholder="Phone Number">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputPersonalID3" class="col-sm-5 control-label">PersonalID</label>
+				<label class="col-sm-5 control-label">PersonalID</label>
 				<div class="col-sm-3">
-					<input type="password" class="form-control" id="inputPersonalID3"
+					<input type="password" class="form-control" name="IDNum"
 						placeholder="Personal ID">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputIDImage3" class="col-sm-5 control-label">Personal
-					ID Image</label> <input type="file" id="inputIDImage3">
+				<label class="col-sm-5 control-label">Personal ID Image</label> <input
+					type="file" name="IDImage">
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-5 col-sm-1">
