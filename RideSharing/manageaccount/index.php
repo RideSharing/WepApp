@@ -14,46 +14,49 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+<!-- Bootstrap JavaScript -->
+<script src="../js/bootstrap.min.js"></script>
+<!-- jQuery -->
+<script src="http://code.jquery.com/jquery.js"></script>
 <script>
-function imageload(){
-	<?php
-	// include ImageManipulator class
-	require_once ('../include/ImageManipulator.php');
+$("document").ready(function(){
+	$("#fileToUpload").change(function(){
+		
+		var file_data = $('#fileToUpload').prop('files')[0]; 
+		var form_data = new FormData();                  
+	    form_data.append("file", file_data)            
 	
-	if ($_FILES ['fileToUpload'] ['error'] > 0) {
-		?>
-		var error = <?php echo "Error: " . $_FILES ['fileToUpload'] ['error'] . "<br />";?>
-		alert(error);
-		<?php
-	} else {
-		// array of valid extensions
-		$validExtensions = array (
-				'.jpg',
-				'.jpeg',
-				'.gif',
-				'.png' 
-		);
-		// get extension of the uploaded file
-		$fileExtension = strrchr ( $_FILES ['fileToUpload'] ['name'], "." );
-		// check if file Extension is on the list of allowed ones
-		if (in_array ( $fileExtension, $validExtensions )) {
-			$newNamePrefix = time () . '_';
-			$manipulator = new ImageManipulator ( $_FILES ['fileToUpload'] ['tmp_name'] );
-			// resizing to 150x150
-			$newImage = $manipulator->resample ( 150, 150 );
-			// saving file to uploads folder
-			$manipulator->save ( '../RideSharing/images/' . $newNamePrefix . $_FILES ['fileToUpload'] ['name'] );
-			?>
-			var src = <?php echo '../RideSharing/images/' . $newNamePrefix . $_FILES ['fileToUpload'] ['name'] ;?>
-			$("#avatar").attr("src",src);
-			<?php 
-		} else {?>
-			alert('You must upload an image...');
-			<?php
-		}
-	}
-	?>
-}
+		$.ajax({
+			url: '../controller/change_avatar.php', // point to server-side PHP script 
+            dataType: 'text',  // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,                         
+            type: 'post',
+            success: function(string){
+            	var getData = $.parseJSON(string);
+            	if(getData['error']){
+
+            		alert(getData['message']);
+            		
+                	}else{
+
+                		$("#avatar").attr("src",getData['src']);
+
+                    }
+            	
+            },
+        	error: function(){
+
+        		alert("Error occured!");
+        		
+            	}
+        });
+			                	             				            
+});
+});
 </script>
 </head>
 <body>
@@ -65,10 +68,10 @@ function imageload(){
 			<div class="form-group">
 				<label class="col-sm-5 control-label">Your Avatar</label>
 				<div class="col-sm-3" style="width: 150px; height: 150px;">
-					<img src="../images/Photo1.jpg" class="img-thumbnail" width="150px"
-						height="150px" id="avatar" alt="Change Avatar"
-						onclick="$('#inputavatar').trigger('click')" /> <input type="file"
-						id="inputavatar" style="display: none;" onchange="imageload()" />
+					<img src="" class="img-thumbnail"
+						style="height: 150px; width: 150px;" id="avatar"
+						onclick="$('#fileToUpload').trigger('click')" /> 
+					<input type="file" name="fileToUpload" id="fileToUpload" style="display: none;" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -83,30 +86,6 @@ function imageload(){
 				<div class="col-sm-3">
 					<input type="email" class="form-control" placeholder="Email"
 						disabled>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-5 control-label" style="font-style: italic;">Old
-					Password</label>
-				<div class="col-sm-3">
-					<input type="password" class="form-control" name="oldpassword"
-						placeholder="Old Password">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-5 control-label" style="font-style: italic;">New
-					Password</label>
-				<div class="col-sm-3">
-					<input type="password" class="form-control"
-						placeholder="New Password">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-5 control-label" style="font-style: italic;">Retype
-					Password</label>
-				<div class="col-sm-3">
-					<input type="password" class="form-control"
-						placeholder="Retype Password">
 				</div>
 			</div>
 			<div class="form-group">
@@ -137,10 +116,5 @@ function imageload(){
 			</div>
 		</fieldset>
 	</form>
-
-	<!-- jQuery -->
-	<script src="http://code.jquery.com/jquery.js"></script>
-	<!-- Bootstrap JavaScript -->
-	<script src="../js/bootstrap.min.js"></script>
 </body>
 </html>
