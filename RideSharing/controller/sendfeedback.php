@@ -1,25 +1,17 @@
 <?php
-session_start ();
-
-$api_key = $_SESSION ["api_key"];
 
 $getreq = array (
 		'fullname' => $_POST {'fullname'},
-		'phone' => $_POST {'phonenumber'},
-		'personalID' => $_POST {'numberID'},
-		'personalID_img' => $_POST {'imageID'},
-		'link_avatar' => $_POST {'avatar'} 
+		'email' => $_POST {'email'},
+		'content' => $_POST {'content'}, 
 );
 
 $ch = curl_init ();
 
-curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/user" );
+curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.74/v1/user" );
 
 curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 
-curl_setopt ( $ch, CURLOPT_HTTPHEADER, array (
-		'Authorization: ' . $api_key 
-) );
 
 // Thiết lập sử dụng PUT
 curl_setopt ( $ch, CURLOPT_CUSTOMREQUEST, "PUT" );

@@ -1,8 +1,15 @@
+<?php
+session_start();
+if (isset($_SESSION["api_key"])) {
+	header('Location: ../index.php');
+	die();
+}
+?>
 <!DOCTYPE html>
 <html lang="vi">
 	<head>
 		<meta charset="utf-8">
-		<title>RideSharing - Login Page</title>
+		<title>RideSharing - Đăng nhập hệ thống</title>
 		<meta name="description" content="description">
 		<meta name="author" content="Evgeniya">
 		<meta name="keyword" content="keywords">
@@ -11,6 +18,7 @@
 		<link href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet">
 		<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
 		<link href="../css/style_v2.css" rel="stylesheet">
+		<link href="../plugins/toast/resources/css/jquery.toastmessage.css" rel="stylesheet">
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 				<script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
@@ -23,7 +31,7 @@
 		<div class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
 			<div class="box">
 				<div class="box-content">
-					<form method="post" action="../controller/checkLoginController.php">
+					<form method="post" action="../controller/checkLogin.php">
 					<div class="text-center">
 						<h3 class="page-header">Đăng nhập hệ thống - RideSharing</h3>
 					</div>
@@ -44,5 +52,19 @@
 		</div>
 	</div>
 </div>
+<script src="../plugins/jquery/jquery.min.js"></script>
+<script src="../plugins/toast/javascript/jquery.toastmessage.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+	    <?php 
+			if (isset($_SESSION["message"])) {
+		?>
+	    $().toastmessage('showErrorToast', '<?php echo $_SESSION["message"] ?>')
+	    <?php
+	    		$_SESSION["message"] = null;
+			}
+		?>
+})
+</script>
 </body>
 </html>

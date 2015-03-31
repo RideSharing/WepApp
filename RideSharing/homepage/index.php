@@ -1,3 +1,10 @@
+<?php
+session_start ();
+if (! isset ( $_SESSION ["api_key"] )) {
+	header ( 'Location: ../' );
+	die ();
+}
+?>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -14,6 +21,7 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+<!-- jQuery -->
 
 </head>
 <body>
@@ -72,23 +80,40 @@
 			<li><a href="#">Manage Itineraries</a></li>
 			<li><a href="#">Manage Schedule</a></li>
 			<li><a href="#">Analyze Statistically</a></li>
-			<li><a href="../">Sign out</a></li>
+			<li><form>
+				<div>
+					<input type="button" class="btn btn-primary" name="logout"
+						id="logout" value="Sign out">
+				</div>
+			</li>
 		</ul>
 
 		<div class="row">
 			<br>
 			<div id="googleMap" style="width: 590px; height: 380px;"
-				class="col-md-offset-1"></div>
+				class="col-md-offset-1">
+			</div>
 		</div>
 	</div>
+	
+<script src="http://code.jquery.com/jquery-1.11.2.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="../js/bootstrap.min.js"></script>
+<!-- GoogleMap JavaScript -->
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="../js/googlemap.js"></script>
+<script>
+$("document").ready(function(){
+	
+	$("#logout").click(function(){
 
-	<!-- jQuery -->
-	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-	<!-- Bootstrap JavaScript -->
-	<script src="../js/bootstrap.min.js"></script>
-	<!-- GoogleMap JavaScript -->
-	<script src="http://maps.googleapis.com/maps/api/js"></script>
-	<script src="../js/googlemap.js"></script>
+		window.location.assign("../controller/logout.php");
+		
+		});
+	
+});
+</script>
 </body>
 </html>
 </html>

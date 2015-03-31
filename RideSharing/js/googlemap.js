@@ -1,11 +1,14 @@
 var map;
-var marker;
+var start_marker;
+var end_marker;
+var start_infowindow;
+var end_infowindow;
 var danang = new google.maps.LatLng(16.054144447313266, 108.20207118988037);
 
 function initialize() {
 	var mapProp = {
 		center : danang,
-		zoom : 8,
+		zoom : 13,
 		mapTypeId : google.maps.MapTypeId.HYBRID
 	};
 
@@ -17,31 +20,48 @@ function initialize() {
 	// homeControlDiv.index = 1;
 	map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
 
-	// Center map
-	marker = new google.maps.Marker({
-		position : danang,
-		animation : google.maps.Animation.DROP,
-		draggable : true,
+	//infowindow
+	start_infowindow  = new google.maps.InfoWindow({
+	    content: "Start"
 	});
+	
+	end_infowindow  = new google.maps.InfoWindow({
+	    content: "End"
+	});
+	
+	// Center map
+	start_marker = new google.maps.Marker({
+		position : danang,
+		draggable : true,
+		icon: '../icons/icon-start-marker.png',
+		title: "Start"
+	});
+	
+	end_marker = new google.maps.Marker({
+		position : danang,
+		draggable : true,
+		icon: '../icons/icon-end-marker.png',
+		title: "End"
+	});
+	
+	start_infowindow.open(map,start_marker);
+	end_infowindow.open(map,end_marker);
 
 	// The placeMarker() function places a marker where the user has clicked,
 	// and shows an infowindow with the latitudes and longitudes of the marker:
-	google.maps.event.addListener(map, 'click', function(event) {
-		placeMarker(event.latLng);
-	});
+//	google.maps.event.addListener(map, 'click', function(event) {
+//		placeMarker(event.latLng);
+//	});
 
-	marker.setMap(map);
+	start_marker.setMap(map);
+	end_marker.setMap(map);
 
-	var infowindow = new google.maps.InfoWindow({
-		content : "Ride Sharing!"
-	});
-
-	google.maps.event.addListener(marker, 'click', function() {
-		infowindow.open(map, marker);
-		// Zoom to 9 when clicking on marker
-		map.setZoom(9);
-		map.setCenter(marker.getPosition());
-	});
+//	google.maps.event.addListener(marker, 'click', function() {
+//	//	infowindow.open(map, marker);
+//		// Zoom to 9 when clicking on marker
+//		map.setZoom(9);
+//		map.setCenter(marker.getPosition());
+//	});
 
 	/*
 	 * google.maps.event.addListener(map,'center_changed',function() { // 3

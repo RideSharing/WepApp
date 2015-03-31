@@ -1,22 +1,23 @@
 <?php
+
+$getreq = array (
+ 'email' => 'abc@gmail.com',
+ 'password' => '123123'
+);
+
 $ch = curl_init();
 
-$data = array (
-	"email" => "thanhbkdn92@live.com",
-	"password" => "1231234"
-	);
-// json encode data
+echo 'abc';
 
-$data_string = json_encode($data); 
-curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-curl_setopt($ch, CURLOPT_URL, "http://localhost/RESTFul/v1/user/login");
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
-    'Content-Type: application/json',                                                                                
-    'Content-Length: ' . strlen($data_string)                                                                       
-));     
+curl_setopt($ch,CURLOPT_URL,"http://192.168.10.74/RESTFul/v1/user/login");
 
+curl_setopt( $ch,CURLOPT_RETURNTRANSFER,1);
+
+// Thiết lập sử dụng POST
+curl_setopt($ch,CURLOPT_POST,1);
+
+// Thiết lập các dữ liệu gửi đi
+curl_setopt($ch,CURLOPT_POSTFIELDS,$getreq);
 
 // execute the request
 $result = curl_exec($ch);
@@ -25,8 +26,15 @@ $result = curl_exec($ch);
 curl_close($ch);
 
 $json = json_decode($result);
-$res = $json->{'users'};
-foreach ($res as $value) {
-    echo $value->{'email'};
+$res = $json->{'error'};
+
+if ($res) {
+ echo "Error!";
+ header("Location: ../manageaccount/");
+ 
+}else{
+ 
+ echo "Error!";
+ 
 }
 ?>
