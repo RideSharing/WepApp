@@ -155,15 +155,21 @@ if (!isset($_SESSION["api_key"])) {
 		<div id="sidebar-left" class="col-xs-2 col-sm-2">
 			<ul class="nav main-menu">
 				<li>
-					<a href="ajax/dashboard.html" class="ajax-link">
+					<a href="ajax/dashboard.php" class="ajax-link">
 						<i class="fa fa-dashboard"></i>
-						<span class="hidden-xs">Dashboard</span>
+						<span class="hidden-xs">Trang chủ</span>
 					</a>
 				</li>
 				<li class="dropdown">
 					<a href="ajax/user_list.php" class="ajax-link">
 						<i class="fa fa-bar-chart-o"></i>
 						<span class="hidden-xs">Quản lí người dùng</span>
+					</a>
+				</li>
+				<li class="dropdown">
+					<a href="ajax/itinerary_list.php" class="ajax-link">
+						<i class="fa fa-bar-chart-o"></i>
+						<span class="hidden-xs">Quản lí hành trình</span>
 					</a>
 				</li>
 				<li class="dropdown">
@@ -217,6 +223,7 @@ if (!isset($_SESSION["api_key"])) {
 <script src="plugins/justified-gallery/jquery.justifiedGallery.min.js"></script>
 <script src="plugins/tinymce/tinymce.min.js"></script>
 <script src="plugins/tinymce/jquery.tinymce.min.js"></script>
+<script src="https://cdn.firebase.com/js/client/2.2.3/firebase.js"></script>
 <!-- All functions for this theme + document.ready processing -->
 <script src="js/devoops.js"></script>
 </body>

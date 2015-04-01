@@ -85,7 +85,7 @@ if (! isset ( $_SESSION ["api_key"] )) {
 				</div>
 				<div class="col-sm-2">
 					<a class="btn btn-primary btn-block" href="updateadvanced.php">Update
-						Advanced</a>
+						Driver</a>
 				</div>
 				<div class="col-sm-1">
 					<a class="btn btn-primary btn-block" href="../homepage">Back</a>

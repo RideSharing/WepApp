@@ -28,11 +28,12 @@ session_start();
 					<thead>
 						<tr>
 							<th>STT</th>
-							<th>Họ tên</th>
-							<th>Email</th>
-							<th>Điện thoại</th>
-							<th>CMND</th>
-							<th>Cấp độ</th>
+							<th>Tài Xế</th>
+							<th>Khách Hàng</th>
+							<th>Điểm Đi</th>
+							<th>Điểm Đến</th>
+							<th>Thời Gian</th>
+							<th>Tình Trạng</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -43,7 +44,7 @@ session_start();
 						$api_key = $_SESSION["api_key"];
 						$ch = curl_init();
 
-						curl_setopt($ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/staff/user");
+						curl_setopt($ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/staff/itineraries");
 						curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 						curl_setopt($ch,CURLOPT_HTTPHEADER,array('Authorization: '.$api_key));
 
@@ -54,7 +55,9 @@ session_start();
 						curl_close($ch);
 
 						$json = json_decode($result);
-						$res = $json->{'users'};
+						//echo "Jsom: ";
+						//echo $json;
+						$res = $json->{'itineraries'};
 						$i = 1;
 						foreach ($res as $value) {
 						?>
@@ -64,28 +67,27 @@ session_start();
 								<?php echo $value->{'fullname'}==NULL?' ':$value->{'fullname'} ?>
 							</td>
 							<td><?php echo $value->{'email'}==NULL?' ':$value->{'email'} ?></td>
-							<td><?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?></td>
-							<td><?php echo $value->{'personalID'}==NULL?' ':$value->{'personalID'} ?></td>
+							<td><?php echo $value->{'start_address'}==NULL?' ':$value->{'start_address'} ?></td>
+							<td><?php echo $value->{'end_address'}==NULL?' ':$value->{'end_address'} ?></td>
+							<td><?php echo $value->{'leave_date'}==NULL?' ':$value->{'leave_date'} ?></td>
 							<td><?php 
-									$percent = round($value->{'status'}/4*100);
-									if ($percent <= 33) {
-										$color = 'progress-bar-danger';
-									} else if ($percent <= 66) {
-										$color = 'progress-bar-warning';
+									//$percent = round($value->{'status'}/4*100);
+									$status = 'No definition';
+									if ($value->{'status'} == 1) {
+										$status = 'Not Accepted';
+									} else if ($value->{'status'} == 2) {
+										//$status = 'Accepted';
 									} else {
-										$color = 'progress-bar-success';
+										//$status = 'No definition';
 									}
+									echo $value->{'status'};
 								?>		
-								<div class="progress">
-									<div class="progress-bar <?php echo $color ?>" role="progressbar" aria-valuenow="<?php echo $percent ?>" 
-											aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percent ?>%;">
-										<span><?php echo $percent ?>%</span>
-									</div>
-								</div>
+								
 							</td>
-							<td><a href="controller/user.php?user_id=<?php echo $value->{'user_id'} ?>&act=view" 
+							<td><a href="controller/itinerary.php?itinerary_id=<?php echo $value->{'itinerary_id'} ?>&act=view" 
 									class="btn btn-warning btn-app-sm btn-circle"><i class="fa fa-edit"></i></a>
-								<a href="controller/user.php?user_id=<?php echo $value->{'user_id'} ?>&act=delete" 
+								<a href="controller/itinerary.php?itinerary_id=<?php echo $value->{'itinerary_id'} ?>
+									&act=delete" 
 									class="btn btn-danger btn-app-sm btn-circle"><i class="fa fa-trash-o"></i></a> 
 							</td>
 						</tr>

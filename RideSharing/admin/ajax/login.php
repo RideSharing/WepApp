@@ -32,20 +32,20 @@ if (isset($_SESSION["api_key"])) {
 			<div class="box">
 				<div class="box-content">
 					<form method="post" action="../controller/checkLogin.php">
-					<div class="text-center">
-						<h3 class="page-header">Đăng nhập hệ thống - RideSharing</h3>
-					</div>
-					<div class="form-group">
-						<label class="control-label">Email</label>
-						<input type="email" class="form-control" name="email" />
-					</div>
-					<div class="form-group">
-						<label class="control-label">Mật khẩu</label>
-						<input type="password" class="form-control" name="password" />
-					</div>
-					<div class="text-center">
-						<button type="submit" class="btn btn-primary">Đăng nhập</button>
-					</div>
+						<div class="text-center">
+							<h3 class="page-header">Đăng nhập hệ thống - RideSharing</h3>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Email</label>
+							<input type="email" class="form-control" name="email" />
+						</div>
+						<div class="form-group">
+							<label class="control-label">Mật khẩu</label>
+							<input type="password" class="form-control" name="password" />
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-primary">Đăng nhập</button>
+						</div>
 					</form>
 				</div>
 			</div>

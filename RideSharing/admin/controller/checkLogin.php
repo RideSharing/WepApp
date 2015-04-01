@@ -14,7 +14,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 	//Initial curl
 	$ch = curl_init();
 
-	curl_setopt($ch, CURLOPT_URL, "http://localhost/RESTFul/v1/staff/login");
+	curl_setopt($ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/staff/login");
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 

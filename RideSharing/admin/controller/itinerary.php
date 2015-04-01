@@ -5,32 +5,36 @@ if (!isset($_SESSION["api_key"])) {
 	die();
 }
 
-if ((isset($_GET['act']) && isset($_GET['user_id'])) || (isset($_POST['act']) && isset($_POST['user_id']))) {
+if ((isset($_GET['act']) && isset($_GET['itinerary_id'])) || (isset($_POST['act']) && isset($_POST['itinerary_id']))) {
 	$act = !isset($_GET['act'])?$_POST['act']:$_GET['act'];
-	$user_id = !isset($_GET['act'])?$_POST['user_id']:$_GET['user_id'];
+	$itinerary_id = !isset($_GET['act'])?$_POST['itinerary_id']:$_GET['itinerary_id'];
 
 	if ($act == 'view') {
 		$api_key = $_SESSION["api_key"];
 
 		$ch = curl_init();
 
-		curl_setopt($ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/staff/user/".$user_id);
+		curl_setopt($ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/staff/itinerary/".$itinerary_id);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch,CURLOPT_HTTPHEADER,array('Authorization: '.$api_key));
+		//curl_setopt($ch,CURLOPT_HTTPHEADER,array('Authorization: '.$api_key));
 
 		// execute the request
 		$result = curl_exec($ch);
 
 		// close curl resource to free up system resources
 		curl_close($ch);
-		$user = json_decode($result, true);
-		$user['user_id'] = $user_id;
+		$itinerary = json_decode($result, true);
+		//$itinerary['itinerary_id'] = $itinerary_id;
 
-		if(isset($user)) {
-			$_SESSION['user'] = $user;
+		if(isset($itinerary)) {
+			$_SESSION['itinerary'] = $itinerary;
+			//echo "here"; 
 		}
-		
-		header('Location: ../index.php#ajax/user_edit.php');
+		//echo "result";
+		//echo $itinerary_id;
+		//print_r($result);
+		//print_r($itinerary);
+		header('Location: ../index.php#ajax/itinerary_edit.php');
 		die();
 	} else if ($act == 'edit') {
 		$locked = isset($_POST['locked'])?1:0;
@@ -45,7 +49,7 @@ if ((isset($_GET['act']) && isset($_GET['user_id'])) || (isset($_POST['act']) &&
 
 		$ch = curl_init();
 
-		curl_setopt($ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/staff/user/".$user_id);
+		curl_setopt($ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/staff/itinerary/".$itinerary_id);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
 		curl_setopt($ch,CURLOPT_HTTPHEADER,array('Authorization: '.$_SESSION['api_key']));
@@ -59,22 +63,25 @@ if ((isset($_GET['act']) && isset($_GET['user_id'])) || (isset($_POST['act']) &&
 
 		$json = json_decode($result);
 
+
+
 		if (!$json->{'error'}) {
 			$_SESSION['message'] = $json->{'message'};
 		} else {
 			$_SESSION['message'] = $json->{'message'};
 		}
 
-		header('Location: ../index.php#ajax/user_list.php');
+		header('Location: ../index.php#ajax/itinerary_list.php');
 		die();
 	} else if ($act == 'delete') {
+		echo $itinerary_id;
+		echo "quay len";
 		//Initial curl
 		$ch = curl_init();
-
-		curl_setopt($ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/staff/user/".$user_id);
+		curl_setopt($ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/staff/itinerary/".$itinerary_id);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-		curl_setopt($ch,CURLOPT_HTTPHEADER,array('Authorization: '.$_SESSION['api_key']));
+		//curl_setopt($ch,CURLOPT_HTTPHEADER,array('Authorization: '.$_SESSION['api_key']));
 
 		// execute the request
 		$result = curl_exec($ch);
@@ -84,20 +91,27 @@ if ((isset($_GET['act']) && isset($_GET['user_id'])) || (isset($_POST['act']) &&
 
 		$json = json_decode($result);
 
-		if (!$json->{'error'}) {
-			$_SESSION['message'] = $json->{'message'};
-		} else {
-			$_SESSION['message'] = $json->{'message'};
-		}
+		echo $_SESSION['api_key'];
+		print_r($itinerary_id);
+		//echo $ch;
+		print_r($json);
 
-		header('Location: ../index.php#ajax/user_list.php');
-		die();
+		//if (!$json->{'error'}) {
+		//	$_SESSION['message'] = $json->{'message'};
+		//} else {
+		//	$_SESSION['message'] = $json->{'message'};
+		//}
+
+		echo "right h";
+
+		//header('Location: ../index.php#ajax/itinerary_list.php');
+		//die();
 	} else {
-		header('Location: ../index.php#ajax/user_list.php');
+		header('Location: ../index.php#ajax/itinerary_list.php');
 		die();
 	}
 } else {
-	header('Location: ../index.php#ajax/user_list.php');
+	header('Location: ../index.php#ajax/itinerary_list.php');
 	die();
 }
 ?>

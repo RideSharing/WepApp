@@ -10,7 +10,7 @@ if (! isset ( $_SESSION ["api_key"] )) {
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Profile</title>
+<title>Update Driver</title>
 
 <!-- Bootstrap CSS -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -71,6 +71,8 @@ if (! isset ( $_SESSION ["api_key"] )) {
 	<script>
 $("document").ready(function(){
 
+	var tmp;
+
 	$.ajax({
 		url: '../controller/getdriverinform.php', // point to server-side PHP script 
         dataType: 'text',  // what to expect back from the PHP script, if anything
@@ -84,8 +86,18 @@ $("document").ready(function(){
         	if(!getData['error']){
 
         		$("#avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
-        		$("#driver_license").val('123');	
+        		$("#driver_license").val(getData['driver_license']);	
         		$("#imageDL").attr('src',"data:image/jpeg;base64,"+getData['driver_license_img']);
+
+        		if($("#driver_license").val() == "" && $("#imageDL").attr('src') == "") {
+
+        			tmp = 1;
+
+        		}else {
+
+        			tmp = 0;
+
+        		}
         		
             }else {
 
@@ -99,16 +111,44 @@ $("document").ready(function(){
         	alert("Error unknow!");
 
             }
-    });
+    });	
+
+	$("#upimageDL").change(function(){
+		
+	    readURL(this,"#imageDL");
+	    
+	});
 
 	$("#request").click(function(){
 
 		var form_data = new FormData();  
 
-		form_data.append("newPassword",$("#newPassword").val());
+		form_data.append("driver_license",$("#driver_license").val());
 
+		var imageDL = $("#imageDL").attr('src');
+		
+		if(imageDL.indexOf("data:image/jpeg;base64,") == 0){
+
+			var imageDLfix = imageDL.replace("data:image/jpeg;base64,","");
+
+			form_data.append("driver_license_img",imageDLfix);
+
+		}
+
+		var link;
+
+		if(tmp == 1) {
+
+			link = '../controller/registerdriver.php';
+			
+		}else {
+
+			link = '../controller/updatedriver.php';
+
+		}
+		
 		$.ajax({
-			url: '../controller/updateadvanced.php', // point to server-side PHP script 
+			url: link, // point to server-side PHP script 
 	        dataType: 'text',  // what to expect back from the PHP script, if anything
 	        cache: false,
 	        contentType: false,
@@ -121,7 +161,11 @@ $("document").ready(function(){
 	            	
 	           alert(getData['message']);
 
-	           location.reload();
+	           if(!getData['error']){
+
+	        	   location.reload();
+
+		       }  
 	            	
 	        },
 	        error: function(){

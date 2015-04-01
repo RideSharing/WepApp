@@ -43,20 +43,6 @@ function LoadOpenLayersScript(callback){
 	}
 }
 //
-// Dynamically load  Leaflet Plugin
-// homepage: http://leafletjs.com
-//
-function LoadLeafletScript(callback){
-	if (!$.fn.L){
-		$.getScript('plugins/leaflet/leaflet.js', callback);
-	}
-	else {
-		if (callback && typeof(callback) === "function") {
-			callback();
-		}
-	}
-}
-//
 //  Dynamically load  jQuery Timepicker plugin
 //  homepage: http://trentrichardson.com/examples/timepicker/
 //
@@ -1394,18 +1380,25 @@ function drawMap(lon, lat, elem, layers) {
 	//The map projection (Spherical Mercator)
 	var projectTo = map.getProjectionObject();
 	// Max zoom = 17
-	var zoom=10;
+	var zoom=13;
 	map.zoomToMaxExtent();
 	// Set longitude/latitude
-	var lonlat = new OpenLayers.LonLat(lon, lat);
+	var lonlat = new OpenLayers.LonLat(107.610397, 16.468353);
 	map.setCenter(lonlat.transform(epsg4326, projectTo), zoom);
 	var layerGuest = new OpenLayers.Layer.Vector("You are here");
 	// Define markers as "features" of the vector layer:
 	var guestMarker = new OpenLayers.Feature.Vector(
-		new OpenLayers.Geometry.Point(lon, lat).transform(epsg4326, projectTo)
+		new OpenLayers.Geometry.Point(107.616856, 16.442362).transform(epsg4326, projectTo)
 	);
 	layerGuest.addFeatures(guestMarker);
+
+	var guestMarker = new OpenLayers.Feature.Vector(
+		new OpenLayers.Geometry.Point(107.616658, 16.445804).transform(epsg4326, projectTo)
+	);
+	layerGuest.addFeatures(guestMarker);
+
 	LayersArray.push(layerGuest);
+
 	map.addLayers(LayersArray);
 	// If map layers > 1 then show checker
 	if (layers.length > 1){
@@ -2838,29 +2831,6 @@ function FullScreenMap(){
 			var googlesattelite = new OpenLayers.Layer.Google( "Google Sattelite", {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22});
 			var map1_layers = [googlestreets,osmap, googlesattelite];
 			var map_fs = drawMap(json.longitude, json.latitude, "full-map", map1_layers);
-		}
-	);
-}
-/*-------------------------------------------
-	Function for Fullscreen Leaflet map page (map_leaflet.html)
----------------------------------------------*/
-//
-// Create Leaflet Fullscreen Map
-//
-function FullScreenLeafletMap(){
-	$.getJSON("http://www.telize.com/geoip?callback=?",
-		function(json) {
-			var map = L.map('full-map').setView([json.latitude, json.longitude ], 10);
-			L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-				maxZoom: 18
-			}).addTo(map);
-			var circle = L.circle([json.latitude, json.longitude], 350, {
-				color: 'red',
-				fillColor: '#f03',
-				fillOpacity: 0.5
-			}).addTo(map);
-			circle.bindPopup("<b>Hello!</b><br>May be you here.").openPopup();
 		}
 	);
 }

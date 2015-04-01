@@ -20,48 +20,50 @@ function initialize() {
 	// homeControlDiv.index = 1;
 	map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
 
-	//infowindow
-	start_infowindow  = new google.maps.InfoWindow({
-	    content: "Start"
+	// infowindow
+	start_infowindow = new google.maps.InfoWindow({
+		content : "Start"
 	});
-	
-	end_infowindow  = new google.maps.InfoWindow({
-	    content: "End"
+
+	end_infowindow = new google.maps.InfoWindow({
+		content : "End"
 	});
-	
+
 	// Center map
 	start_marker = new google.maps.Marker({
 		position : danang,
 		draggable : true,
-		icon: '../icons/icon-start-marker.png',
-		title: "Start"
+		icon : '../icons/icon-start-marker.png',
+		title : "Start"
 	});
-	
+
 	end_marker = new google.maps.Marker({
 		position : danang,
 		draggable : true,
-		icon: '../icons/icon-end-marker.png',
-		title: "End"
+		icon : '../icons/icon-end-marker.png',
+		title : "End"
 	});
-	
-	start_infowindow.open(map,start_marker);
-	end_infowindow.open(map,end_marker);
+
+	start_infowindow.open(map, start_marker);
+	end_infowindow.open(map, end_marker);
 
 	// The placeMarker() function places a marker where the user has clicked,
 	// and shows an infowindow with the latitudes and longitudes of the marker:
-//	google.maps.event.addListener(map, 'click', function(event) {
-//		placeMarker(event.latLng);
-//	});
+	google.maps.event.addListener(map, 'click', function(event) {
+
+		placeMarker(event.latLng);
+
+	});
 
 	start_marker.setMap(map);
 	end_marker.setMap(map);
 
-//	google.maps.event.addListener(marker, 'click', function() {
-//	//	infowindow.open(map, marker);
-//		// Zoom to 9 when clicking on marker
-//		map.setZoom(9);
-//		map.setCenter(marker.getPosition());
-//	});
+	// google.maps.event.addListener(marker, 'click', function() {
+	// // infowindow.open(map, marker);
+	// // Zoom to 9 when clicking on marker
+	// map.setZoom(9);
+	// map.setCenter(marker.getPosition());
+	// });
 
 	/*
 	 * google.maps.event.addListener(map,'center_changed',function() { // 3
@@ -72,12 +74,18 @@ function initialize() {
 }
 
 function placeMarker(location) {
-		marker.setPosition(location);
-		var infowindow = new google.maps.InfoWindow({
-			content : 'Latitude: ' + location.lat() + '<br>Longitude: '
-					+ location.lng()
-		});
+	
+	start_marker.setPosition(location);
+	
+	var infowindow = new google.maps.InfoWindow({
+		content : 'Latitude: ' + location.lat() + '<br>Longitude: '
+				+ location.lng()
+	});
 	// infowindow.open(map, marker);
+	document.getElementById('lat').value = location.lat();
+	document.getElementById('lng').value = location.lng();
+	getAddress(location);
+
 }
 
 // Add a Home control that returns the user to London
@@ -102,6 +110,25 @@ function HomeControl(controlDiv, map) {
 	google.maps.event.addDomListener(controlUI, 'click', function() {
 		map.setCenter(danang)
 	});
+}
+
+function getAddress(latLng) {
+	geocoder
+			.geocode(
+					{
+						'latLng' : latLng
+					},
+					function(results, status) {
+						if (status == google.maps.GeocoderStatus.OK) {
+							if (results[0]) {
+								document.getElementById("address").value = results[0].formatted_address;
+							} else {
+								document.getElementById("address").value = "No results";
+							}
+						} else {
+							document.getElementById("address").value = status;
+						}
+					});
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);

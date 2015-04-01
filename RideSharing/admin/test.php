@@ -1,40 +1,54 @@
-<?php
+<html>
+<head>
+  <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+  <link rel="stylesheet" type="text/css" href="/resources/tutorial/css/example.css">
+</head>
+<body>
+ <input type='text' id='messageInput'  placeholder='Type a message...'>
 
-$getreq = array (
- 'email' => 'abc@gmail.com',
- 'password' => '123123'
-);
+<!-- CHAT JAVACRIPT -->
+<script>
+  // CREATE A REFERENCE TO FIREBASE
+  var messagesRef = new Firebase('https://gfyj7ynvpb4.firebaseio-demo.com/');
 
-$ch = curl_init();
+  // REGISTER DOM ELEMENTS
+  var messageField = $('#messageInput');
+  var nameField = $('#nameInput');
+  var messageList = $('#example-messages');
 
-echo 'abc';
+  // LISTEN FOR KEYPRESS EVENT
+  messageField.keypress(function (e) {
+    if (e.keyCode == 13) {
+      //FIELD VALUES
+      var username = nameField.val();
+      var message = messageField.val();
 
-curl_setopt($ch,CURLOPT_URL,"http://192.168.10.74/RESTFul/v1/user/login");
+      //SAVE DATA TO FIREBASE AND EMPTY FIELD
+      messagesRef.push({name:username, text:message});
+      messageField.val('');
+    }
+  });
 
-curl_setopt( $ch,CURLOPT_RETURNTRANSFER,1);
+  // Add a callback that is triggered for each chat message.
+  messagesRef.limitToLast(10).on('child_added', function (snapshot) {
+    //GET DATA
+    var data = snapshot.val();
+    var username = data.name || "anonymous";
+    var message = data.text;
 
-// Thiết lập sử dụng POST
-curl_setopt($ch,CURLOPT_POST,1);
+    //CREATE ELEMENTS MESSAGE & SANITIZE TEXT
+    var messageElement = $("<li>");
+    var nameElement = $("<strong class='example-chat-username'></strong>")
+    nameElement.text(username);
+    messageElement.text(message).prepend(nameElement);
 
-// Thiết lập các dữ liệu gửi đi
-curl_setopt($ch,CURLOPT_POSTFIELDS,$getreq);
+    //ADD MESSAGE
+    messageList.append(messageElement)
 
-// execute the request
-$result = curl_exec($ch);
-
-// close curl resource to free up system resources
-curl_close($ch);
-
-$json = json_decode($result);
-$res = $json->{'error'};
-
-if ($res) {
- echo "Error!";
- header("Location: ../manageaccount/");
- 
-}else{
- 
- echo "Error!";
- 
-}
-?>
+    //SCROLL TO BOTTOM OF MESSAGE LIST
+    messageList[0].scrollTop = messageList[0].scrollHeight;
+  });
+</script>
+</body>
+</html>
