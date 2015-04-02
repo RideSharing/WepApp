@@ -95,9 +95,9 @@ if (! isset ( $_SESSION ["api_key"] )) {
 
 		<div class="row">
 			<br> <input class="col-md-5" id="start_place" class="controls"
-				type="text" placeholder="Start Place" onchange="calcRoute();"> <br>
+				type="text" placeholder="Start Place"> <br>
 			<input class="col-md-5" id="end_place" class="controls" type="text"
-				placeholder="End Place" onchange="calcRoute();">
+				placeholder="End Place">
 			<div id="googleMap" style="width: 590px; height: 380px;"
 				class="col-md-offset-1"></div>
 			<div id="directions-panel"></div>
@@ -120,6 +120,7 @@ var start_marker;
 var end_marker;
 var start_infowindow;
 var end_infowindow;
+var stepDisplay = new google.maps.InfoWindow();
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var rendererOptions = {
@@ -127,6 +128,8 @@ var rendererOptions = {
 		  suppressMarkers : true
 		  
 		};
+var start;
+var end;
 var  markerArray = [];
 var danang = new google.maps.LatLng(16.054144447313266, 108.20207118988037);
 
@@ -182,8 +185,9 @@ function initialize() {
 	      };
 
 	      // Create a marker for each place.
-	      start_marker.setPosition(place.geometry.location);
-
+	      start = document.getElementById('start_place').value;
+	      end = document.getElementById('end_place').value;
+	      calcRoute();
 	      bounds.content(place.geometry.location);
 	    }
 
@@ -214,70 +218,45 @@ function initialize() {
 	      };
 
 	      // Create a marker for each place.
-	      end_marker.setPosition(place.geometry.location);
+	      start = document.getElementById('start_place').value;
+	  	  end = document.getElementById('end_place').value;
+	      calcRoute();
 
 	      bounds.content(place.geometry.location);
 	    }
 
 	    map.fitBounds(bounds);
+    
 	  });
 	  
 	  
 	  // Bias the SearchBox results towards places that are within the bounds of the
 	  // current map's viewport.
 	  
-	
-	// infowindow
-	start_infowindow = new google.maps.InfoWindow({
-		content : "Start"
-	});
-
-	end_infowindow = new google.maps.InfoWindow({
-		content : "End"
-	});
-
 	// Center map
 	start_marker = new google.maps.Marker({
-		position : danang,
+		position : danang,	
 		draggable : true,
-		icon : '../icons/icon-start-marker.png',
+		icon : '../icons/iconstart.png',
 		title : "Start"
 	});
 
 	end_marker = new google.maps.Marker({
 		position : danang,
 		draggable : true,
-		icon : '../icons/icon-end-marker.png',
+		icon : '../icons/iconstop.png',
 		title : "End"
 	});
-
-	start_infowindow.open(map, start_marker);
-	end_infowindow.open(map, end_marker);
-
-	// The placeMarker() function places a marker where the user has clicked,
-	// and shows an infowindow with the latitudes and longitudes of the marker:
-// 	google.maps.event.addListener(map, 'click', function(event) {
-
-// 		placeMarker(event.latLng);
-
-// 	});
 
 	start_marker.setMap(map);
 	end_marker.setMap(map);
 
-	google.maps.event.addListener(start_marker, "position_changed", function() {
-		calcRoute();
-	});
-
-	google.maps.event.addListener(end_marker, "position_changed", function() {
-		calcRoute();
-	});
-
-// 	google.maps.event.addListener(start_marker, 'click', function() {
-// 	// infowindow.open(map, marker);
-// 	// Zoom to 9 when clicking on marker
-
-// 	});
+	google.maps.event.addListener(end_marker, "dragend", function() {
+	      var position = end_marker.getPosition();
+	      end = position;
+	      calcRoute();
+	      
+	    });
 
 	/*
 	 * google.maps.event.addListener(map,'center_changed',function() { // 3
@@ -285,6 +264,7 @@ function initialize() {
 	 * window.setTimeout(function() { map.panTo(marker.getPosition()); },3000);
 	 * });
 	 */
+	
 }
 
 function placeMarker(location) {
@@ -298,42 +278,16 @@ function placeMarker(location) {
 
 }
 
-// Add a Home control that returns the user to London
-function HomeControl(controlDiv, map) {
-	controlDiv.style.padding = '5px';
-	var controlUI = document.createElement('div');
-	controlUI.style.backgroundColor = 'yellow';
-	controlUI.style.border = '1px solid';
-	controlUI.style.cursor = 'pointer';
-	controlUI.style.textAlign = 'center';
-	controlUI.title = 'Set map to London';
-	controlDiv.appendChild(controlUI);
-	var controlText = document.createElement('div');
-	controlText.style.fontFamily = 'Arial,sans-serif';
-	controlText.style.fontSize = '12px';
-	controlText.style.paddingLeft = '4px';
-	controlText.style.paddingRight = '4px';
-	controlText.innerHTML = '<b>Home<b>'
-	controlUI.appendChild(controlText);
-
-	// Setup click-event listener: simply set the map to London
-	google.maps.event.addDomListener(controlUI, 'click', function() {
-		map.setCenter(danang)
-	});
-}
-
 function calcRoute() {
 
 	// First, remove any existing markers from the map.
-    for (i = 0; i < markerArray.length; i++) {
+    for (i = 1; i < markerArray.length - 1; i++) {
       markerArray[i].setMap(null);
     }
 
     // Now, clear the array itself.
     markerArray = [];
-    
-	  var start = document.getElementById('start_place').value;
-	  var end = document.getElementById('end_place').value;
+	  
 	  var request = {
 	    origin: start,
 	    destination: end,
@@ -355,11 +309,11 @@ function showSteps(directionResult) {
     // routes.
     var myRoute = directionResult.routes[0].legs[0];
     
-    for (var i = 0; i < myRoute.steps.length; i++) {
+    for (var i = 0; i < myRoute.steps.length-1; i++) {
       var icon = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + i + "|FF0000|000000";
       if (i == 0) {
 
-    	  attachInstructionText(start_marker, myRoute.steps[i].instructions);
+    	  start_marker.setPosition(myRoute.steps[0].start_point);
     	  markerArray.push(start_marker);
           
       }else {
@@ -377,6 +331,8 @@ function showSteps(directionResult) {
       }
       
     }
+
+    end_marker.setPosition(myRoute.steps[i].end_point);
     
     markerArray.push(end_marker);
     
@@ -386,9 +342,9 @@ function showSteps(directionResult) {
   function attachInstructionText(marker, text) {
     google.maps.event.addListener(marker, 'click', function() {
       // Open an info window when the marker is clicked on,
-      // containing the text of the step.
+      // containing the text of the step.	
       stepDisplay.setContent(text);
-      stepDisplay.open(mapCanvas, marker);
+      stepDisplay.open(map, marker);
     });
   }
 
