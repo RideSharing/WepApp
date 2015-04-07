@@ -4,6 +4,7 @@ if (! isset ( $_SESSION ["api_key"] )) {
 	header ( 'Location: ../' );
 	die ();
 }
+require_once '../header_master.php';
 ?>
 <html lang="">
 <head>
@@ -12,8 +13,23 @@ if (! isset ( $_SESSION ["api_key"] )) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Profile</title>
 
-<!-- Bootstrap CSS -->
+<!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/toastr.css">
+
+<!-- Custom CSS -->
+<link href="../css/freelancer.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../css/BeatPicker.min.css">
+
+<!-- Custom Fonts -->
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+	type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css">
+<link
+	href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+	rel="stylesheet" type="text/css">
+
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,74 +41,86 @@ if (! isset ( $_SESSION ["api_key"] )) {
 
 </head>
 <body>
-	<!-- form -->
-	<form class="form-horizontal">
-		<fieldset>
-			<legend>Profile</legend>
-			<div class="form-group">
-				<label class="col-sm-5 control-label">Your Avatar</label>
-				<div class="col-sm-3" style="width: 180px; height: 150px;">
-					<img src="" class="img-thumbnail"
-						style="height: 150px; width: 180px;" id="avatar"
-						onclick="$('#fileToUpload').trigger('click')" /> <input
-						type="file" name="fileToUpload" id="fileToUpload"
-						style="display: none;" />
+	<!-- Header -->
+	<header>
+		<div class="container" style="padding-top: 100px">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="intro-text">
+						<!-- form -->
+						<form class="form-horizontal">
+							<fieldset>
+								<legend><b>Profile</b></legend>
+								<div class="form-group">
+									<label class="col-sm-5 control-label">Your Avatar</label>
+									<div class="col-sm-3" style="width: 180px; height: 150px;">
+										<img src="" class="img-thumbnail"
+											style="height: 150px; width: 180px;" id="avatar"
+											onclick="$('#fileToUpload').trigger('click')" /> <input
+											type="file" name="fileToUpload" id="fileToUpload"
+											style="display: none;" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label">Full Name</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="fullname"
+											id="fullname" placeholder="Full Name">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label">Email</label>
+									<div class="col-sm-4">
+										<input type="email" class="form-control" id="email" disabled>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label">Phone Number</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="phonenumber"
+											id="phonenumber" placeholder="Phone Number">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label">PersonalID</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="numberID"
+											id="numberID" placeholder="Personal ID">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label">Personal ID Image</label>
+									<input type="file" class="col-sm-4" name="imageID" id="upImage">
+									<div class="col-sm-4">
+										<img src="" class="img-thumbnail"
+											style="height: 200px; width: 400px;" id="imageID" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-4 col-sm-1">
+										<input class="btn btn-primary btn-block" type="button"
+											name="update" id="update" value="Update">
+									</div>
+									<div class="col-sm-2">
+										<a class="btn btn-primary btn-block" href="changepassword.php">Change
+											Password</a>
+									</div>
+									<div class="col-sm-2">
+										<a class="btn btn-primary btn-block" href="updatedriver.php">Update
+											Driver</a>
+									</div>
+									<div class="col-sm-1">
+										<a class="btn btn-primary btn-block" href="../">Back</a>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="col-sm-5 control-label">Full Name</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" name="fullname"
-						id="fullname" placeholder="Full Name">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-5 control-label">Email</label>
-				<div class="col-sm-4">
-					<input type="email" class="form-control" id="email" disabled>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-5 control-label">Phone Number</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" name="phonenumber"
-						id="phonenumber" placeholder="Phone Number">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-5 control-label">PersonalID</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" name="numberID"
-						id="numberID" placeholder="Personal ID">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-5 control-label">Personal ID Image</label> <input
-					type="file" class="col-sm-4" name="imageID" id="upImage">
-				<div class="col-sm-4">
-					<img src="" class="img-thumbnail"
-						style="height: 200px; width: 400px;" id="imageID" />
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-4 col-sm-1">
-					<input class="btn btn-primary btn-block" type="button"
-						name="update" id="update" value="Update">
-				</div>
-				<div class="col-sm-2">
-					<a class="btn btn-primary btn-block" href="changepassword.php">Change
-						Password</a>
-				</div>
-				<div class="col-sm-2">
-					<a class="btn btn-primary btn-block" href="updateadvanced.php">Update
-						Driver</a>
-				</div>
-				<div class="col-sm-1">
-					<a class="btn btn-primary btn-block" href="../homepage">Back</a>
-				</div>
-			</div>
-		</fieldset>
-	</form>
+		</div>
+	</header>
+
 
 	<!-- Bootstrap JavaScript -->
 	<script src="../js/bootstrap.min.js"></script>
@@ -114,7 +142,7 @@ $("document").ready(function(){
         	
         	if(!getData['error']){
 
-            	
+        		$("#mini_avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
         		$("#avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
         		$("#fullname").val(getData['fullname']);
         		$("#email").val(getData['email']);
@@ -216,9 +244,9 @@ function readURL(input,id) {
     var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
     var file = input.files[0];
 
-    if(file.size > 51200){	
+    if(file.size > 358400){	
 
-    	alert("File size is not big than 50KB!");
+    	alert("File size is not big than 350KB!");
 
     }else {
 
@@ -240,6 +268,10 @@ function readURL(input,id) {
    
 }
 </script>
+<!-- Plugin JavaScript -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/cbpAnimatedHeader.js"></script>
 	<!-- 
 var file_data = $('#fileToUpload').prop('files')[0]; 
 		var form_data = new FormData();                  

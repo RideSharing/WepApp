@@ -95,9 +95,8 @@ if (! isset ( $_SESSION ["api_key"] )) {
 
 		<div class="row">
 			<br> <input class="col-md-5" id="start_place" class="controls"
-				type="text" placeholder="Start Place"> <br>
-			<input class="col-md-5" id="end_place" class="controls" type="text"
-				placeholder="End Place">
+				type="text" placeholder="Start Place"> <br> <input class="col-md-5"
+				id="end_place" class="controls" type="text" placeholder="End Place">
 			<div id="googleMap" style="width: 590px; height: 380px;"
 				class="col-md-offset-1"></div>
 			<div id="directions-panel"></div>
@@ -114,7 +113,7 @@ $("document").ready(function(){
 	
 });
 </script>
-	<script>
+<script>
 var map;
 var start_marker;
 var end_marker;

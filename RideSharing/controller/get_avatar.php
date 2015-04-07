@@ -22,19 +22,8 @@ $result = curl_exec($ch);
 
 $httpCode = curl_getinfo ( $ch, CURLINFO_HTTP_CODE );
 
-if ($httpCode == 404) {
-	
-	$res = array (
-			'error' => true,
-			'message' => 'Eror cannot load the information!' 
-	);
-	
-	echo json_encode($res);
-	
-} else {
-	
-	echo $result;
-}
+echo $result;
+
 
 // close curl resource to free up system resources
 curl_close($ch);

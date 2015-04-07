@@ -27,7 +27,8 @@ $res = $json->{'error'};
 
 if ($res) {
 	
-	echo "Error!";
+	echo $json->{'message'};
+	
 } else {
 	?>
 	<script>

@@ -1,9 +1,5 @@
 <?php
 session_start ();
-if (isset ( $_SESSION ["api_key"] )) {
-	header ( 'Location: homepage' );
-	die ();
-}
 
 $getreq = array (
 		'email' => $_POST{'email'},
@@ -43,6 +39,7 @@ if ($httpCode == 404) {
 	if (! $json->{'error'}) {
 		
 		$_SESSION ['api_key'] = $json->{'apiKey'};
+		
 	}
 	
 	echo $result;

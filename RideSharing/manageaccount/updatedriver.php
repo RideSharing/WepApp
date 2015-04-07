@@ -4,6 +4,7 @@ if (! isset ( $_SESSION ["api_key"] )) {
 	header ( 'Location: ../' );
 	die ();
 }
+require_once '../header_master.php';
 ?>
 <html lang="">
 <head>
@@ -12,8 +13,22 @@ if (! isset ( $_SESSION ["api_key"] )) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Update Driver</title>
 
-<!-- Bootstrap CSS -->
+<!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/toastr.css">
+
+<!-- Custom CSS -->
+<link href="../css/freelancer.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../css/BeatPicker.min.css">
+
+<!-- Custom Fonts -->
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+	type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css">
+<link
+	href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+	rel="stylesheet" type="text/css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,43 +40,55 @@ if (! isset ( $_SESSION ["api_key"] )) {
 
 </head>
 <body>
-	<!-- form -->
-	<form class="form-horizontal">
-		<fieldset>
-			<legend>Profile</legend>
-			<div class="form-group">
-				<label class="col-sm-5 control-label">Your Avatar</label>
-				<div class="col-sm-3" style="width: 180px; height: 150px;">
-					<img src="" class="img-thumbnail"
-						style="height: 150px; width: 180px;" id="avatar" />
+	<!-- Header -->
+	<header>
+		<div class="container" style="padding-top: 100px">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="intro-text">
+						<!-- form -->
+						<form class="form-horizontal">
+							<fieldset>
+								<legend>Profile</legend>
+								<div class="form-group">
+									<label class="col-sm-5 control-label">Your Avatar</label>
+									<div class="col-sm-3" style="width: 180px; height: 150px;">
+										<img src="" class="img-thumbnail"
+											style="height: 150px; width: 180px;" id="avatar" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label">Driver License</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" name="driver_license"
+											id="driver_license" placeholder="Driver License">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-5 control-label">Driver License Image</label>
+									<input type="file" class="col-sm-4" name="imageDL"
+										id="upimageDL">
+									<div class="col-sm-4">
+										<img src="" class="img-thumbnail"
+											style="height: 200px; width: 400px;" id="imageDL" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-5 col-sm-1">
+										<input class="btn btn-primary btn-block" type="button"
+											name="request" id="request" value="Request">
+									</div>
+									<div class="col-sm-1">
+										<a class="btn btn-primary btn-block" href="../manageaccount">Back</a>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="col-sm-5 control-label">Driver License</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" name="driver_license"
-						id="driver_license" placeholder="Driver License">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-5 control-label">Driver License Image</label> <input
-					type="file" class="col-sm-4" name="imageDL" id="upimageDL">
-				<div class="col-sm-4">
-					<img src="" class="img-thumbnail"
-						style="height: 200px; width: 400px;" id="imageDL" />
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-5 col-sm-1">
-					<input class="btn btn-primary btn-block" type="button"
-						name="request" id="request" value="Request">
-				</div>
-				<div class="col-sm-1">
-					<a class="btn btn-primary btn-block" href="../manageaccount">Back</a>
-				</div>
-			</div>
-		</fieldset>
-	</form>
+		</div>
+	</header>
 
 	<!-- Bootstrap JavaScript -->
 	<script src="../js/bootstrap.min.js"></script>
@@ -85,6 +112,7 @@ $("document").ready(function(){
         	
         	if(!getData['error']){
 
+        		$("#mini_avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
         		$("#avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
         		$("#driver_license").val(getData['driver_license']);	
         		$("#imageDL").attr('src',"data:image/jpeg;base64,"+getData['driver_license_img']);
