@@ -11,8 +11,8 @@ $ch = curl_init();
 
 
 // execute the request
-$result1 = json_decode(getInform($ch, "http://192.168.10.74/RESTFul/v1/user/link_avatar",$api_key));
-$result2 = json_decode(getInform($ch, "http://192.168.10.74/RESTFul/v1/driver",$api_key));
+$result1 = json_decode(getInform($ch, "http://192.168.10.132/RESTFul/v1/user/link_avatar",$api_key));
+$result2 = json_decode(getInform($ch, "http://192.168.10.132/RESTFul/v1/driver",$api_key));
 
 $httpCode = curl_getinfo ( $ch, CURLINFO_HTTP_CODE );
 

@@ -7,7 +7,7 @@ $api_key = $_SESSION["api_key"];
 
 $ch = curl_init();
 
-curl_setopt($ch,CURLOPT_URL,"http://192.168.10.74/RESTFul/v1/user/link_avatar");
+curl_setopt($ch,CURLOPT_URL,"http://192.168.10.132/RESTFul/v1/user/link_avatar");
 
 curl_setopt( $ch,CURLOPT_RETURNTRANSFER,1);
 

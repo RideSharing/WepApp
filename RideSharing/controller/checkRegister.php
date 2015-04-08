@@ -6,7 +6,7 @@ $getreq = array (
 
 $ch = curl_init ();
 
-curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/user" );
+curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.132/RESTFul/v1/user" );
 
 curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 

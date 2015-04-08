@@ -1,6 +1,9 @@
 <?php
 session_start ();
-
+if (! isset ( $_SESSION ["api_key"] )) {
+	header ( 'Location: ../' );
+	die ();
+}
 require_once '../header_master.php';
 ?>
 <html lang="">
@@ -37,36 +40,14 @@ require_once '../header_master.php';
 <script src="http://maps.googleapis.com/maps/api/js"></script>
 <script
 	src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
-</head>
-<body bgcolor="18BC9C">
-	<!-- Header -->
-		<div class="container" style="padding-top: 100px">
-			<div class="row">
-				<div class="col-lg-12">
-					<div>
-						<form class="form-inline">
-						
-							<input class="form-control" id="start_place" type="text"
-								placeholder="Start Place" style="width: 350px;"> 
-							<input class="form-control"	id="end_place" type="text" 
-								placeholder="End Place" style="width: 350px;">
-					
-						</form>
-						<div id="directions-panel"></div>
-						<div id="googleMap" style="height: 450px; width: 700px;"></div>
-						
-					</div>
-				</div>
-			</div>
-		</div>
+<!-- Bootstrap JavaScript -->
+<script src="../js/bootstrap.min.js"></script>
 
-	<!-- Bootstrap JavaScript -->
-	<script src="../js/bootstrap.min.js"></script>
-
-	<!-- jQuery -->
-	<script src="http://code.jquery.com/jquery.js"></script>
-	<script>
+<!-- jQuery -->
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
 $("document").ready(function(){
+	
 	$.ajax({
 		url: '../controller/get_avatar.php', // point to server-side PHP script 
         dataType: 'text',  // what to expect back from the PHP script, if anything
@@ -87,6 +68,43 @@ $("document").ready(function(){
         }
     
     });
+
+	$("#register_iti").click(function(){
+
+		var form_data = new FormData();
+		
+		form_data.append("start_address",$("#start_place").val());
+		form_data.append("start_address_lat",$("#start_place_lat").val());
+		form_data.append("start_address_long",$("#start_place_lng").val());
+		form_data.append("end_address",$("#end_place").val());
+		form_data.append("end_address_lat",$("#end_place_lat").val());
+		form_data.append("end_address_long",$("#end_place_lng").val());
+		form_data.append("leave_date",$("#leave_date").val());
+		form_data.append("duration",$("#duration").val());
+		form_data.append("distance",$("#distance").val());
+		form_data.append("cost",$("#cost").val());
+		form_data.append("description",$("#description").val());
+
+		$.ajax({
+			url: '../controller/register_itinerary.php', // point to server-side PHP script 
+			dataType: 'text',  // what to expect back from the PHP script, if anything
+	        cache: false,
+	        contentType: false,
+	        processData: false,
+	        data: form_data,         	                
+	        type: 'post',
+	        success: function(string){
+	                
+	           var getData = $.parseJSON(string);
+
+	        	alert(getData['message']);       	
+	        	
+	        }
+	    
+	    });
+
+	});
+    
 })	
 </script>
 <script>
@@ -99,7 +117,7 @@ var stepDisplay = new google.maps.InfoWindow();
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var rendererOptions = {
-		  draggable: true,
+		
 		  suppressMarkers : true
 		  
 		};
@@ -123,7 +141,7 @@ function initialize() {
 	});
 
 	directionsDisplay.setMap(map);
-	directionsDisplay.setPanel(document.getElementById('directions-panel'));
+	//directionsDisplay.setPanel(document.getElementById('directions-panel'));
 
 	  // Create the search box and link it to the UI element.
 	  
@@ -132,6 +150,9 @@ function initialize() {
 	  var endsearchBox = new google.maps.places.SearchBox(
 			    /** @type {HTMLInputElement} */(document.getElementById('end_place')));
 
+	  //map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('start_place'));
+	 // map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('end_place'));
+	  
 	  // [START region_getplaces]
 	  // Listen for the event fired when the user selects an item from the
 	  // pick list. Retrieve the matching places for that item.
@@ -209,14 +230,12 @@ function initialize() {
 	// Center map
 	start_marker = new google.maps.Marker({
 		position : danang,	
-		draggable : true,
 		icon : '../icons/iconstart.png',
 		title : "Start"
 	});
 
 	end_marker = new google.maps.Marker({
 		position : danang,
-		draggable : true,
 		icon : '../icons/iconstop.png',
 		title : "End"
 	});
@@ -237,7 +256,7 @@ function initialize() {
 	 * window.setTimeout(function() { map.panTo(marker.getPosition()); },3000);
 	 * });
 	 */
-	
+
 }
 
 function placeMarker(location) {
@@ -271,6 +290,10 @@ function calcRoute() {
 	    if (status == google.maps.DirectionsStatus.OK) {
 	      directionsDisplay.setDirections(response);
 	      showSteps(response);
+	      $("#start_place_lat").val(start_marker.getPosition().lat());
+	      $("#start_place_lng").val(start_marker.getPosition().lng());
+	      $("#end_place_lng").val(end_marker.getPosition().lat());
+	      $("#end_place_lat").val(end_marker.getPosition().lng());
 	    }
 	  });
 }
@@ -323,5 +346,66 @@ function showSteps(directionResult) {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
+</head>
+<body bgcolor="18BC9C">
+	<!-- Header -->
+	<header>
+	<div class="container" style="padding-top: 100px">
+		<div class="row">
+			<div class="col-lg-13">
+				<form>
+					<fieldset>
+						<legend style="text-align: center;">
+							<b>Register Itinerary</b>
+						</legend>
+						<div class="col-lg-5">
+							<div class="form-group">
+								<input class="form-control" id="start_place" type="text"
+									placeholder="Start Place">
+								<input id="start_place_lat" type="text"
+									style="display: none;">
+								<input id="start_place_lng" type="text"
+									style="display: none;">
+							</div>
+							<div class="form-group">
+								<input class="form-control" id="end_place" type="text"
+									placeholder="End Place">
+								<input id="end_place_lat" type="text"
+									style="display: none;">
+								<input id="end_place_lng" type="text"
+									style="display: none;">
+							</div>
+							<div class="form-group">
+								<input class="form-control" id="leave_date" type="text"
+									placeholder="Date Begin">
+							</div>
+							<div class="form-group">
+								<textarea class="form-control" id="description"
+									placeholder="Description"></textarea>
+							</div>
+							<div class="form-group">
+								<input class="form-control" id="distance" type="text"
+									placeholder="Distance">
+							</div>
+							<div class="form-group">
+								<input class="form-control" id="duration" type="text"
+									placeholder="Duration">
+							</div>
+							<div class="form-group">
+								<input class="form-control" id="cost" type="text"
+									placeholder="Cost">
+							</div>
+							<div class="form-group">
+								<input class="btn btn-primary btn-block" type="button"
+									name="register_itinerary" id="register_iti" value="Register">
+							</div>
+						</div>
+						<div id="googleMap" style="height: 450px; width: 680px;"></div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+	</header>
 </body>
 </html>
