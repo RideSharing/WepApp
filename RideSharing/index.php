@@ -143,7 +143,7 @@ require_once 'header.php';
                         <div class="row">
                             <div class="col-lg-8 col-lg-offset-2 text-center">
                                 <div id="action"></div>
-                                <button onclick="register_func()" href="#" class="btn btn-lg btn-outline1">
+                                <button onclick="register_func()" class="btn btn-lg btn-outline1">
                                     <i class="fa fa-bus"></i> Đăng kí
                                 </button>
                             </div>
@@ -337,7 +337,7 @@ $("document").ready(function(){
                     var _email = $("input#reg_email").val();
                     var _password = $("input#reg_password").val();
 
-                    $.post("controller/register.php",
+                    $.post("controller/checkRegister.php",
                     {
                         email: _email,
                         password: _password

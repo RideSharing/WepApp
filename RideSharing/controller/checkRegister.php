@@ -21,22 +21,8 @@ $result = curl_exec ( $ch );
 
 // close curl resource to free up system resources
 curl_close ( $ch );
-
-$json = json_decode ( $result );
-$res = $json->{'error'};
-
-if ($res) {
 	
-	echo $json->{'message'};
-	
-} else {
-	?>
-	<script>
+$json = json_decode($result,true);
+echo $json['error'].'&'.$json['message'];
 
-		alert("Register Successfully!");
-
-	</script>
-<?php
-	
-}
 ?>
