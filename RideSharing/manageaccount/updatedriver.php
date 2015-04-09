@@ -6,40 +6,6 @@ if (! isset ( $_SESSION ["api_key"] )) {
 }
 require_once '../header_master.php';
 ?>
-<html lang="">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Update Driver</title>
-
-<!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="../css/toastr.css">
-
-<!-- Custom CSS -->
-<link href="../css/freelancer.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="../css/BeatPicker.min.css">
-
-<!-- Custom Fonts -->
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
-	type="text/css">
-<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700"
-	rel="stylesheet" type="text/css">
-<link
-	href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
-	rel="stylesheet" type="text/css">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-
-</head>
-<body>
 	<!-- Header -->
 	<header>
 		<div class="container" style="padding-top: 100px">
@@ -89,13 +55,11 @@ require_once '../header_master.php';
 			</div>
 		</div>
 	</header>
-
-	<!-- Bootstrap JavaScript -->
-	<script src="../js/bootstrap.min.js"></script>
-
-	<!-- jQuery -->
-	<script src="http://code.jquery.com/jquery.js"></script>
-	<script>
+	
+	<?php
+    require_once '../footer_master.php';
+    ?>
+<script>
 $("document").ready(function(){
 
 	var tmp;
@@ -228,38 +192,5 @@ function readURL(input,id) {
         }
 }
 </script>
-	<!-- 
-var file_data = $('#fileToUpload').prop('files')[0]; 
-		var form_data = new FormData();                  
-	    form_data.append("file", file_data)            
-	
-		$.ajax({
-			url: '../controller/change_avatar.php', // point to server-side PHP script 
-            dataType: 'text',  // what to expect back from the PHP script, if anything
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,                         
-            type: 'post',
-            success: function(string){
-            	var getData = $.parseJSON(string);
-            	if(getData['error']){
-
-            		alert(getData['message']);
-            		
-                	}else{
-
-                		$("#avatar").attr("src",getData['src']);
-
-                    }
-            	
-            },
-        	error: function(){
-
-        		alert("Error occured!");
-        		
-            	}
-        });
--->
 </body>
 </html>

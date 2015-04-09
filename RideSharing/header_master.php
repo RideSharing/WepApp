@@ -9,18 +9,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Ride Sharing - Trang chủ</title>
-
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/toastr.css">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/toastr.css">
 
     <!-- Custom CSS -->
-    <link href="css/freelancer.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/BeatPicker.min.css">
+    <link href="../css/freelancer.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/BeatPicker.min.css">
 
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
@@ -33,7 +31,7 @@
 
 </head>
 
-<body id="page-top" class="index" onload="initialize()">
+<body id="page-top" class="index">
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -69,11 +67,11 @@
                                 <img src="" class="circle-profile" id="mini_avatar">
                             </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                              <li role="presentation"><a role="menuitem" tabindex="-1" href="manageaccount">Thông tin cá nhân</a></li>
-                              <li role="presentation"><a role="menuitem" tabindex="-1" href="itinerary">Quản lý hành trình</a></li>
+                              <li role="presentation"><a role="menuitem" tabindex="-1" href="../manageaccount">Thông tin cá nhân</a></li>
+                              <li role="presentation"><a role="menuitem" tabindex="-1" href="../itinerary">Quản lý hành trình</a></li>
                               <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
                               <li role="presentation" class="divider"></li>
-                              <li role="presentation"><a role="menuitem" tabindex="-1" href="controller/logout.php">Đăng xuất</a></li>
+                              <li role="presentation"><a role="menuitem" tabindex="-1" href="../controller/logout.php">Đăng xuất</a></li>
                             </ul>
                       </div>
                     </li>

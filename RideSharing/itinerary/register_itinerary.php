@@ -406,6 +406,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			</div>
 		</div>
 	</div>
-	</header>
+	</header>	
+	<?php
+    require_once '../footer_master.php';
+    ?>
 </body>
 </html>

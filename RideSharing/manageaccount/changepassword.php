@@ -11,7 +11,7 @@ require_once '../header_master.php';
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Profile</title>
+<title>Change Password</title>
 
 <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -100,6 +100,10 @@ require_once '../header_master.php';
 		</div>
 	</header>
 
+	<?php
+    require_once '../footer.php';
+    ?>
+    
 	<!-- Bootstrap JavaScript -->
 	<script src="../js/bootstrap.min.js"></script>
 
