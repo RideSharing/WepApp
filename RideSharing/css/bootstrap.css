@@ -2121,7 +2121,7 @@ th {
   border-bottom-width: 2px;
 }
 .table-striped > tbody > tr:nth-child(odd) {
-  background-color: #f9f9f9;
+  background-color: ##2AAB82;
 }
 .table-hover > tbody > tr:hover {
   background-color: #ecf0f1;

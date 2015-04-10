@@ -6,45 +6,68 @@ if (! isset ( $_SESSION ["api_key"] )) {
 }
 require_once '../header_master.php';
 ?>
-<html lang="">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Update Driver</title>
 
-<!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="../css/toastr.css">
+<title>Register Itinerary</title>
 
-<!-- Custom CSS -->
-<link href="../css/freelancer.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="../css/BeatPicker.min.css">
-
-<!-- Custom Fonts -->
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
-	type="text/css">
-<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700"
-	rel="stylesheet" type="text/css">
-<link
-	href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
-	rel="stylesheet" type="text/css">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-<script src="http://maps.googleapis.com/maps/api/js"></script>
-<script
-	src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
-<!-- Bootstrap JavaScript -->
-<script src="../js/bootstrap.min.js"></script>
-
-<!-- jQuery -->
-<script src="http://code.jquery.com/jquery.js"></script>
+<body>
+	<!-- Header -->
+	<header>
+		<div class="container" style="padding-top: 100px">
+			<div class="row">
+				<div class="col-lg-13">
+					<form>
+						<fieldset>
+							<legend style="text-align: center;">
+								<b>Register Itinerary</b>
+							</legend>
+							<div class="col-lg-5">
+								<div class="form-group">
+									<input class="form-control" id="start_place" type="text"
+										placeholder="Start Place"> <input id="start_place_lat"
+										type="text" style="display: none;"> <input
+										id="start_place_lng" type="text" style="display: none;">
+								</div>
+								<div class="form-group">
+									<input class="form-control" id="end_place" type="text"
+										placeholder="End Place"> <input id="end_place_lat" type="text"
+										style="display: none;"> <input id="end_place_lng" type="text"
+										style="display: none;">
+								</div>
+								<div class="form-group">
+									<input class="form-control" id="leave_date" type="text"
+										placeholder="Date Begin">
+								</div>
+								<div class="form-group">
+									<textarea class="form-control" id="description"
+										placeholder="Description"></textarea>
+								</div>
+								<div class="form-group">
+									<input class="form-control" id="distance" type="text"
+										placeholder="Distance">
+								</div>
+								<div class="form-group">
+									<input class="form-control" id="duration" type="text"
+										placeholder="Duration">
+								</div>
+								<div class="form-group">
+									<input class="form-control" id="cost" type="text"
+										placeholder="Cost">
+								</div>
+								<div class="form-group">
+									<input class="btn btn-primary btn-block" type="button"
+										name="register_itinerary" id="register_iti" value="Register">
+								</div>
+							</div>
+							<div id="googleMap" style="height: 485px; width: 680px;"></div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</header>	
+	<?php
+	require_once '../footer_master.php';
+	?>
 <script>
 $("document").ready(function(){
 	
@@ -107,7 +130,7 @@ $("document").ready(function(){
     
 })	
 </script>
-<script>
+	<script>
 var map;
 var start_marker;
 var end_marker;
@@ -346,69 +369,5 @@ function showSteps(directionResult) {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
-</head>
-<body bgcolor="18BC9C">
-	<!-- Header -->
-	<header>
-	<div class="container" style="padding-top: 100px">
-		<div class="row">
-			<div class="col-lg-13">
-				<form>
-					<fieldset>
-						<legend style="text-align: center;">
-							<b>Register Itinerary</b>
-						</legend>
-						<div class="col-lg-5">
-							<div class="form-group">
-								<input class="form-control" id="start_place" type="text"
-									placeholder="Start Place">
-								<input id="start_place_lat" type="text"
-									style="display: none;">
-								<input id="start_place_lng" type="text"
-									style="display: none;">
-							</div>
-							<div class="form-group">
-								<input class="form-control" id="end_place" type="text"
-									placeholder="End Place">
-								<input id="end_place_lat" type="text"
-									style="display: none;">
-								<input id="end_place_lng" type="text"
-									style="display: none;">
-							</div>
-							<div class="form-group">
-								<input class="form-control" id="leave_date" type="text"
-									placeholder="Date Begin">
-							</div>
-							<div class="form-group">
-								<textarea class="form-control" id="description"
-									placeholder="Description"></textarea>
-							</div>
-							<div class="form-group">
-								<input class="form-control" id="distance" type="text"
-									placeholder="Distance">
-							</div>
-							<div class="form-group">
-								<input class="form-control" id="duration" type="text"
-									placeholder="Duration">
-							</div>
-							<div class="form-group">
-								<input class="form-control" id="cost" type="text"
-									placeholder="Cost">
-							</div>
-							<div class="form-group">
-								<input class="btn btn-primary btn-block" type="button"
-									name="register_itinerary" id="register_iti" value="Register">
-							</div>
-						</div>
-						<div id="googleMap" style="height: 450px; width: 680px;"></div>
-					</fieldset>
-				</form>
-			</div>
-		</div>
-	</div>
-	</header>	
-	<?php
-    require_once '../footer_master.php';
-    ?>
 </body>
 </html>

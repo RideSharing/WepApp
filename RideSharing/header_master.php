@@ -12,7 +12,7 @@
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/toastr.css">
-
+    
     <!-- Custom CSS -->
     <link href="../css/freelancer.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../css/BeatPicker.min.css">
@@ -29,6 +29,9 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script
+	src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 </head>
 
 <body id="page-top" class="index">
