@@ -36,18 +36,20 @@ require_once '../header_master.php';
 						$res = $json->{'itineraries'};
 						
 						foreach ( $res as $value ) {
-							?>
-							<a href="#" class="list-group-item">
+							if ($value->{'status'} == 1) {
+								?>
+								<a href="#" class="list-group-item">
 						<h6 class="list-group-item-heading">
 							<label style="color: red;">FROM:</label>
-									<?php echo $value->{'start_address'}==NULL?' ':$value->{'start_address'}?>
-								<br> <label style="color: red;">TO:</label>
-									<?php echo $value->{'end_address'}==NULL?' ':$value->{'end_address'}?>
-								</h6> <b>Driver: </b> <?php echo $value->{'fullname'}==NULL?' ':$value->{'fullname'}?>
-								<br> <b>Email: </b> <?php echo $value->{'email'}==NULL?' ':$value->{'email'} ?>	
-								<br> <b>Phone: </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>									
-							</a> 
+										<?php echo $value->{'start_address'}==NULL?' ':$value->{'start_address'}?>
+									<br> <label style="color: red;">TO:</label>
+										<?php echo $value->{'end_address'}==NULL?' ':$value->{'end_address'}?>
+									</h6> <b>Driver: </b> <?php echo $value->{'fullname'}==NULL?' ':$value->{'fullname'}?>
+									<br> <b>Email: </b> <?php echo $value->{'email'}==NULL?' ':$value->{'email'} ?>	
+									<br> <b>Phone: </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>									
+								</a> 
 						<?php
+							}
 						}
 						?>
 					<!-- End: list_row -->
@@ -78,34 +80,37 @@ function initialize() {
 	});
 	
 	list_itinerary.forEach (function(value){
+		
+		if(value['status'] == 1){
 
-		var latLng = new google.maps.LatLng(value['start_address_lat'], value['start_address_long']);
+			var latLng = new google.maps.LatLng(value['start_address_lat'], value['start_address_long']);
 
-		var marker = new google.maps.Marker({
-			position : latLng,	
-			icon : '../icons/icon_motor.png',
-		});
-
-		var infocontent = '<b>FROM:</b> ' + value['start_address'] + '<br><b>TO:</b> ' + 
-			value['end_address'] + '<br><b>DRIVER: </b>' + value['fullname'] + 
-			'<br><div><img src="data:image/jpeg;base64,' + value['link_avatar'] + 
-			'" style="height: 50px; width: 6	0px;"/></div><b>DISTANCE: </b>' + 
-			value['distance'] + ' KM<br><b>COST:</b> VND ' + value['cost'] + 
-			'<br><a href="detail_itinerary.php?itinerary_id=' + value['itinerary_id'] + 
-			'&driverid=' + value['user_id'] + '">View Detail Information	........</a>';
-
-		marker.info = new google.maps.InfoWindow({
-			  content: infocontent,
-			  maxWidth: 200
+			var marker = new google.maps.Marker({
+				position : latLng,	
+				icon : '../icons/icon_motor.png',
 			});
 
-		marker.setMap(map);
-		
-		google.maps.event.addListener(marker,'click',function() {
+			var infocontent = '<b>FROM:</b> ' + value['start_address'] + '<br><b>TO:</b> ' + 
+				value['end_address'] + '<br><b>DRIVER: </b>' + value['fullname'] + 
+				'<br><div><img src="data:image/jpeg;base64,' + value['link_avatar'] + 
+				'" style="height: 50px; width: 6	0px;"/></div><b>DISTANCE: </b>' + 
+				value['distance'] + ' KM<br><b>COST:</b> VND ' + value['cost'] + 
+				'<br><a href="detail_itinerary.php?itinerary_id=' + value['itinerary_id'] + 
+				'&driver=' + value['fullname'] + '">View Detail Information	........</a>';
 
-			marker.info.open(map, marker);
+			marker.info = new google.maps.InfoWindow({
+				  content: infocontent,
+				  maxWidth: 200
+			});
+
+			marker.setMap(map);
+		
+			google.maps.event.addListener(marker,'click',function() {
+
+				marker.info.open(map, marker);
 			  
-		});
+			});
+		}
 
 	});
 

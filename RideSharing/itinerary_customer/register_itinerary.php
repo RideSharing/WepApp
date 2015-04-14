@@ -39,7 +39,7 @@ require_once '../header_master.php';
 								</div>
 								<div class="form-group">
 									<textarea class="form-control" id="description"
-										placeholder="Description"></textarea>
+										placeholder="Description" style="resize: none;"></textarea>
 								</div>
 								<div class="form-group">
 									<input class="form-control" id="distance" type="text"

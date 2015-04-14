@@ -5,7 +5,7 @@ $id = $_POST{'itinerary_id'};
 
 $ch = curl_init();
 
-curl_setopt($ch,CURLOPT_URL,"http://192.168.10.132/RESTFul/v1/itinerary/"+$id);
+curl_setopt($ch,CURLOPT_URL,"http://192.168.10.132/RESTFul/v1/itinerary/$id");
 
 curl_setopt( $ch,CURLOPT_RETURNTRANSFER,1);
 

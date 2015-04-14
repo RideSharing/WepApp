@@ -98,8 +98,9 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
             <h4 class="modal-title" id="myModalLabel">Đăng nhập hệ thống</h4>
             </div>
-            <div class="modal-body">
             <form novalidate>
+            <div class="modal-body">
+            
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                             <div class="row control-group">
@@ -156,7 +157,6 @@
 <script src="js/freelancer.js"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
-
 <script>
     function showSuccess(message) {
         toastr.options = {
@@ -206,4 +206,21 @@
         });
         
     }
+</script>
+<script>
+$('#driver').click(
+	function(){
+		
+		<?php $_SESSION['mode'] = 'driver';?>
+		alert(<?php $_SESSION['mode'];?>); 
+	}
+) ;
+
+$('#customer').click(
+		function(){
+			
+			<?php $_SESSION['mode'] = "customer";?>  
+			alert(<?php $_SESSION['mode'];?>);
+		}
+	) ;
 </script>

@@ -39,6 +39,7 @@ if ($httpCode == 404) {
 	if (! $json->{'error'}) {
 		
 		$_SESSION ['api_key'] = $json->{'apiKey'};
+		$_SESSION ['mode'] = 'customer';
 		
 	}
 	
