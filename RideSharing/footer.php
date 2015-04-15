@@ -210,17 +210,16 @@
 <script>
 $('#driver').click(
 	function(){
+
 		
-		<?php $_SESSION['mode'] = 'driver';?>
-		alert(<?php $_SESSION['mode'];?>); 
+ 
 	}
 ) ;
 
 $('#customer').click(
 		function(){
 			
-			<?php $_SESSION['mode'] = "customer";?>  
-			alert(<?php $_SESSION['mode'];?>);
+			
 		}
 	) ;
 </script>

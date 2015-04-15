@@ -11,6 +11,9 @@ require_once '../header_master.php';
 <!-- Section -->
 <section class="full-content">
 	<div class="row">
+		<h4 style="text-align: center;">List of Schedule</h1>
+	</div>
+	<div class="row">
 		<div class="col-lg-4 no-padding">
 			<div id="list-itinerary">
 				<div class="list-group">
@@ -19,7 +22,7 @@ require_once '../header_master.php';
 						$api_key = $_SESSION ["api_key"];
 						$ch = curl_init ();
 						
-						curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.132/RESTFul/v1/itineraries" );
+						curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.132/RESTFul/v1/itineraries/driver/itinerary_status" );
 						curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 						curl_setopt ( $ch, CURLOPT_HTTPHEADER, array (
 								'Authorization: ' . $api_key 
@@ -36,7 +39,7 @@ require_once '../header_master.php';
 						$res = $json->{'itineraries'};
 						
 						foreach ( $res as $value ) {
-							if ($value->{'status'} == 1) {
+							if ($value->{'status'} == 3) {
 								?>
 								<a href="detail_itinerary.php?itinerary_id=<?php echo $value->{'itinerary_id'} ?>&driver=<?php echo $value->{'fullname'} ?>" class="list-group-item">
 									<h6 class="list-group-item-heading">
@@ -50,7 +53,7 @@ require_once '../header_master.php';
 									<br> <b>Phone: </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>									
 								</a> 
 						<?php
-							}
+							} 
 						}
 						?>
 					<!-- End: list_row -->
@@ -82,7 +85,7 @@ function initialize() {
 	
 	list_itinerary.forEach (function(value){
 		
-		if(value['status'] == 1){
+		if(value['status'] == 3){
 
 			var latLng = new google.maps.LatLng(value['start_address_lat'], value['start_address_long']);
 

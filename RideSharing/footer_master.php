@@ -124,19 +124,27 @@
     }
 </script>
 <script>
+$('document').ready(function(){
+			
+	alert("<?php echo $_SESSION['driver']?>")
+});
 $('#driver').click(
 	function(){
 		
-		<?php $_SESSION['mode'] = "driver";?>
-		alert(<?php $_SESSION['mode'];?>);
+		<?php $_SESSION['driver'] = 'driver';?>
+		
+		
+		alert("<?php echo $_SESSION['driver']?>")
+ 
 	}
 ) ;
 
 $('#customer').click(
 		function(){
 			
-			<?php $_SESSION['mode'] = "customer";?>  
-			alert(<?php $_SESSION['mode'];?>);
+			<?php $_SESSION['driver'] = "customer";?>  
+			alert("<?php echo $_SESSION['driver']?>")
+			
 		}
 	) ;
 </script>

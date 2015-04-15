@@ -135,21 +135,33 @@
 							<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 								<li role="presentation"><a role="menuitem" tabindex="-1"
 									href="manageaccount">Personal</a></li>
-								<?php 
-								if($_SESSION['mode'] == 'customer'){
-								?>
-								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href="itinerary_customer">Manage Itinerary</a></li>
-								<?php
-								} else{
-								?>
-								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href="itinerary_driver">Manage Itinerary</a></li>
-								<?php 
-								}
-								?>
-								<li class="dropdown-submenu"><a href="#" class="dropdown-toggle"
-									data-toggle="dropdown">User Mode</a>
+								<li class="dropdown-submenu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Itinerary</a>
+								<ul class="dropdown-menu">
+									<?php 
+									if($_SESSION['driver'] == 'customer'){?>
+										<li role="presentation">
+											<a role="menuitem" tabindex="-1" href="#" id="search_itinerary">Search Itinerary</a>
+										</li>
+									<?php
+                    				} else {
+									?>
+										<li role="presentation">
+											<a role="menuitem" tabindex="-1" href="#">Itinerary's posted</a>
+										</li>
+										<li role="presentation">
+											<a role="menuitem" tabindex="-1" href="#">Itinerary's accepted</a>
+										</li>
+									<?php 
+									}
+									?>
+										<li role="presentation">
+											<a role="menuitem" tabindex="-1" href="#">Schedule</a>
+										</li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">User Mode</a>
 									<ul class="dropdown-menu">
 										<div class="radio">
 											<label style="color: #336EAA;"><input type="radio" name="mode" id="customer" checked>Customer</label>
@@ -161,7 +173,7 @@
 								</li>
 								<li role="presentation" class="divider"></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href="controller/logout.php">Đăng xuất</a></li>
+									href="controller/logout.php">Logout</a></li>
 							</ul>
 						</div>
 					</li>
