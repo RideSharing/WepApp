@@ -6,12 +6,12 @@ if (! isset ( $_SESSION ["api_key"] )) {
 }
 require_once '../header_master.php';
 ?>
-<title>Itinerary</title>
+<title>Registered Itinerary</title>
 
 <!-- Section -->
 <section class="full-content">
 	<div class="row">
-		<h4 style="text-align: center;">List of Schedule</h1>
+		<h4 style="text-align: center;">List of Registered Schedule</h1>
 	</div>
 	<div class="row">
 		<div class="col-lg-4 no-padding">
@@ -39,7 +39,7 @@ require_once '../header_master.php';
 						$res = $json->{'itineraries'};
 						
 						foreach ( $res as $value ) {
-							if ($value->{'status'} == 3) {
+							if ($value->{'status'} == 1) {
 								?>
 								<a href="detail_itinerary.php?itinerary_id=<?php echo $value->{'itinerary_id'} ?>&driver=<?php echo $value->{'fullname'} ?>" class="list-group-item">
 									<h6 class="list-group-item-heading">
@@ -85,7 +85,7 @@ function initialize() {
 	
 	list_itinerary.forEach (function(value){
 		
-		if(value['status'] == 3){
+		if(value['status'] == 1){
 
 			var latLng = new google.maps.LatLng(value['start_address_lat'], value['start_address_long']);
 
@@ -123,33 +123,6 @@ function initialize() {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-$.ajax({
-	url: '../controller/get_avatar.php', // point to server-side PHP script 
-    dataType: 'text',  // what to expect back from the PHP script, if anything
-    cache: false,
-    data: "nothing",         	                
-    type: 'post',
-    success: function(string){
-        
-    	var getData = $.parseJSON(string);
-    	
-    	if(!getData['error']){
-
-    		$("#mini_avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
-    		
-        }else {
-
-        	alert(getData['message']);
-
-            }
-    	
-    },
-    error: function(){
-
-    	alert("Error unknow!");
-
-        }
-});
 </script>
 </body>
 </html>

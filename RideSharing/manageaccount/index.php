@@ -104,8 +104,6 @@ $("document").ready(function(){
         	
         	if(!getData['error']){
 
-        		$("#mini_avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
-        		$("#avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
         		$("#fullname").val(getData['fullname']);
         		$("#email").val(getData['email']);
         		$("#phonenumber").val(getData['phone']);
@@ -115,14 +113,14 @@ $("document").ready(function(){
         		
             }else {
 
-            	alert(getData['message']);
+            	showError(getData['message']);
 
                 }
         	
         },
         error: function(){
 
-        	alert("Error unknow!");
+        	showError("Error unknow!");
 
             }
     });
@@ -179,18 +177,20 @@ $("document").ready(function(){
                 
             	var getData = $.parseJSON(string);
             	
-            	alert(getData['message']);
-            	
             	if(!getData['error']){
 
-            		location.reload();
+            		showSuccess(getData['message']);
             		
+                }else {
+
+                	showError(getData['message']);
+
                 }
             	
             },
             error: function(){
 
-            	alert("Error unknow!");
+            	showError("Error unknow!");
 
                 }
         });
@@ -208,7 +208,7 @@ function readURL(input,id) {
 
     if(file.size > 358400){	
 
-    	alert("File size is not big than 350KB!");
+    	showError("File size is not big than 350KB!");
 
     }else {
 
@@ -222,7 +222,7 @@ function readURL(input,id) {
             reader.readAsDataURL(input.files[0]);
         }else {
 
-        	alert("Please add the image!");
+        	showError("Please add the image!");
 
             }	
 

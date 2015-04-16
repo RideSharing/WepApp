@@ -143,8 +143,8 @@ require_once 'header.php';
                         <div class="row">
                             <div class="col-lg-8 col-lg-offset-2 text-center">
                                 <div id="action"></div>
-                                <button onclick="register_func()" class="btn btn-lg btn-outline1">
-                                    <i class="fa fa-bus"></i> Đăng kí
+                                <button class="btn btn-lg btn-outline1" id="reg_button">
+                                    <i class="fa fa-bus"></i> Register
                                 </button>
                             </div>
                         </div>
@@ -243,7 +243,7 @@ require_once 'header.php';
                         <div id="contact_success"></div>
                         <div class="row">
                             <div class="form-group col-xs-12">
-                                <button onclick="contact_func()" type="submit" class="btn btn-success btn-lg">Gửi liên hệ</button>
+                                <button class="btn btn-success btn-lg" id="contact_button">Gửi liên hệ</button>
                             </div>
                         </div>
                     </form>
@@ -256,28 +256,102 @@ require_once 'header.php';
     require_once 'footer.php';
     ?>
 <script>
-$("document").ready(function(){
-
-	$.ajax({
-		url: 'controller/get_avatar.php', // point to server-side PHP script 
-        dataType: 'text',  // what to expect back from the PHP script, if anything
-        cache: false,
-        data: "nothing",         	                
-        type: 'post',
-        success: function(string){
-           
-        	var getData = $.parseJSON(string);
-        	
-        	if(!getData['error']){
-
-        		$("#mini_avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);	
-        		
-            }
-        	
-        },
-    });
+	$('#reg_button').click(function() {
 	
-});
+		var _data = "email="+$("#reg_email").val()+"&password="+$("#reg_password").val();
+	
+		$.ajax({
+			url: 'controller/checkRegister.php', // point to server-side PHP script 
+		    dataType: 'text',  // what to expect back from the PHP script, if anything
+		    cache: false,
+		    data: _data,         	                
+		    type: 'post',
+		    success: function(string){
+		        
+		    	var getData = $.parseJSON(string);
+		    	var message = getData['message'];
+		    	
+		    	if(!getData['error']){
+	
+			    	//success message
+		    		$('#reg_success').html("<div class='alert alert-success'>");
+	                $('#reg_success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+	                    .append("</button>");
+	                $('#reg_success > .alert-success')
+	                    .append("<strong>"+ message + "!</strong>");
+	                $('#reg_success > .alert-success')
+	                    .append('</div>');
+	
+	                //clear all fields
+	                $('#regForm').trigger("reset");
+	
+		    		showSuccess(getData['message']);
+		    		
+		        }else {
+	
+	
+		        	// Fail message
+	                $('#reg_success').html("<div class='alert alert-danger'>");
+	                $('#reg_success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+	                    .append("</button>");
+	                $('#reg_success > .alert-danger').append("<strong>" + message!=""?message:"Xin lỗi, có lỗi xảy ra trong quá trình đăng kí. Vui lòng thử lại sau!" +"</strong>");
+	                $('#reg_success > .alert-danger').append('</div>');
+	                //clear all fields
+	                $('#regForm').trigger("reset");
+	
+		        	showError(getData['message']);
+	
+		            }
+		    	
+		    }
+		});
+		
+	});
+
+	$('#contact_button').click(function() {
+
+		var _data = "email="+$("#contact_email").val()+"&name="+$("#contact_name").val()+"&content="+$('#contact_message').val();
+		
+		$.ajax({
+			url: 'controller/feedback.php', // point to server-side PHP script 
+		    dataType: 'text',  // what to expect back from the PHP script, if anything
+		    cache: false,
+		    data: _data,         	                
+		    type: 'post',
+		    success: function(string){
+		        
+		    	var getData = $.parseJSON(string);
+		    	var message = getData['message'];
+		    	
+		    	if(!getData['error']){
+	
+		    		// Success message
+                    $('#contact_success').html("<div class='alert alert-success'>");
+                    $('#contact_success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                        .append("</button>");
+                    $('#contact_success > .alert-success')
+                        .append("<strong>"+message+"</strong>");
+                    $('#contact_success > .alert-success')
+                        .append('</div>');
+
+                    //clear all fields
+                    $('#contactForm').trigger("reset");
+                } else {
+                    // Fail message
+                    $('#contact_success').html("<div class='alert alert-danger'>");
+                    $('#contact_success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                        .append("</button>");
+                    $('#contact_success > .alert-danger').append("<strong>Xin lỗi " + $("#contact_name").val() + ", có vẻ như có lỗi xảy ra trong quá trình gửi liên lạc. Bạn vui lòng thử lại sau!");
+                    $('#contact_success > .alert-danger').append('</div>');
+                    //clear all fields
+                    $('#contactForm').trigger("reset");
+                }
+		    	
+		    }
+		});
+		
+	});
+
 </script>
 <script>
     // This example displays an address form, using the autocomplete feature
@@ -326,99 +400,11 @@ $("document").ready(function(){
     $(function() {
         $("input,textarea").jqBootstrapValidation({
             preventSubmit: true,
-            submitError: function($form, event, errors) {
-                showError('Có lỗi xảy ra!');
-            },
             submitSuccess: function($form, event) {
                 event.preventDefault(); // prevent default submit behaviour
                 
-                if ($("input#ireg").val() == 'reg') {
-                    // get values from FORM
-                    var _email = $("input#reg_email").val();
-                    var _password = $("input#reg_password").val();
-
-                    $.post("controller/checkRegister.php",
-                    {
-                        email: _email,
-                        password: _password
-                    },
-                    function(data, status){
-                        data = data.split('&');
-                        error = data[0];
-                        message = data[1];
-                        if (status == "success" && !error) {
-                            // Success message
-                            $('#reg_success').html("<div class='alert alert-success'>");
-                            $('#reg_success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                                .append("</button>");
-                            $('#reg_success > .alert-success')
-                                .append("<strong>"+ message + "!</strong>");
-                            $('#reg_success > .alert-success')
-                                .append('</div>');
-
-                            //clear all fields
-                            $('#regForm').trigger("reset");
-                        } else {
-                            // Fail message
-                            $('#reg_success').html("<div class='alert alert-danger'>");
-                            $('#reg_success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                                .append("</button>");
-                            $('#reg_success > .alert-danger').append("<strong>" + message!=""?message:"Xin lỗi, có lỗi xảy ra trong quá trình đăng kí. Vui lòng thử lại sau!" +"</strong>");
-                            $('#reg_success > .alert-danger').append('</div>');
-                            //clear all fields
-                            $('#regForm').trigger("reset");
-                        }
-                    });
-                } else if ($("input#icontact").val() == 'contact') {
-                    var _message = $("textarea#contact_message").val();
-                    var _email = $("input#contact_email").val();
-                    var _name = $("input#contact_name").val();
-
-                    var firstName = _name; // For Success/Failure Message
-
-                    // Check for white space in name for Success/Fail message
-                    if (firstName.indexOf(' ') >= 0) {
-                        firstName = _name.split(' ')[_name.split(' ').length - 1];
-                    }
-
-                    $.post("controller/feedback.php",
-                    {
-                        email: _email,
-                        name: _name,
-                        message: _message
-                    },
-                    function(data, status){
-                        data = data.split('&');
-                        error = data[0];
-                        message = data[1];
-                        if (status == "success" && error == 0) {
-                            // Success message
-                            $('#contact_success').html("<div class='alert alert-success'>");
-                            $('#contact_success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                                .append("</button>");
-                            $('#contact_success > .alert-success')
-                                .append("<strong>"+message+"</strong>");
-                            $('#contact_success > .alert-success')
-                                .append('</div>');
-
-                            //clear all fields
-                            $('#contactForm').trigger("reset");
-                        } else {
-                            // Fail message
-                            $('#contact_success').html("<div class='alert alert-danger'>");
-                            $('#contact_success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                                .append("</button>");
-                            $('#contact_success > .alert-danger').append("<strong>Xin lỗi " + firstName + ", có vẻ như có lỗi xảy ra trong quá trình gửi liên lạc. Bạn vui lòng thử lại sau!");
-                            $('#contact_success > .alert-danger').append('</div>');
-                            //clear all fields
-                            $('#contactForm').trigger("reset");
-                        }
-                    });
-                }
-            },
-            filter: function() {
-                return $(this).is(":visible");
-            },
+                
+            }
         });
 
         $("a[data-toggle=\"tab\"]").click(function(e) {

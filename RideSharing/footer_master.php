@@ -122,29 +122,77 @@
         });
         
     }
+    function change_mode(message){
+    	$.ajax({
+			url: 'controller/changemode.php', // point to server-side PHP script 
+            cache: false,
+            data: "nothing",         	                
+            type: 'post',
+            success: function(){
+                showSuccess("Change mode to "+ message +" successful!");
+            }
+		});
+    }
 </script>
 <script>
 $('document').ready(function(){
-			
-	alert("<?php echo $_SESSION['driver']?>")
-});
-$('#driver').click(
-	function(){
-		
-		<?php $_SESSION['driver'] = 'driver';?>
-		
-		
-		alert("<?php echo $_SESSION['driver']?>")
- 
-	}
-) ;
 
-$('#customer').click(
-		function(){
-			
-			<?php $_SESSION['driver'] = "customer";?>  
-			alert("<?php echo $_SESSION['driver']?>")
-			
-		}
-	) ;
+	$.ajax({
+		url: '../controller/get_avatar.php', // point to server-side PHP script 
+	    dataType: 'text',  // what to expect back from the PHP script, if anything
+	    cache: false,
+	    data: "nothing",         	                
+	    type: 'post',
+	    success: function(string){
+	        
+	    	var getData = $.parseJSON(string);
+	    	
+	    	if(!getData['error']){
+
+	    		$("#mini_avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
+	    		$("#avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);	
+	    		
+	        }else {
+
+	        	showError("Can not get your avatar!");
+
+	            }
+	    	
+	    },
+	    error: function(){
+
+	    	showError("Error unknow!");
+
+	        }
+	});
+
+	$('#driver').click(
+			function(){
+
+				change_mode("driver");
+
+				document.getElementById('accepted_itinerary').href = "../itinerary_driver/accepted_itinerary.php";
+				document.getElementById('schedule').href = "../itinerary_driver/schedule.php";
+				document.getElementById('search_itinerary').style.display = 'none';
+				document.getElementById('posted_itinerary').style.display = '';
+				document.getElementById('register_itinerary').style.display = '';
+		 
+			}
+	);
+
+	$('#customer').click(
+			function(){
+					
+					change_mode("customer");
+
+					document.getElementById('accepted_itinerary').href = "../itinerary_customer/accepted_itinerary.php";
+					document.getElementById('schedule').href = "../itinerary_customer/schedule.php";
+					document.getElementById('search_itinerary').style.display = '';
+					document.getElementById('posted_itinerary').style.display = 'none';
+					document.getElementById('register_itinerary').style.display = 'none';
+				
+			}
+	);
+	
+});
 </script>

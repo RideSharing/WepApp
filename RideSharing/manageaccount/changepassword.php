@@ -60,14 +60,6 @@ require_once '../header_master.php';
 								</div>
 								<div class="form-group">
 									<label class="col-sm-5 control-label"
-										style="font-style: italic;">Old Password</label>
-									<div class="col-sm-4">
-										<input type="password" class="form-control" name="oldPassword"
-											id="oldPassword" placeholder="Old Password" disabled>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-5 control-label"
 										style="font-style: italic;">New Password</label>
 									<div class="col-sm-4">
 										<input type="password" class="form-control" id="newPassword"
@@ -101,51 +93,17 @@ require_once '../header_master.php';
 	</header>
 
 	<?php
-    require_once '../footer.php';
+    require_once '../footer_master.php';
     ?>
-    
-	<!-- Bootstrap JavaScript -->
-	<script src="../js/bootstrap.min.js"></script>
 
-	<!-- jQuery -->
-	<script src="http://code.jquery.com/jquery.js"></script>
-	<script>
+<script>
 $("document").ready(function(){
-
-	$.ajax({
-		url: '../controller/get_avatar.php', // point to server-side PHP script 
-        dataType: 'text',  // what to expect back from the PHP script, if anything
-        cache: false,
-        data: "nothing",         	                
-        type: 'post',
-        success: function(string){
-            
-        	var getData = $.parseJSON(string);
-        	
-        	if(!getData['error']){
-
-        		$("#mini_avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
-        		$("#avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);	
-        		
-            }else {
-
-            	alert(getData['message']);
-
-                }
-        	
-        },
-        error: function(){
-
-        	alert("Error unknow!");
-
-            }
-    });
 
 	$("#oK").click(function(){
 
 		if($("#newPassword").val() != $("#retypePassword").val()){
 
-			alert("Retyping your password is wrong!");
+			showError("Retyping your password is wrong!");
 
 		}else {
 
@@ -164,15 +122,21 @@ $("document").ready(function(){
 	            success: function(string){
 	                
 	            	var getData = $.parseJSON(string);
-	            	
-	            	alert(getData['message']);
 
-	            	location.reload();
+	            	if(!getData['error']){
+
+	            		showSuccess(getData['message']);
+		            	
+		            }else {
+
+		            	showError(getData['message']);
+			            
+			        }
 	            	
 	            },
 	            error: function(){
 
-	            	alert("Error unknow!");
+	            	showError("Error unknow!");
 
 	                }
 	        });
@@ -182,60 +146,6 @@ $("document").ready(function(){
 	});
 	
 });
-
-//Set image for field
-function readURL(input,id) {
-	
-	var url = input.value;
-    var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-    
-    if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            $(id).attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }else {
-
-    	alert("Please add the image!");
-
-        }
-}
 </script>
-	<!-- 
-var file_data = $('#fileToUpload').prop('files')[0]; 
-		var form_data = new FormData();                  
-	    form_data.append("file", file_data)            
-	
-		$.ajax({
-			url: '../controller/change_avatar.php', // point to server-side PHP script 
-            dataType: 'text',  // what to expect back from the PHP script, if anything
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,                         
-            type: 'post',
-            success: function(string){
-            	var getData = $.parseJSON(string);
-            	if(getData['error']){
-
-            		alert(getData['message']);
-            		
-                	}else{
-
-                		$("#avatar").attr("src",getData['src']);
-
-                    }
-            	
-            },
-        	error: function(){
-
-        		alert("Error occured!");
-        		
-            	}
-        });
--->
 </body>
 </html>

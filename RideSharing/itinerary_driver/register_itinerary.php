@@ -69,29 +69,6 @@ require_once '../header_master.php';
 	require_once '../footer_master.php';
 	?>
 <script>
-$("document").ready(function(){
-	
-	$.ajax({
-		url: '../controller/get_avatar.php', // point to server-side PHP script 
-        dataType: 'text',  // what to expect back from the PHP script, if anything
-        cache: false,
-        data: "nothing",         	                
-        type: 'post',
-        success: function(string){
-            
-        	var getData = $.parseJSON(string);
-        	
-        	if(!getData['error']){
-
-        		$("#mini_avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
-        		
-        		
-            }
-        	
-        }
-    
-    });
-
 	$("#register_iti").click(function(){
 
 		var form_data = new FormData();
@@ -120,17 +97,23 @@ $("document").ready(function(){
 	                
 	           var getData = $.parseJSON(string);
 
-	        	alert(getData['message']);       	
+	        	if(!getData['error']) {
+
+	        		showSuccess(getData['message']);
+
+				}else {
+
+					showError(getData['message']);
+					
+				}       	
 	        	
 	        }
 	    
 	    });
 
 	});
-    
-})	
 </script>
-	<script>
+<script>
 var map;
 var start_marker;
 var end_marker;

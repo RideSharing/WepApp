@@ -118,6 +118,9 @@
                                 </div>
                             </div>
                             <br>
+                            <div>
+                            	<a href="#" data-toggle="modal" data-target="#forgotPassModal">Forgotten password? </a>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -130,10 +133,44 @@
                 </div>
             </div>
             </form>
-            </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="forgotPassModal" tabindex="-1" role="dialog" aria-labelledby="forgotPassModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+            <h4 class="modal-title" id="myModalLabel">Forgot Password</h4>
+            </div>
+            <form novalidate>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                            <div class="row control-group">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" placeholder="Email" id="forgot_email" required data-validation-required-message="Vui lòng nhập địa chỉ email của bạn.">
+                                    <p class="help-block text-danger"></p>                        			
+                                </div>
+                        		
+                    		</div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <button onclick="getPass_func()" href="#" class="btn btn-lg btn-outline1">Request</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+    
 
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
@@ -206,20 +243,110 @@
         });
         
     }
+
+    function getPass_func() {
+        // get values from FORM
+        var _data = "email="+$("#forgot_email").val();
+
+        $.ajax({
+			url: 'controller/forgotpass.php', // point to server-side PHP script 
+            dataType: 'text',  // what to expect back from the PHP script, if anything
+            cache: false,
+            data: _data,         	                
+            type: 'post',
+            success: function(string){
+                
+            	var getData = $.parseJSON(string);
+            	var message = getData['message'];
+            	
+            	if(getData['error']){
+
+            		showError(getData['message']);
+            		
+                }else{
+					
+                	showSuccess(getData['message']);
+
+                }
+            	
+            },
+            error: function(){
+
+            	showError("Error unknow!");
+
+                }
+        });
+        
+    }
+    
+    function change_mode(message){
+    	$.ajax({
+			url: 'controller/changemode.php', // point to server-side PHP script 
+            cache: false,
+            data: "nothing",         	                
+            type: 'post',
+            success: function(){
+                showSuccess("Change mode to "+ message +" successful!");
+            }
+		});
+    }
 </script>
 <script>
-$('#driver').click(
-	function(){
+$('document').ready(function(){
 
-		
- 
-	}
-) ;
+	$.ajax({
+		url: 'controller/get_avatar.php', // point to server-side PHP script 
+	    dataType: 'text',  // what to expect back from the PHP script, if anything
+	    cache: false,
+	    data: "nothing",         	                
+	    type: 'post',
+	    success: function(string){
+	        
+	    	var getData = $.parseJSON(string);
+	    	
+	    	if(!getData['error']){
 
-$('#customer').click(
-		function(){
-			
-			
+	    		$("#mini_avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
+	    		
+	        }else {
+
+	        	showError("Can not get your avatar!");
+
+	            }
+	    	
+	    },
+	    error: function(){
+
+	    	showError("Error unknow!");
+
+	        }
+	});
+
+	$('#driver').click(function(){
+
+		change_mode("driver");
+
+		document.getElementById('accepted_itinerary').href = "itinerary_driver/accepted_itinerary.php";
+		document.getElementById('schedule').href = "itinerary_driver/schedule.php";
+		document.getElementById('search_itinerary').style.display = 'none';
+		document.getElementById('posted_itinerary').style.display = '';
+		document.getElementById('register_itinerary').style.display = '';
+		 
 		}
-	) ;
+	);
+
+	$('#customer').click(function(){
+					
+		change_mode("customer");
+
+		document.getElementById('accepted_itinerary').href = "itinerary_customer/accepted_itinerary.php";
+		document.getElementById('schedule').href = "itinerary_customer/schedule.php";
+		document.getElementById('search_itinerary').style.display = '';
+		document.getElementById('posted_itinerary').style.display = 'none';
+		document.getElementById('register_itinerary').style.display = 'none';
+				
+		}
+	);
+	
+});
 </script>

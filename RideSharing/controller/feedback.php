@@ -1,12 +1,15 @@
 <?php
+session_start ();
+
 $getreq = array (
-		'email' => $_POST ['email'],
-		'password' => $_POST ['password'] 
+		'email' => $_POST['email'],
+		'name' => $_POST['name'] ,
+		'content' => $_POST['content']
 );
 
 $ch = curl_init ();
 
-curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.132/RESTFul/v1/user" );
+curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.132/RESTFul/v1/feedback" );
 
 curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 

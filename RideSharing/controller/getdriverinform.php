@@ -11,8 +11,7 @@ $ch = curl_init();
 
 
 // execute the request
-$result1 = json_decode(getInform($ch, "http://192.168.10.132/RESTFul/v1/user/link_avatar",$api_key));
-$result2 = json_decode(getInform($ch, "http://192.168.10.132/RESTFul/v1/driver",$api_key));
+$result = getInform($ch, "http://192.168.10.132/RESTFul/v1/driver",$api_key);
 
 $httpCode = curl_getinfo ( $ch, CURLINFO_HTTP_CODE );
 
@@ -27,28 +26,7 @@ if ($httpCode == 404) {
 	
 } else {
 	
-	if($result1->{'error'} || $result2->{'error'}) {
-	
-		$res = array (
-				'error' => true,
-				'message' => 'Eror cannot load the information!'
-		);
-		
-		echo json_encode($res);
-		
-	}else {
-		
-		$result = array();
-		
-		$result['error'] = false;
-		$result['link_avatar'] = $result1->{'link_avatar'};
-		$result['driver_license'] = $result2->{'driver_license'};
-		$result['driver_license_img'] = $result2->{'driver_license_img'};
-
-		
-		echo json_encode($result);
-		
-	}
+		echo $result;
 	
 }
 

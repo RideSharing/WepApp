@@ -120,46 +120,44 @@
                             </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                               <li role="presentation"><a role="menuitem" tabindex="-1" href="../manageaccount">Personal</a></li>
-                              <li class="dropdown-submenu">
+                            <li class="dropdown-submenu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Itinerary</a>
 								<ul class="dropdown-menu">
-									<?php 
-									if($_SESSION['mode'] == 'customer'){?>
-										<li role="presentation">
-											<a role="menuitem" tabindex="-1" href="#" id="search_itinerary">Search Itinerary</a>
-										</li>
-									<?php
-                    				} else {
-									?>
-										<li role="presentation">
-											<a role="menuitem" tabindex="-1" href="#" id="posted_itinerary">Itinerary's posted</a>
-										</li>
-										<li role="presentation">
-											<a role="menuitem" tabindex="-1" href="#" id="accepted_itinerary">Itinerary's accepted</a>
-										</li>
-									<?php 
-									}
-									?>	
-										<li role="presentation">
-											<a role="menuitem" tabindex="-1" href="#">Schedule</a>
-										</li>
-									</ul>
-								</li>
-                              <li class="dropdown-submenu"><a href="#" class="dropdown-toggle"
+									<li role="presentation">
+											<a role="menuitem" tabindex="-1" id="search_itinerary" href="../itinerary_customer" style="display:  <?php echo $_SESSION['driver'] == 'customer' ? "" : "none";?>;">Search Itinerary</a>
+									</li>
+									<li role="presentation">
+											<a role="menuitem" tabindex="-1" id="register_itinerary" href="../itinerary_driver/register_itinerary.php" style="display:  <?php echo $_SESSION['driver'] == 'driver' ? "" : "none";?>;" >Register Itinerary</a>
+									</li>
+									<li role="presentation">
+											<a role="menuitem" tabindex="-1" id="posted_itinerary" href="../itinerary_driver" style="display:  <?php echo $_SESSION['driver'] == 'driver' ? "" : "none";?>;" >Registered Itinerary</a>
+									</li>
+									<li role="presentation">
+											<a role="menuitem" tabindex="-1" id="accepted_itinerary" href="<?php echo $_SESSION['driver'] == 'customer' ? "../itinerary_customer/accepted_itinerary.php" : "../itinerary_driver/accepted_itinerary.php";?>">Accepted Itinerary</a>
+									</li>
+									<li role="presentation">
+											<a role="menuitem" tabindex="-1" id="schedule" href="<?php echo $_SESSION['driver'] == 'customer' ? "../itinerary_customer/schedule.php" : "../itinerary_driver/schedule.php";?>">Schedule</a>
+									</li>
+								</ul>
+							</li>
+                            <li class="dropdown-submenu"><a href="#" class="dropdown-toggle"
 									data-toggle="dropdown">User Mode</a>
 									<ul class="dropdown-menu">
 										<div class="radio">
-											<label style="color: #336EAA;"><input type="radio" name="mode" id="customer" <?php echo $_SESSION['mode']=='customer'?'checked':'' ?> >Customer</label>
+											<label style="color: #336EAA;"><input type="radio" name="mode" id="customer" <?php echo $_SESSION['driver'] == 'customer' ? "checked" : "";?>>Customer</label>
 										</div>
 										<div class="radio">
-											<label style="color: #336EAA;"><input type="radio" name="mode" id="driver">Driver</label>
+											<label style="color: #336EAA;"><input type="radio" name="mode" id="driver" <?php echo $_SESSION['driver'] == 'driver' ? "checked" : "";?>>Driver</label>
 										</div>
 									</ul>
 							</li>
-                              <li role="presentation" class="divider"></li>
-                              <li role="presentation"><a role="menuitem" tabindex="-1" href="../controller/logout.php">Logout</a></li>
+							<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="#">Statistic</a>
+							</li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="../controller/logout.php">Logout</a></li>
                             </ul>
-                      </div>
+                      	</div>
                     </li>
                     <?php 
                     }

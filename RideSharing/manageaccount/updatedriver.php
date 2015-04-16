@@ -76,8 +76,6 @@ $("document").ready(function(){
         	
         	if(!getData['error']){
 
-        		$("#mini_avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
-        		$("#avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
         		$("#driver_license").val(getData['driver_license']);	
         		$("#imageDL").attr('src',"data:image/jpeg;base64,"+getData['driver_license_img']);
 
@@ -93,14 +91,14 @@ $("document").ready(function(){
         		
             }else {
 
-            	alert(getData['message']);
+            	showError(getData['message']);
 
                 }
         	
         },
         error: function(){
 
-        	alert("Error unknow!");
+        	showError("Error unknow! Can not get Data!");
 
             }
     });	
@@ -150,14 +148,16 @@ $("document").ready(function(){
 	        success: function(string){
 	                
 	           var getData = $.parseJSON(string);
-	            	
-	           alert(getData['message']);
 
 	           if(!getData['error']){
 
-	        	   location.reload();
+	        	   showSuccess(getData['message']);
 
-		       }  
+		       }else {
+
+		    	   showError(getData['message']);
+
+		       }
 	            	
 	        },
 	        error: function(){
