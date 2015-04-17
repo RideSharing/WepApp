@@ -294,6 +294,15 @@
 <script>
 $('document').ready(function(){
 
+	<?php 
+	if(isset($_SESSION['showMessage'])){
+	?>
+		showSuccess("You became to <?php echo $_SESSION['driver'];?>!");
+	<?php	
+		$_SESSION['showMessage'] = null;
+	}
+	?>
+
 	$.ajax({
 		url: 'controller/get_avatar.php', // point to server-side PHP script 
 	    dataType: 'text',  // what to expect back from the PHP script, if anything
@@ -324,29 +333,34 @@ $('document').ready(function(){
 
 	$('#driver').click(function(){
 
-		change_mode("driver");
+		if("<?php echo $_SESSION['driver'];?>" == 'driver') {
 
-		document.getElementById('accepted_itinerary').href = "itinerary_driver/accepted_itinerary.php";
-		document.getElementById('schedule').href = "itinerary_driver/schedule.php";
-		document.getElementById('search_itinerary').style.display = 'none';
-		document.getElementById('posted_itinerary').style.display = '';
-		document.getElementById('register_itinerary').style.display = '';
-		 
+			showSuccess("You're already a Driver!");
+			
+		} else {
+
+			change_mode("driver");
+			location.reload();
+			
 		}
-	);
+		 
+	});
 
 	$('#customer').click(function(){
 					
-		change_mode("customer");
+		
+		if("<?php echo $_SESSION['driver'];?>" == 'customer') {
 
-		document.getElementById('accepted_itinerary').href = "itinerary_customer/accepted_itinerary.php";
-		document.getElementById('schedule').href = "itinerary_customer/schedule.php";
-		document.getElementById('search_itinerary').style.display = '';
-		document.getElementById('posted_itinerary').style.display = 'none';
-		document.getElementById('register_itinerary').style.display = 'none';
-				
+			showSuccess("You're already a Customer!");
+			
+		} else {
+
+			change_mode("customer");
+			location.reload();
+			
 		}
-	);
+				
+	});
 	
 });
 </script>

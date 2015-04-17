@@ -99,6 +99,15 @@ require_once '../header_master.php';
 <script>
 $("document").ready(function(){
 
+	<?php 
+			if(isset($_SESSION['showMessage'])){
+			?>
+				showSuccess("You became to <?php echo $_SESSION['driver'];?>!");
+			<?php	
+				$_SESSION['showMessage'] = null;
+			}
+			?>
+
 	$("#oK").click(function(){
 
 		if($("#newPassword").val() != $("#retypePassword").val()){

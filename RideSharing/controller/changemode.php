@@ -9,4 +9,5 @@ if($_SESSION['driver'] == 'customer'){
 	$_SESSION['driver'] = 'customer';
 	
 }
+$_SESSION['showMessage'] = 'show';
 ?>

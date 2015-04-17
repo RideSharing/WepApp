@@ -124,7 +124,7 @@
     }
     function change_mode(message){
     	$.ajax({
-			url: 'controller/changemode.php', // point to server-side PHP script 
+			url: '../controller/changemode.php', // point to server-side PHP script 
             cache: false,
             data: "nothing",         	                
             type: 'post',
@@ -168,28 +168,36 @@ $('document').ready(function(){
 
 	$('#driver').click(
 			function(){
+				
+				if("<?php echo $_SESSION['driver'];?>" == 'driver') {
 
-				change_mode("driver");
+					showSuccess("You're already a Driver!");
+					
+				} else {
 
-				document.getElementById('accepted_itinerary').href = "../itinerary_driver/accepted_itinerary.php";
-				document.getElementById('schedule').href = "../itinerary_driver/schedule.php";
-				document.getElementById('search_itinerary').style.display = 'none';
-				document.getElementById('posted_itinerary').style.display = '';
-				document.getElementById('register_itinerary').style.display = '';
-		 
+					change_mode("driver");
+
+					location.reload();
+					
+				}
+
 			}
 	);
 
 	$('#customer').click(
 			function(){
 					
+				if("<?php echo $_SESSION['driver'];?>" == 'customer') {
+
+					showSuccess("You're already a Customer!");
+					
+				} else {
+
 					change_mode("customer");
 
-					document.getElementById('accepted_itinerary').href = "../itinerary_customer/accepted_itinerary.php";
-					document.getElementById('schedule').href = "../itinerary_customer/schedule.php";
-					document.getElementById('search_itinerary').style.display = '';
-					document.getElementById('posted_itinerary').style.display = 'none';
-					document.getElementById('register_itinerary').style.display = 'none';
+					location.reload();
+					
+				}
 				
 			}
 	);
