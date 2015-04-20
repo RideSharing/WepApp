@@ -41,7 +41,7 @@ require_once '../header_master.php';
 						foreach ( $res as $value ) {
 							if ($value->{'status'} == 1) {
 								?>
-								<a href="detail_itinerary.php?itinerary_id=<?php echo $value->{'itinerary_id'} ?>&driver=<?php echo $value->{'fullname'} ?>&driverid=<?php echo $value->{'user_id'} ?>" class="list-group-item">
+								<a href="detail_itinerary.php?itinerary_id=<?php echo $value->{'itinerary_id'} ?>&driver=<?php echo $value->{'fullname'} ?>&driver_id=<?php echo $value->{'user_id'} ?>" class="list-group-item">
 									<h6 class="list-group-item-heading">
 										<label style="color: red;">FROM:</label>
 										<?php echo $value->{'start_address'}==NULL?' ':$value->{'start_address'}?>

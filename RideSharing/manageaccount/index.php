@@ -6,6 +6,7 @@ if (! isset ( $_SESSION ["api_key"] )) {
 }
 require_once '../header_master.php';
 ?>
+<title>Profile</title>
 	<!-- Header -->
 	<header>
 		<div class="container" style="padding-top: 100px">

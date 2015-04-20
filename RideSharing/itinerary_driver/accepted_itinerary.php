@@ -1,6 +1,6 @@
 <?php
 session_start ();
-if (! isset ( $_SESSION ["api_key"] )) {
+if (! isset ( $_SESSION ["api_key"] )|| $_SESSION['driver'] == 'customer') {
 	header ( 'Location: ../' );
 	die ();
 }
@@ -50,7 +50,8 @@ require_once '../header_master.php';
 									</h6> 
 									<b>Driver: </b> <?php echo $value->{'fullname'}==NULL?' ':$value->{'fullname'}?>
 									<br> <b>Email: </b> <?php echo $value->{'email'}==NULL?' ':$value->{'email'} ?>	
-									<br> <b>Phone: </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>									
+									<br> <b>Phone: </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>	
+									<br> <label style="color: red; font-style:italic;"><b>Click to View Information . . . . . . . . . . . . . </b></label>								
 								</a> 
 						<?php
 							} 
@@ -99,8 +100,8 @@ function initialize() {
 				'<br><div><img src="data:image/jpeg;base64,' + value['link_avatar'] + 
 				'" style="height: 50px; width: 6	0px;"/></div><b>DISTANCE: </b>' + 
 				value['distance'] + ' KM<br><b>COST:</b> VND ' + value['cost'] + 
-				'<br><a href="detail_itinerary.php?itinerary_id=' + value['itinerary_id'] + 
-				'&driver=' + value['fullname'] + '">View Detail Information	........</a>';
+				'<br><a href="detail_itinerary.php?itinerary_id=' + value['customer_id'] + 
+				'&driver=' + value['fullname'] + '">View Itinerary Information	........</a>';
 
 			marker.info = new google.maps.InfoWindow({
 				  content: infocontent,
