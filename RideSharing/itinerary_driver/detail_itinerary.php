@@ -54,12 +54,11 @@ require_once '../header_master.php';
 								<label class="col-sm-4 control-label" id="description" style="text-align: left; color:maroon; "></label>
 							</div>
 							<div class="form-group">
-								<div class="col-sm-offset-5 col-sm-2">
-									<input class="btn btn-primary btn-block" type="button"
-										id="join" value="Join in Itinerary">
+								<div class="col-sm-offset-4 col-sm-3">
+									<a class="btn btn-primary btn-block" href="" id="view_customer">View Customer Information</a>
 								</div>
 								<div class="col-sm-2">
-									<a class="btn btn-primary btn-block" href="../itinerary_customer">Back</a>
+									<a class="btn btn-primary btn-block" href="accepted_itinerary.php">Back</a>
 								</div>
 							</div>
 						</fieldset>
@@ -101,6 +100,7 @@ $("document").ready(function(){
         		document.getElementById("distance").innerHTML = getData['distance']+" km";
         		document.getElementById("cost").innerHTML = "VND "+getData['cost'];
         		document.getElementById("description").innerHTML = getData['description'];
+        		document.getElementById("view_customer").href = "customer_profile.php?customer_id="+getData['customer_id']+"&itinerary_id="+getData['itinerary_id'];
         		
             }
         	

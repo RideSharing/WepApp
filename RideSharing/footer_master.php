@@ -72,7 +72,7 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="../js/freelancer.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 <script>
     function showSuccess(message) {
         toastr.options = {

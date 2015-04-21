@@ -10,13 +10,13 @@ require_once '../header_master.php';
 
 <!-- Section -->
 <section class="full-content">
-	<div class="row">
-		<h4 style="text-align: center;">Search Itinerary</h1>
+	<div class="row" class="input-group-addon">
+		<h4 style="text-align: center;">Search Itinerary</h4>
 	</div>
 	<div class="row">
 		<div class="col-lg-4 no-padding">
 			<div id="list-itinerary">
-				<div class="list-group">
+				<div class="list-group" id="list-group">
 					<!-- Start: list_row -->
 						<?php
 						$api_key = $_SESSION ["api_key"];
@@ -65,23 +65,87 @@ require_once '../header_master.php';
 		</div>
 	</div>
 </section>
+<div id="control">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon" id="sizing-addon3" style="color: #FFF; background-color: #F39C12">Nhập điểm đi&nbsp&nbsp&nbsp&nbsp</span>
+                    <input id="start-point" type="text" class="form-control" placeholder="Điểm đi..." aria-describedby="sizing-addon3">
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon" id="sizing-addon3" style="color: #FFF; background-color: #F39C12">Nhập điểm đến</span>
+                    <input id="end-point" type="text" class="form-control" placeholder="Điểm đến..." aria-describedby="sizing-addon3">
+                </div>
+            </div>  
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon" id="sizing-addon3" style="color: #FFF; background-color: #F39C12">Ngày đi</span>
+                    <input type="text" data-beatpicker="true" data-beatpicker-position="['*','*']" data-beatpicker-disable="{from:[2014,1,1],to:'<'}"/>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php
 require_once '../footer_master.php';
 ?>
 <script>
-var list_itinerary = <?php echo json_encode($res);?>;
+var list_itinerary;
 var map;
-
+var autocomplete;
 var danang = new google.maps.LatLng(16.054144447313266, 108.20207118988037);
 
-function initialize() {
+	
 
-	geocoder = new google.maps.Geocoder();
+function initialize() {
+	$.ajax({
+		url: '../controller/getListItinerary.php', // point to server-side PHP script 
+        dataType: 'text',  // what to expect back from the PHP script, if anything
+        cache: false,
+        data: "nothing",         	                
+        type: 'post',
+        success: function(string){
+            
+        	var getData = $.parseJSON(string);
+        	
+        	if(!getData['error']){
+
+        		list_itinerary = getData['itineraries'];
+        		
+        		
+            }else {
+
+            	showError(getData['message']);
+
+                }
+        	
+        },
+        error: function(){
+
+        	showError("Error unknow!");
+
+            }
+    });
+	alert(list_itinerary);
+	autocomplete = new google.maps.places.Autocomplete((document.getElementById('start-point')), { types: ['geocode'] });
+    autocomplete = new google.maps.places.Autocomplete((document.getElementById('end-point')), { types: ['geocode'] });
 	
 	map = new google.maps.Map(document.getElementById('map'), {
 	    center : danang,
 	    zoom : 13
 	});
+
+	var control = document.getElementById('control');
+    var curPosBtn = document.getElementById('curPos');
+    var loadingBtn = document.getElementById('map-control-loading');
+
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(control);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(curPosBtn);
+    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(loadingBtn);
+    
 	
 	list_itinerary.forEach (function(value){
 		

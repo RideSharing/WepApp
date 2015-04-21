@@ -75,7 +75,7 @@ $("document").ready(function(){
 
 	var form_data = new FormData(); 
 	 
-	form_data.append("driver_id",<?php echo $_REQUEST{'driver_id'}?>);
+	form_data.append("customer_id",<?php echo $_REQUEST{'customer_id'}?>);
 	
 	$.ajax({
 		url: '../controller/viewprofile.php', // point to server-side PHP script 
@@ -104,7 +104,38 @@ $("document").ready(function(){
         }
     });
 
-	
+	$("#yes").click(function(){
+
+		var form_data = new FormData(); 
+		 
+		form_data.append("itinerary_id",<?php echo $_REQUEST{'itinerary_id'};?>);
+		
+		$.ajax({
+			url: '../controller/accept_itinerary.php', // point to server-side PHP script 
+	        dataType: 'text',  // what to expect back from the PHP script, if anything
+	        cache: false,
+	        contentType: false,
+	        processData: false,
+	        data: form_data,         	                
+	        type: 'post',
+	        success: function(string){
+	        	 
+	        	var getData = $.parseJSON(string);
+
+	        	if(!getData['error']){
+
+	        		showSuccess(getData['message']);
+	        		
+	            }else {
+
+	            	showError(getData['message']);
+	            	
+		        }
+	        	
+	        }
+	    });
+		
+	});
 	
 });
 </script>
