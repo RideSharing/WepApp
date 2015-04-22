@@ -1,4 +1,5 @@
 <?php
+include '../controller/Constant.php';
 session_start ();
 
 if (! isset ( $_SESSION ["api_key"] ) || $_SESSION ['driver'] == 'driver') {
@@ -21,7 +22,7 @@ require_once '../header_master.php';
 						$api_key = $_SESSION ["api_key"];
 						$ch = curl_init ();
 						
-						curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.132/RESTFul/v1/itineraries" );
+						curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/itineraries" );
 						curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 						curl_setopt ( $ch, CURLOPT_HTTPHEADER, array (
 								'Authorization: ' . $api_key 
