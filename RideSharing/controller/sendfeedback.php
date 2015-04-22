@@ -1,5 +1,5 @@
 <?php
-
+include_once 'Constant.php';
 $getreq = array (
 		'fullname' => $_POST {'fullname'},
 		'email' => $_POST {'email'},
@@ -8,7 +8,7 @@ $getreq = array (
 
 $ch = curl_init ();
 
-curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.132/v1/user" );
+curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/v1/user" );
 
 curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 

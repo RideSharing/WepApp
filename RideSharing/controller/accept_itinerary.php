@@ -1,4 +1,6 @@
 <?php
+include_once 'Constant.php';
+
 session_start ();
 
 $api_key = $_SESSION ["api_key"];
@@ -7,7 +9,7 @@ $id = $_POST{'itinerary_id'};
 
 $ch = curl_init ();
 
-curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.132/RESTFul/v1/driver_accept_itinerary/$id" );
+curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/driver_accept_itinerary/$id" );
 
 curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 
