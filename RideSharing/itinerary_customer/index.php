@@ -1,6 +1,6 @@
 <?php
 session_start ();
-if (! isset ( $_SESSION ["api_key"] )|| $_SESSION['driver'] == 'driver') {
+if (! isset ( $_SESSION ["api_key"] ) || $_SESSION ['driver'] == 'driver') {
 	header ( 'Location: ../' );
 	die ();
 }
@@ -16,8 +16,6 @@ require_once '../header_master.php';
 	<div class="row">
 		<div class="col-lg-4 no-padding">
 			<div id="list-itinerary">
-				<div class="list-group" id="list-group">
-					<!-- Start: list_row -->
 						<?php
 						$api_key = $_SESSION ["api_key"];
 						$ch = curl_init ();
@@ -38,98 +36,91 @@ require_once '../header_master.php';
 						
 						$res = $json->{'itineraries'};
 						
-						foreach ( $res as $value ) {
-							if ($value->{'status'} == 1) {
-								?>
-								<a href="detail_itinerary.php?itinerary_id=<?php echo $value->{'itinerary_id'} ?>&driver=<?php echo $value->{'fullname'} ?>&driver_id=<?php echo $value->{'user_id'} ?>" class="list-group-item">
-									<h6 class="list-group-item-heading">
-										<label style="color: red;">FROM:</label>
-										<?php echo $value->{'start_address'}==NULL?' ':$value->{'start_address'}?>
-										<br> <label style="color: red;">TO:</label>
-										<?php echo $value->{'end_address'}==NULL?' ':$value->{'end_address'}?>
-									</h6> 
-									<b>Driver: </b> <?php echo $value->{'fullname'}==NULL?' ':$value->{'fullname'}?>
-									<br> <b>Email: </b> <?php echo $value->{'email'}==NULL?' ':$value->{'email'} ?>	
-									<br> <b>Phone: </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>									
-								</a> 
-						<?php
-							}
-						}
 						?>
+				<div class="list-group" id="list-group">
+					<!-- Start: list_row -->
 					<!-- End: list_row -->
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-8 no-padding">
+		<div class="col-lg-8 no-padding" style="padding-right: 10px;">
 			<div id="map"></div>
 		</div>
 	</div>
 </section>
 <div id="control">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="input-group input-group-sm">
-                    <span class="input-group-addon" id="sizing-addon3" style="color: #FFF; background-color: #F39C12">Nhập điểm đi&nbsp&nbsp&nbsp&nbsp</span>
-                    <input id="start-point" type="text" class="form-control" placeholder="Điểm đi..." aria-describedby="sizing-addon3">
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="input-group input-group-sm">
-                    <span class="input-group-addon" id="sizing-addon3" style="color: #FFF; background-color: #F39C12">Nhập điểm đến</span>
-                    <input id="end-point" type="text" class="form-control" placeholder="Điểm đến..." aria-describedby="sizing-addon3">
-                </div>
-            </div>  
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="input-group input-group-sm">
-                    <span class="input-group-addon" id="sizing-addon3" style="color: #FFF; background-color: #F39C12">Ngày đi</span>
-                    <input type="text" data-beatpicker="true" data-beatpicker-position="['*','*']" data-beatpicker-disable="{from:[2014,1,1],to:'<'}"/>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="input-group input-group-sm">
+				<span class="input-group-addon" id="sizing-addon3"
+					style="color: #FFF; background-color: #F39C12">Nhập điểm
+					đi&nbsp&nbsp&nbsp&nbsp</span> <input id="start-place" type="text"
+					class="form-control" placeholder="Điểm đi..."
+					aria-describedby="sizing-addon3">
+			</div>
+		</div>
+		<div class="col-lg-12">
+			<div class="input-group input-group-sm">
+				<span class="input-group-addon" id="sizing-addon3"
+					style="color: #FFF; background-color: #F39C12">Nhập điểm đến</span>
+				<input id="end-place" type="text" class="form-control"
+					placeholder="Điểm đến..." aria-describedby="sizing-addon3">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="input-group input-group-sm">
+				<span class="input-group-addon" id="sizing-addon3"
+					style="color: #FFF; background-color: #F39C12">Ngày đi</span> <input
+					type="text" data-beatpicker="true"
+					data-beatpicker-position="['*','*']"
+					data-beatpicker-disable="{from:[2014,1,1],to:'<'}" />
+			</div>
+		</div>
+	</div>
+</div>
 <?php
 require_once '../footer_master.php';
 ?>
 <script>
-var list_itinerary;
+var list_itinerary = <?php echo json_encode($res);?>;
+
+$('document').ready(function(){
+	
+	var list_content = "";
+	var content = "";
+	
+	list_itinerary.forEach (function(value){
+
+		if( value['status'] == 1 ){
+
+			content = '<a href="detail_itinerary.php?itinerary_id='+
+			value["itinerary_id"]+'&driver='+value["fullname"]+'&driver_id='+
+			value["driver_id"]+'" class="list-group-item"><h6 class="list-group-item-heading">'+
+			'<label style="color: red;">FROM:</label>'+
+			value["start_address"]+'<br> <label style="color: red;">TO:</label>'+
+			value["end_address"]+'</h6><b>Driver: </b>'+value["fullname"]+
+			'<br> <b>Email: </b>'+value["email"]+
+			'<br> <b>Phone: </b>'+value["phone"]+									
+			'</a>  ';
+			
+		}
+
+		list_content = list_content.concat(content);
+
+	});
+	$('#list-group').html(list_content);
+});
+
+</script>
+<script>
 var map;
 var autocomplete;
 var danang = new google.maps.LatLng(16.054144447313266, 108.20207118988037);
 
-	
-
 function initialize() {
-	$.ajax({
-		url: '../controller/getListItinerary.php', // point to server-side PHP script 
-        dataType: 'text',  // what to expect back from the PHP script, if anything
-        cache: false,
-        data: "nothing",         	                
-        type: 'post',
-        success: function(string){
-            
-        	var getData = $.parseJSON(string);
-        	
-        	if(!getData['error']){
-
-        		list_itinerary = getData['itineraries'];
-        		
-        		
-            }else {
-
-            	showError(getData['message']);
-
-                }
-        	
-        },
-        error: function(){
-
-        	showError("Error unknow!");
-
-            }
-    });
-	alert(list_itinerary);
+	
 	autocomplete = new google.maps.places.Autocomplete((document.getElementById('start-point')), { types: ['geocode'] });
     autocomplete = new google.maps.places.Autocomplete((document.getElementById('end-point')), { types: ['geocode'] });
 	
