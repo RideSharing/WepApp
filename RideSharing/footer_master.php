@@ -129,7 +129,7 @@
             data: "nothing",         	                
             type: 'post',
             success: function(){
-                showSuccess("Change mode to "+ message +" successful!");
+            	location.reload();
             }
 		});
     }
@@ -177,8 +177,6 @@ $('document').ready(function(){
 
 					change_mode("driver");
 
-					location.reload();
-					
 				}
 
 			}
@@ -194,8 +192,6 @@ $('document').ready(function(){
 				} else {
 
 					change_mode("customer");
-
-					location.reload();
 					
 				}
 				

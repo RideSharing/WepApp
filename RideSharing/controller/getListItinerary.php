@@ -4,10 +4,19 @@ session_start();
 
 $api_key = $_SESSION["api_key"];
 
+$start_place = "";
+$end_place = "";
+
+if(isset($_POST{'start_place'})){
+	$start_place = "start_address=".str_replace(" ", "+", $_POST{'start_place'});
+}
+if(isset($_POST{'end_place'})){
+	$end_place = "end_address=".str_replace(" ", "+", $_POST{'end_place'});
+}
 
 $ch = curl_init();
 
-curl_setopt($ch,CURLOPT_URL,IP_ADDRESS."/RESTFul/v1/itineraries");
+curl_setopt($ch,CURLOPT_URL,IP_ADDRESS."/RESTFul/v1/itineraries?$start_place&$end_place");
 
 curl_setopt( $ch,CURLOPT_RETURNTRANSFER,1);
 

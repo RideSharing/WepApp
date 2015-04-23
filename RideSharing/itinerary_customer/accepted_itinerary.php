@@ -92,7 +92,7 @@ function initialize() {
 
 			var marker = new google.maps.Marker({
 				position : latLng,	
-				icon : '../icons/icon_motor.png',
+				icon : '../icons/icon_motor.png'
 			});
 
 			var infocontent = '<b>FROM:</b> ' + value['start_address'] + '<br><b>TO:</b> ' + 

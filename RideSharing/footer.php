@@ -285,7 +285,7 @@
             data: "nothing",         	                
             type: 'post',
             success: function(){
-                showSuccess("Change mode to "+ message +" successful!");
+            	location.reload();
             }
 		});
     }
@@ -331,15 +331,14 @@ $('document').ready(function(){
 	});
 
 	$('#driver').click(function(){
-
+	
 		if("<?php echo $_SESSION['driver'];?>" == 'driver') {
-
+	
 			showSuccess("You're already a Driver!");
 			
 		} else {
-
+			
 			change_mode("driver");
-			location.reload();
 			
 		}
 		 
@@ -353,10 +352,9 @@ $('document').ready(function(){
 			showSuccess("You're already a Customer!");
 			
 		} else {
-
-			change_mode("customer");
-			location.reload();
 			
+			change_mode("customer");
+						
 		}
 				
 	});
