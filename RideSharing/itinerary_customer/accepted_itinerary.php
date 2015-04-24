@@ -42,7 +42,7 @@ require_once '../header_master.php';
 						foreach ( $res as $value ) {
 							if ($value->{'status'} == 2) {
 								?>
-								<a href="detail_itinerary.php?itinerary_id=<?php echo $value->{'itinerary_id'} ?>&driver=<?php echo $value->{'fullname'} ?>&driver_id=<?php echo $value->{'driver_id'};?>" class="list-group-item">
+								<a href="reject_itinerary.php?itinerary_id=<?php echo $value->{'itinerary_id'} ?>&driver=<?php echo $value->{'fullname'} ?>&driver_id=<?php echo $value->{'driver_id'};?>" class="list-group-item">
 									<h6 class="list-group-item-heading">
 										<label style="color: red;">FROM:</label>
 										<?php echo $value->{'start_address'}==NULL?' ':$value->{'start_address'}?>
@@ -100,7 +100,7 @@ function initialize() {
 				'<br><div><img src="data:image/jpeg;base64,' + value['link_avatar'] + 
 				'" style="height: 50px; width: 6	0px;"/></div><b>DISTANCE: </b>' + 
 				value['distance'] + ' KM<br><b>COST:</b> VND ' + value['cost'] + 
-				'<br><a href="detail_itinerary.php?itinerary_id=' + value['itinerary_id'] + 
+				'<br><a href="reject_itinerary.php?itinerary_id=' + value['itinerary_id'] + 
 				'&driver=' + value['fullname'] + '">View Detail Information	........</a>';
 
 			marker.info = new google.maps.InfoWindow({
