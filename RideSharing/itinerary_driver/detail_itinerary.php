@@ -27,31 +27,31 @@ require_once '../header_master.php';
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Start Place:</label>
-								<label class="col-sm-4 control-label" id="start_address" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="start_address" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">End Place:</label>
-								<label class="col-sm-4 control-label" id="end_address" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="end_address" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Departure Time:</label>
-								<label class="col-sm-4 control-label" id="time" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="time" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Duration:</label>
-								<label class="col-sm-4 control-label" id="duration" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="duration" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Distance:</label>
-								<label class="col-sm-4 control-label" id="distance" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="distance" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Cost:</label>
-								<label class="col-sm-4 control-label" id="cost" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="cost" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Description:</label>
-								<label class="col-sm-4 control-label" id="description" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="description" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-4 col-sm-3">

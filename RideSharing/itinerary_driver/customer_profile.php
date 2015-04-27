@@ -27,19 +27,19 @@ require_once '../header_master.php';
 									</div>
 									<div class="col-lg-7" style="text-align: left;" >
 										<label class="col-lg-3">Customer Name:</label>
-										<label class="col-lg-4" id="customer_name"  style="text-align: left; color:maroon; "></label>
+										<label class="col-lg-4" id="customer_name"  style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
 										<label class="col-lg-3" >Email:</label>
-										<label class="col-lg-4" id="customer_email" style="text-align: left; color:maroon; "></label>
+										<label class="col-lg-4" id="customer_email" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
 										<label class="col-lg-3">Phone Number:</label>
-										<label class="col-lg-4" id="customer_phone" style="text-align: left; color:maroon; "></label>
+										<label class="col-lg-4" id="customer_phone" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
 										<label class="col-lg-3">Personal ID:</label>
-										<label class="col-lg-4" id="customer_id" style="text-align: left; color:maroon; "></label>
+										<label class="col-lg-4" id="customer_id" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
 										<label class="col-lg-7">Do you want to accept this itinerary?</label>
