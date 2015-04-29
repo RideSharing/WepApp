@@ -92,8 +92,19 @@ var map;
 var danang = new google.maps.LatLng(16.054144447313266, 108.20207118988037);
 var geocoder;
 var markers = [];
+var locationPos;
 
 function initialize() {
+	if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            locationPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        }, function() {
+          handleNoGeolocation(true);
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleNoGeolocation(false);
+    }
 	
 	var start_place = new google.maps.places.Autocomplete((document.getElementById('start-place')), { types: ['geocode'] });
 	var end_place = new google.maps.places.Autocomplete((document.getElementById('end-place')), { types: ['geocode'] });
@@ -271,7 +282,7 @@ function initialize() {
 	        processData: false,
 	        data: form_data,         	                
 	        type: 'post',
-success: function(string){
+			success: function(string){
 	        	
                 var getData = $.parseJSON(string);
 
@@ -357,6 +368,23 @@ function setAllMap(map) {
 	    markers[i].setMap(map);
 	  }
 }
+
+function handleNoGeolocation(errorFlag) {
+    if (errorFlag) {
+      var content = 'Error: The Geolocation service failed.';
+    } else {
+      var content = 'Error: Your browser doesn\'t support geolocation.';
+    }
+
+    var options = {
+      map: map,
+      position: new google.maps.LatLng(16.053578, 108.217543),
+      content: content
+    };
+
+    var infowindow = new google.maps.InfoWindow(options);
+    map.setCenter(options.position);
+  }
 
 </script>
 </body>
