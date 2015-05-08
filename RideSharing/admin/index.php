@@ -1,16 +1,34 @@
 <?php
 session_start();
-if (!isset($_SESSION["api_key"])) {
+$_SESSION['staff_api_key'] = '896ab200784ab8bc7c64db8b08d92165';
+//Set language for website
+if (isset($_GET["lang"])) {
+	setcookie('lang', $_GET["lang"], time() + (86400 * 365), "/");
+}
+
+if(isset($_COOKIE['lang'])) {
+	if ($_COOKIE['lang'] == "vi") {
+		require_once 'include/lang_vi.php';
+	} else {
+		require_once 'include/lang_en.php';
+	}
+} else {
+    setcookie('lang', 'en', time() + (86400 * 365), "/");
+}
+
+//Check if user not login
+if (!isset($_SESSION["staff_api_key"])) {
 	header('Location: ajax/login.php');
 	die();
 }
+	
 ?>
 
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 	<head>
 		<meta charset="utf-8">
-		<title>RideSharing - Quản trị hệ thống</title>
+		<title>RideSharing - <?php echo $lang['MAINPAGE_TITLE'] ?></title>
 		<meta name="description" content="description">
 		<meta name="author" content="DevOOPS">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,7 +37,6 @@ if (!isset($_SESSION["api_key"])) {
 		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
 		<link href="plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
-		<link href="plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
 		<link href="plugins/xcharts/xcharts.min.css" rel="stylesheet">
 		<link href="plugins/select2/select2.css" rel="stylesheet">
 		<link href="plugins/justified-gallery/justifiedGallery.css" rel="stylesheet">
@@ -42,7 +59,7 @@ if (!isset($_SESSION["api_key"])) {
 	<div class="devoops-modal">
 		<div class="devoops-modal-header">
 			<div class="modal-header-name">
-				<span>Basic table</span>
+				<span></span>
 			</div>
 			<div class="box-icons">
 				<a class="close-link">
@@ -50,17 +67,19 @@ if (!isset($_SESSION["api_key"])) {
 				</a>
 			</div>
 		</div>
+		<form method="post" action="controller/checkLogin.php">
 		<div class="devoops-modal-inner">
 		</div>
 		<div class="devoops-modal-bottom">
 		</div>
+		</form>
 	</div>
 </div>
 <header class="navbar">
 	<div class="container-fluid expanded-panel">
 		<div class="row">
 			<div id="logo" class="col-xs-12 col-sm-2">
-				<a href="index.html">DevOOPS v2</a>
+				<a href="">Ride Sharing</a>
 			</div>
 			<div id="top-panel" class="col-xs-12 col-sm-10">
 				<div class="row">
@@ -74,63 +93,35 @@ if (!isset($_SESSION["api_key"])) {
 						<a href="#" class="about">about</a>
 						<ul class="nav navbar-nav pull-right panel-menu">
 							<li class="hidden-xs">
-								<a href="index.html" class="modal-link">
-									<i class="fa fa-bell"></i>
-									<span class="badge">7</span>
-								</a>
+								<a href="index.php?lang=en"><img src="img/en.png" /></a>
 							</li>
 							<li class="hidden-xs">
-								<a class="ajax-link" href="ajax/calendar.html">
-									<i class="fa fa-calendar"></i>
-									<span class="badge">7</span>
-								</a>
-							</li>
-							<li class="hidden-xs">
-								<a href="ajax/page_messages.html" class="ajax-link">
-									<i class="fa fa-envelope"></i>
-									<span class="badge">7</span>
-								</a>
+								<a href="index.php?lang=vi"><img src="img/vi.png" /></a>
 							</li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
 									<div class="avatar">
-										<img src="img/avatar.jpg" class="img-circle" alt="avatar" />
+										<img src="<?php echo isset($_SESSION['StaffProfile']['link_avatar'])?'data:image/jpeg;base64,'.$_SESSION['StaffProfile']['link_avatar']:'img/avatar.jpg' ?>" class="img-circle" alt="avatar" />
 									</div>
 									<i class="fa fa-angle-down pull-right"></i>
 									<div class="user-mini pull-right">
-										<span class="welcome">Welcome,</span>
-										<span>Jane Devoops</span>
+										<span class="welcome">Xin chào,</span>
+										<span>
+										<?php 
+											if (isset($_SESSION["StaffProfile"]) && isset($_SESSION["StaffProfile"]["fullname"])) {
+												echo $_SESSION["StaffProfile"]["fullname"];
+											} else {
+												echo "Khách";
+											}
+										?>
+										</span>
 									</div>
 								</a>
 								<ul class="dropdown-menu">
 									<li>
-										<a href="#">
+										<a href="controller/staff.php?act=viewprofile">
 											<i class="fa fa-user"></i>
-											<span>Profile</span>
-										</a>
-									</li>
-									<li>
-										<a href="ajax/page_messages.html" class="ajax-link">
-											<i class="fa fa-envelope"></i>
-											<span>Messages</span>
-										</a>
-									</li>
-									<li>
-										<a href="ajax/gallery_simple.html" class="ajax-link">
-											<i class="fa fa-picture-o"></i>
-											<span>Albums</span>
-										</a>
-									</li>
-									<li>
-										<a href="ajax/calendar.html" class="ajax-link">
-											<i class="fa fa-tasks"></i>
-											<span>Tasks</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-cog"></i>
-											<span>Settings</span>
+											<span>Thông tin cá nhân</span>
 										</a>
 									</li>
 									<li>
@@ -161,6 +152,12 @@ if (!isset($_SESSION["api_key"])) {
 					</a>
 				</li>
 				<li class="dropdown">
+					<a href="ajax/staff_list.php" class="ajax-link">
+						<i class="fa fa-bar-chart-o"></i>
+						<span class="hidden-xs">Quản lí nhân viên</span>
+					</a>
+				</li>
+				<li class="dropdown">
 					<a href="ajax/user_list.php" class="ajax-link">
 						<i class="fa fa-bar-chart-o"></i>
 						<span class="hidden-xs">Quản lí người dùng</span>
@@ -175,7 +172,7 @@ if (!isset($_SESSION["api_key"])) {
 				<li class="dropdown">
 					<a href="ajax/map.php" class="ajax-link">
 						<i class="fa fa-bar-chart-o"></i>
-						<span class="hidden-xs">Bản đồ</span>
+						<span class="hidden-xs">Theo dõi hành trình</span>
 					</a>
 				</li>
 				<li>
@@ -196,12 +193,8 @@ if (!isset($_SESSION["api_key"])) {
 		<div id="content" class="col-xs-12 col-sm-10">
 			<div id="about">
 				<div class="about-inner">
-					<h4 class="page-header">Open-source admin theme for you</h4>
-					<p>DevOOPS team</p>
-					<p>Homepage - <a href="http://devoops.me" target="_blank">http://devoops.me</a></p>
-					<p>Email - <a href="mailto:devoopsme@gmail.com">devoopsme@gmail.com</a></p>
-					<p>Twitter - <a href="http://twitter.com/devoopsme" target="_blank">http://twitter.com/devoopsme</a></p>
-					<p>Donate - BTC 123Ci1ZFK5V7gyLsyVU36yPNWSB5TDqKn3</p>
+					<h4 class="page-header">RideSharing - System management</h4>
+					<p>RideSharing team</p>
 				</div>
 			</div>
 			<div class="preloader">
@@ -223,8 +216,29 @@ if (!isset($_SESSION["api_key"])) {
 <script src="plugins/justified-gallery/jquery.justifiedGallery.min.js"></script>
 <script src="plugins/tinymce/tinymce.min.js"></script>
 <script src="plugins/tinymce/jquery.tinymce.min.js"></script>
-<script src="https://cdn.firebase.com/js/client/2.2.3/firebase.js"></script>
 <!-- All functions for this theme + document.ready processing -->
 <script src="js/devoops.js"></script>
+<!--Reference the SignalR library. -->
+<script src="js/jquery.signalR-2.0.3.min.js"></script>
+<!--Reference the autogenerated SignalR hub script. -->
+<script src="http://rideshare.tk:8080/signalr/hubs"></script>
+<script>
+$(document).ready(function () {
+	//Set the hubs URL for the connection
+	$.connection.hub.url = "http://rideshare.tk:8080/signalr";
+
+	// Declare a proxy to reference the hub.
+	chat = $.connection.myHub;
+
+	$.connection.hub.logging = true;
+
+	$('#locked-screen').on('click', function (e) {
+		e.preventDefault();
+		$('body').addClass('body-screensaver');
+		$('#screensaver').addClass("show");
+		ScreenSaver();
+	});
+});
+</script>
 </body>
 </html>

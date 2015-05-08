@@ -6,46 +6,8 @@
 	Dynamically load plugin scripts
 ---------------------------------------------*/
 //
-// Dynamically load Fullcalendar Plugin Script
-// homepage: http://arshaw.com/fullcalendar
-// require moment.js
-//
-function LoadCalendarScript(callback){
-	function LoadFullCalendarScript(){
-		if(!$.fn.fullCalendar){
-			$.getScript('plugins/fullcalendar/fullcalendar.js', callback);
-		}
-		else {
-			if (callback && typeof(callback) === "function") {
-				callback();
-			}
-		}
-	}
-	if (!$.fn.moment){
-		$.getScript('plugins/moment/moment.min.js', LoadFullCalendarScript);
-	}
-	else {
-		LoadFullCalendarScript();
-	}
-}
-//
-// Dynamically load  OpenStreetMap Plugin
-// homepage: http://openlayers.org
-//
-function LoadOpenLayersScript(callback){
-	if (!$.fn.OpenLayers){
-		$.getScript('http://www.openlayers.org/api/OpenLayers.js', callback);
-	}
-	else {
-		if (callback && typeof(callback) === "function") {
-			callback();
-		}
-	}
-}
-//
 //  Dynamically load  jQuery Timepicker plugin
 //  homepage: http://trentrichardson.com/examples/timepicker/
-//
 function LoadTimePickerScript(callback){
 	if (!$.fn.timepicker){
 		$.getScript('plugins/jquery-ui-timepicker-addon/jquery-ui-timepicker-addon.min.js', callback);
@@ -1285,14 +1247,10 @@ function drawGoogleChart(chart_data, chart_options, element, chart_type) {
 function DrawKnob(elem){
 	elem.knob({
 		change : function (value) {
-			//console.log("change : " + value);
 		},
 		release : function (value) {
-			//console.log(this.$.attr('value'));
-			console.log("release : " + value);
 		},
 		cancel : function () {
-			console.log("cancel : ", this);
 		},
 		draw : function () {
 			// "tron" case
@@ -1896,7 +1854,6 @@ function MorrisChart2(){
 		labels: ['Y', 'Z', 'M']
 		})
 		.on('click', function(i, row){
-			console.log(i, row);
 		});
 }
 //
@@ -2145,187 +2102,6 @@ function DrawAllCharts(){
 	drawGoogleChart(chart8_data, chart8_options, chart8_element, chart8_type);
 }
 /*-------------------------------------------
-	Demo graphs for xCharts page (charts_xcharts.html)
----------------------------------------------*/
-//
-// Graph1 created in element with id = xchart-1
-//
-function xGraph1(){
-	var tt = document.createElement('div'),
-	leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),
-	topOffset = -32;
-	tt.className = 'ex-tooltip';
-	document.body.appendChild(tt);
-	var data = {
-		"xScale": "time",
-		"yScale": "linear",
-		"main": [
-			{
-			"className": ".xchart-class-1",
-			"data": [
-				{
-				  "x": "2012-11-05",
-				  "y": 6
-				},
-				{
-				  "x": "2012-11-06",
-				  "y": 6
-				},
-				{
-				  "x": "2012-11-07",
-				  "y": 8
-				},
-				{
-				  "x": "2012-11-08",
-				  "y": 3
-				},
-				{
-				  "x": "2012-11-09",
-				  "y": 4
-				},
-				{
-				  "x": "2012-11-10",
-				  "y": 9
-				},
-				{
-				  "x": "2012-11-11",
-				  "y": 6
-				},
-				{
-				  "x": "2012-11-12",
-				  "y": 16
-				},
-				{
-				  "x": "2012-11-13",
-				  "y": 4
-				},
-				{
-				  "x": "2012-11-14",
-				  "y": 9
-				},
-				{
-				  "x": "2012-11-15",
-				  "y": 2
-				}
-			]
-			}
-		]
-	};
-	var opts = {
-		"dataFormatX": function (x) { return d3.time.format('%Y-%m-%d').parse(x); },
-		"tickFormatX": function (x) { return d3.time.format('%A')(x); },
-		"mouseover": function (d, i) {
-			var pos = $(this).offset();
-			$(tt).text(d3.time.format('%A')(d.x) + ': ' + d.y)
-				.css({top: topOffset + pos.top, left: pos.left + leftOffset})
-				.show();
-		},
-		"mouseout": function (x) {
-			$(tt).hide();
-		}
-	};
-	var myChart = new xChart('line-dotted', data, '#xchart-1', opts);
-}
-//
-// Graph2 created in element with id = xchart-2
-//
-function xGraph2(){
-	var data = {
-	"xScale": "ordinal",
-	"yScale": "linear",
-	"main": [
-		{
-		"className": ".xchart-class-2",
-		"data": [
-			{
-			  "x": "Apple",
-			  "y": 575
-			},
-			{
-			  "x": "Facebook",
-			  "y": 163
-			},
-			{
-			  "x": "Microsoft",
-			  "y": 303
-			},
-			{
-			  "x": "Cisco",
-			  "y": 121
-			},
-			{
-			  "x": "Google",
-			  "y": 393
-			}
-		]
-		}
-		]
-	};
-	var myChart = new xChart('bar', data, '#xchart-2');
-}
-//
-// Graph3 created in element with id = xchart-3
-//
-function xGraph3(){
-	var data = {
-		"xScale": "time",
-		"yScale": "linear",
-		"type": "line",
-		"main": [
-		{
-			"className": ".xchart-class-3",
-			"data": [
-				{
-				  "x": "2012-11-05",
-				  "y": 1
-				},
-				{
-				  "x": "2012-11-06",
-				  "y": 6
-				},
-				{
-				  "x": "2012-11-07",
-				  "y": 13
-				},
-				{
-				  "x": "2012-11-08",
-				  "y": -3
-				},
-				{
-				  "x": "2012-11-09",
-				  "y": -4
-				},
-				{
-				  "x": "2012-11-10",
-				  "y": 9
-				},
-				{
-				  "x": "2012-11-11",
-				  "y": 6
-				},
-				{
-				  "x": "2012-11-12",
-				  "y": 7
-				},
-				{
-				  "x": "2012-11-13",
-				  "y": -2
-				},
-				{
-				  "x": "2012-11-14",
-				  "y": -7
-				}
-			]
-			}
-		]
-	};
-	var opts = {
-		"dataFormatX": function (x) { return d3.time.format('%Y-%m-%d').parse(x); },
-		"tickFormatX": function (x) { return d3.time.format('%A')(x); }
-	};
-	var myChart = new xChart('line', data, '#xchart-3', opts);
-}
-/*-------------------------------------------
 	Demo graphs for CoinDesk page (charts_coindesk.html)
 ---------------------------------------------*/
 //
@@ -2538,16 +2314,6 @@ function SmallChangeVal(val) {
 	return [result];
 }
 //
-// Make array of random data
-//
-function SparklineTestData(){
-	var arr = [];
-	for (var i=1; i<9; i++){
-		arr.push([Math.floor(1000*Math.random())])
-	}
-	return arr;
-}
-//
 // Redraw Knob charts on Dashboard (panel- servers)
 //
 function RedrawKnob(elem){
@@ -2569,127 +2335,6 @@ function SparklineLoop(){
 	SparkLineDrawBarGraph($('#sparkline-1'), sparkline_arr_1.map(SmallChangeVal));
 	SparkLineDrawBarGraph($('#sparkline-2'), sparkline_arr_2.map(SmallChangeVal), '#7BC5D3');
 	SparkLineDrawBarGraph($('#sparkline-3'), sparkline_arr_3.map(SmallChangeVal), '#B25050');
-}
-//
-// Draw Morris charts on Dashboard (panel- Statistics - Planning + 3 donuts)
-//
-function MorrisDashboard(){
-	Morris.Line({
-		element: 'stat-graph',
-		data: [
-			{"period": "2014-01", "Win8": 13.4, "Win7": 55.3, 'Vista': 1.5, 'NT': 0.3, 'XP':11, 'Linux': 4.9, 'Mac': 9.6 , 'Mobile':4},
-			{"period": "2013-12", "Win8": 10, "Win7": 55.9, 'Vista': 1.5, 'NT': 3.1, 'XP':11.6, 'Linux': 4.8, 'Mac': 9.2 , 'Mobile':3.8},
-			{"period": "2013-11", "Win8": 8.6, "Win7": 56.4, 'Vista': 1.6, 'NT': 3.7, 'XP':11.7, 'Linux': 4.8, 'Mac': 9.6 , 'Mobile':3.7},
-			{"period": "2013-10", "Win8": 9.9, "Win7": 56.7, 'Vista': 1.6, 'NT': 1.4, 'XP':12.4, 'Linux': 4.9, 'Mac': 9.6 , 'Mobile':3.3},
-			{"period": "2013-09", "Win8": 10.2, "Win7": 56.8, 'Vista': 1.6, 'NT': 0.4, 'XP':13.5, 'Linux': 4.8, 'Mac': 9.3 , 'Mobile':3.3},
-			{"period": "2013-08", "Win8": 9.6, "Win7": 55.9, 'Vista': 1.7, 'NT': 0.4, 'XP':14.7, 'Linux': 5, 'Mac': 9.2 , 'Mobile':3.4},
-			{"period": "2013-07", "Win8": 9, "Win7": 56.2, 'Vista': 1.8, 'NT': 0.4, 'XP':15.8, 'Linux': 4.9, 'Mac': 8.7 , 'Mobile':3.2},
-			{"period": "2013-06", "Win8": 8.6, "Win7": 56.3, 'Vista': 2, 'NT': 0.4, 'XP':15.4, 'Linux': 4.9, 'Mac': 9.1 , 'Mobile':3.2},
-			{"period": "2013-05", "Win8": 7.9, "Win7": 56.4, 'Vista': 2.1, 'NT': 0.4, 'XP':15.7, 'Linux': 4.9, 'Mac': 9.7 , 'Mobile':2.6},
-			{"period": "2013-04", "Win8": 7.3, "Win7": 56.4, 'Vista': 2.2, 'NT': 0.4, 'XP':16.4, 'Linux': 4.8, 'Mac': 9.7 , 'Mobile':2.2},
-			{"period": "2013-03", "Win8": 6.7, "Win7": 55.9, 'Vista': 2.4, 'NT': 0.4, 'XP':17.6, 'Linux': 4.7, 'Mac': 9.5 , 'Mobile':2.3},
-			{"period": "2013-02", "Win8": 5.7, "Win7": 55.3, 'Vista': 2.4, 'NT': 0.4, 'XP':19.1, 'Linux': 4.8, 'Mac': 9.6 , 'Mobile':2.2},
-			{"period": "2013-01", "Win8": 4.8, "Win7": 55.3, 'Vista': 2.6, 'NT': 0.5, 'XP':19.9, 'Linux': 4.8, 'Mac': 9.3 , 'Mobile':2.2}
-		],
-		xkey: 'period',
-		ykeys: ['Win8', 'Win7','Vista','NT','XP', 'Linux', 'Mac', 'Mobile'],
-		labels: ['Win8', 'Win7','Vista','NT','XP', 'Linux', 'Mac', 'Mobile']
-	});
-	Morris.Donut({
-		element: 'morris_donut_1',
-		data: [
-			{value: 70, label: 'pay', formatted: 'at least 70%' },
-			{value: 15, label: 'client', formatted: 'approx. 15%' },
-			{value: 10, label: 'buy', formatted: 'approx. 10%' },
-			{value: 5, label: 'hosted', formatted: 'at most 5%' }
-		],
-		formatter: function (x, data) { return data.formatted; }
-	});
-	Morris.Donut({
-		element: 'morris_donut_2',
-		data: [
-			{value: 20, label: 'office', formatted: 'current' },
-			{value: 35, label: 'store', formatted: 'approx. 35%' },
-			{value: 20, label: 'shop', formatted: 'approx. 20%' },
-			{value: 25, label: 'cars', formatted: 'at most 25%' }
-		],
-		formatter: function (x, data) { return data.formatted; }
-	});
-	Morris.Donut({
-		element: 'morris_donut_3',
-		data: [
-			{value: 17, label: 'current', formatted: 'current' },
-			{value: 22, label: 'week', formatted: 'last week' },
-			{value: 10, label: 'month', formatted: 'last month' },
-			{value: 25, label: 'period', formatted: 'period' },
-			{value: 25, label: 'year', formatted: 'this year' }
-		],
-		formatter: function (x, data) { return data.formatted; }
-	});
-	Morris.Bar({
-		element: 'planning-chart-1',
-		data: [
-			{x: 'Network upgrade', y: 179459},
-			{x: 'Improved power equipment', y: 59411},
-			{x: 'New ticket system', y: 14906},
-			{x: 'Storage area network', y: 250000},
-			{x: 'New optical channels', y: 22359},
-			{x: 'Load balance system', y: 33950}
-		],
-		xkey: 'x',
-		ykeys: ['y'],
-		labels: ['Y'],
-		barColors: function (row, series, type) {
-			if (type === 'bar') {
-				var red = Math.ceil(255 * row.y / this.ymax);
-				return 'rgb(' + red + ',0,0)';
-			}
-			else {
-				return '#000';
-			}
-		}
-	});
-	Morris.Bar({
-		element: 'planning-chart-2',
-		data: [
-			{x: "2015-01", y: 179459},
-			{x: "2015-02", y: 149459},
-			{x: "2015-03", y: 13849},
-			{x: "2015-04", y: 12349},
-			{x: "2015-05", y: 200019},
-			{x: "2015-06", y: 59459},
-			{x: "2015-07", y: 93459},
-			{x: "2015-08", y: 133044},
-			{x: "2015-09", y: 9244},
-			{x: "2015-10", y: 54144},
-			{x: "2015-11", y: 19954},
-			{x: "2015-11", y: 38452}
-		],
-		xkey: 'x',
-		ykeys: ['y'],
-		labels: ['Spending'],
-		barColors: function (row, series, type) {
-			if (type === 'bar') {
-				var red = Math.ceil(255 * row.y / this.ymax);
-				return 'rgb(0,' + red + ',0)';
-			}
-			else {
-				return '#000';
-			}
-		}
-	});
-	Morris.Donut({
-		element: 'planning-chart-3',
-		data: [
-			{label: 'Network upgrade', value: 179459},
-			{label: 'Improved power equipment', value: 59411},
-			{label: 'New ticket system', value: 14906},
-			{label: 'Storage area network', value: 250000},
-			{label: 'New optical channels', value: 22359},
-			{label: 'Load balance system', value: 33950}
-		],
-		colors: ['#CCC', '#DDD', '#BBB']
-	});
 }
 //
 // Draw SparkLine example Charts for Dashboard (table- Tickers)
@@ -2724,46 +2369,6 @@ function DrawKnobDashboard(){
 		srv_monitoring_selectors.forEach(RedrawKnob);
 	}, 3000);
 }
-//
-// Draw Springy graphs (Network map) on Dashboard page
-//
-function SpringyNetmap(){
-	var graph = new Springy.Graph();
-	var core1 = graph.newNode({label: 'Network core 1 (Cisco 3750G-48PS)'});
-	var core2 = graph.newNode({label: 'Network core 2 (Cisco 3750G-48PS)'});
-	var srv1 = graph.newNode({label: 'Server switch 1 (Cisco 3750G-48TS)'});
-	var srv2 = graph.newNode({label: 'Server switch 2 (Cisco 3750G-48TS)'});
-	var pabx1 = graph.newNode({label: 'PABX switch 1 (Cisco 3750G-48TS)'});
-	var pabx2 = graph.newNode({label: 'PABX switch 2 (Cisco 3750G-48TS)'});
-	var router1 = graph.newNode({label: 'Router 1 (Cisco 3945E)'});
-	var router2 = graph.newNode({label: 'Router 2 (Cisco 3945E)'});
-	graph.newEdge(core1, core2, {color: '#00A0B0'});
-	graph.newEdge(core2, core1, {color: '#6A4A3C'});
-	graph.newEdge(core1, srv1, {color: '#CC333F'});
-	graph.newEdge(core2, srv1, {color: '#CC333F'});
-	graph.newEdge(core1, srv2, {color: '#EB6841'});
-	graph.newEdge(core2, srv2, {color: '#EB6841'});
-	graph.newEdge(srv1, srv2, {color: '#EDC951'});
-	graph.newEdge(srv2, srv1, {color: '#EDC951'});
-	graph.newEdge(pabx1, core1, {color: '#7DBE3C'});
-	graph.newEdge(pabx1, core2, {color: '#7DBE3C'});
-	graph.newEdge(pabx2, core1, {color: '#000000'});
-	graph.newEdge(pabx2, core2, {color: '#000000'});
-	graph.newEdge(router1, core1, {color: '#00A0B0'});
-	graph.newEdge(router1, core2, {color: '#00A0B0'});
-	graph.newEdge(router2, core1, {color: '#6A4A3C'});
-	graph.newEdge(router2, core2, {color: '#6A4A3C'});
-	graph.newEdge(pabx1, pabx2, {color: '#CC333F'});
-	graph.newEdge(pabx2, pabx1, {color: '#CC333F'});
-	graph.newEdge(router1, router2, {color: '#EB6841'});
-	graph.newEdge(router2, router1, {color: '#EB6841'});
-	$('#springy-demo').springy({
-		graph: graph,
-		nodeSelected: function(node){
-			console.log('Node selected: ' + JSON.stringify(node.data));
-		}
-	});
-}
 /*-------------------------------------------
 	Function for File upload page (form_file_uploader.html)
 ---------------------------------------------*/
@@ -2786,88 +2391,6 @@ function FileUpload(){
 		validation: {
 			allowedExtensions: ['jpeg', 'jpg', 'gif', 'png']
 		}
-	});
-}
-/*-------------------------------------------
-	Function for OpenStreetMap page (maps.html)
----------------------------------------------*/
-//
-// Load GeoIP JSON data and draw 3 maps
-//
-function LoadTestMap(){
-	$.getJSON("http://www.telize.com/geoip?callback=?",
-		function(json) {
-			var osmap = new OpenLayers.Layer.OSM("OpenStreetMap");//создание слоя карты
-			var googlestreets = new OpenLayers.Layer.Google("Google Streets", {numZoomLevels: 22,visibility: false});
-			var googlesattelite = new OpenLayers.Layer.Google( "Google Sattelite", {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22});
-			var map1_layers = [googlestreets,osmap, googlesattelite];
-			// Create map in element with ID - map-1
-			var map1 = drawMap(json.longitude, json.latitude, "map-1", map1_layers);
-			$("#map-1").resize(function(){ setTimeout(map1.updateSize(), 500); });
-			// Create map in element with ID - map-2
-			var osmap1 = new OpenLayers.Layer.OSM("OpenStreetMap");//создание слоя карты
-			var map2_layers = [osmap1];
-			var map2 = drawMap(json.longitude, json.latitude, "map-2", map2_layers);
-			$("#map-2").resize(function(){ setTimeout(map2.updateSize(), 500); });
-			// Create map in element with ID - map-3
-			var sattelite = new OpenLayers.Layer.Google( "Google Sattelite", {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22});
-			var map3_layers = [sattelite];
-			var map3 = drawMap(json.longitude, json.latitude, "map-3", map3_layers);
-			$("#map-3").resize(function(){ setTimeout(map3.updateSize(), 500); });
-		}
-	);
-}
-/*-------------------------------------------
-	Function for Fullscreen Map page (map_fullscreen.html)
----------------------------------------------*/
-//
-// Create Fullscreen Map
-//
-function FullScreenMap(){
-	$.getJSON("http://www.telize.com/geoip?callback=?",
-		function(json) {
-			var osmap = new OpenLayers.Layer.OSM("OpenStreetMap");//создание слоя карты
-			var googlestreets = new OpenLayers.Layer.Google("Google Streets", {numZoomLevels: 22,visibility: false});
-			var googlesattelite = new OpenLayers.Layer.Google( "Google Sattelite", {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22});
-			var map1_layers = [googlestreets,osmap, googlesattelite];
-			var map_fs = drawMap(json.longitude, json.latitude, "full-map", map1_layers);
-		}
-	);
-}
-/*-------------------------------------------
-	Function for get stock from Yahoo finance to dashboard page
----------------------------------------------*/
-//
-// Make stock dashboard page
-//
-function CreateStockPage(){
-	var yqlURL="http://query.yahooapis.com/v1/public/yql?q=";
-	var dataFormat="&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-	$(function() { //Load jQueryUI DatePicker by class name
-		$( ".datePick" ).datepicker({dateFormat: 'yy-mm-dd'} );
-	});
-	$("#submit").click(function() {
-		var symbol = $("#txtSymbol").val();
-		var startDate=$("#startDate").val();
-		var endDate=$("#endDate").val();
-		var realtimeQ = yqlURL+"select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22" + symbol + "%22)%0A%09%09&"+ dataFormat;
-		var historicalQ = yqlURL+"select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20%3D%20%22"+ symbol +"%22%20and%20startDate%20%3D%20%22"+ startDate +"%22%20and%20endDate%20%3D%20%22"+ endDate +"%22"+ dataFormat;
-		$(function() {
-			$.getJSON(realtimeQ, function(json) {//YQL Request
-				$('#symbol').text(json.query.results.quote.Name);//Assign quote.Param to span tag
-				$('#bidRealtime').text(json.query.results.quote.BidRealtime);
-			});
-		}); 
-		$(function() {
-			$.getJSON(historicalQ, function(json) {
-				$.each(json.query.results.quote, function(i, quote) {//loop results.quote object
-					$("#date").append('<span>' + quote.Date + '</span');//create span for each record
-				});
-				$.each(json.query.results.quote, function(i, quote) { //new each statement is needed
-					$("#closeValue").append('<span>' + quote.Close + '</span');
-				});
-			});
-		});
 	});
 }
 /*-------------------------------------------
@@ -3309,6 +2832,7 @@ function DrawCalendar(){
 function DrawFullCalendar(){
 	LoadCalendarScript(DrawCalendar);
 }
+
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 //
@@ -3416,12 +2940,6 @@ $(document).ready(function () {
 			var content = $(this).closest('div.box');
 			content.remove();
 		});
-	$('#locked-screen').on('click', function (e) {
-		e.preventDefault();
-		$('body').addClass('body-screensaver');
-		$('#screensaver').addClass("show");
-		ScreenSaver();
-	});
 	$('body').on('click', 'a.close-link', function(e){
 		e.preventDefault();
 		CloseModalBox();
@@ -3450,10 +2968,10 @@ $(document).ready(function () {
 		}
 	});
 	$('#screen_unlock').on('mouseover', function(){
-		var header = 'Enter current username and password';
-		var form = $('<div class="form-group"><label class="control-label">Username</label><input type="text" class="form-control" name="username" /></div>'+
-					'<div class="form-group"><label class="control-label">Password</label><input type="password" class="form-control" name="password" /></div>');
-		var button = $('<div class="text-center"><a href="index.html" class="btn btn-primary">Unlock</a></div>');
+		var header = 'Nhập email và mật khẩu';
+		var form = $('<div class="form-group"><label class="control-label">Email</label><input type="text" class="form-control" name="email" /></div>'+
+					'<div class="form-group"><label class="control-label">Mật khẩu</label><input type="password" class="form-control" name="password" /></div>');
+		var button = $('<div class="text-center"><button type="submit" class="btn btn-primary">Đăng nhập</button></div>');
 		OpenModalBox(header, form, button);
 	});
 	$('.about').on('click', function(){

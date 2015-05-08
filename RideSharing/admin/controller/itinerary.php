@@ -1,6 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION["api_key"])) {
+require_once '../include/Config.php';
+if (!isset($_SESSION["staff_api_key"])) {
 	header('Location: ../ajax/login.php');
 	die();
 }
@@ -10,13 +11,12 @@ if ((isset($_GET['act']) && isset($_GET['itinerary_id'])) || (isset($_POST['act'
 	$itinerary_id = !isset($_GET['act'])?$_POST['itinerary_id']:$_GET['itinerary_id'];
 
 	if ($act == 'view') {
-		$api_key = $_SESSION["api_key"];
+		$api_key = $_SESSION["staff_api_key"];
 
 		$ch = curl_init();
 
-		curl_setopt($ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/staff/itinerary/".$itinerary_id);
+		curl_setopt($ch, CURLOPT_URL, REST_HOST."/RESTFul/v1/staff/itinerary/".$itinerary_id);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		//curl_setopt($ch,CURLOPT_HTTPHEADER,array('Authorization: '.$api_key));
 
 		// execute the request
 		$result = curl_exec($ch);
@@ -49,10 +49,10 @@ if ((isset($_GET['act']) && isset($_GET['itinerary_id'])) || (isset($_POST['act'
 
 		$ch = curl_init();
 
-		curl_setopt($ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/staff/itinerary/".$itinerary_id);
+		curl_setopt($ch, CURLOPT_URL, REST_HOST."/RESTFul/v1/staff/itinerary/".$itinerary_id);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-		curl_setopt($ch,CURLOPT_HTTPHEADER,array('Authorization: '.$_SESSION['api_key']));
+		curl_setopt($ch,CURLOPT_HTTPHEADER,array('Authorization: '.$_SESSION['staff_api_key']));
 		curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
 
 		// execute the request
@@ -78,7 +78,7 @@ if ((isset($_GET['act']) && isset($_GET['itinerary_id'])) || (isset($_POST['act'
 		echo "quay len";
 		//Initial curl
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/staff/itinerary/".$itinerary_id);
+		curl_setopt($ch, CURLOPT_URL, REST_HOST."/RESTFul/v1/staff/itinerary/".$itinerary_id);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
 		//curl_setopt($ch,CURLOPT_HTTPHEADER,array('Authorization: '.$_SESSION['api_key']));
@@ -91,7 +91,7 @@ if ((isset($_GET['act']) && isset($_GET['itinerary_id'])) || (isset($_POST['act'
 
 		$json = json_decode($result);
 
-		echo $_SESSION['api_key'];
+		echo $_SESSION['staff_api_key'];
 		print_r($itinerary_id);
 		//echo $ch;
 		print_r($json);

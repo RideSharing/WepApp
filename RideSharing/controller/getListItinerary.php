@@ -16,7 +16,7 @@ if(isset($_POST{'end_place'})){
 
 $ch = curl_init();
 
-curl_setopt($ch,CURLOPT_URL,IP_ADDRESS."/RESTFul/v1/itineraries?$start_place&$end_place");
+curl_setopt($ch,CURLOPT_URL,IP_ADDRESS."/RESTFul/v1/itineraries?start_address_lat=16.0723893&start_address_long=108.2341577");
 
 curl_setopt( $ch,CURLOPT_RETURNTRANSFER,1);
 

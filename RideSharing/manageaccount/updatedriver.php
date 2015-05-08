@@ -6,6 +6,7 @@ if (! isset ( $_SESSION ["api_key"] )) {
 }
 require_once '../header_master.php';
 ?>
+<title>Update Driver</title>
 	<!-- Header -->
 	<header>
 		<div class="container" style="padding-top: 100px">
@@ -15,7 +16,7 @@ require_once '../header_master.php';
 						<!-- form -->
 						<form class="form-horizontal">
 							<fieldset>
-								<legend>Profile</legend>
+								<legend>Driver Information</legend>
 								<div class="form-group">
 									<label class="col-sm-5 control-label">Your Avatar</label>
 									<div class="col-sm-3" style="width: 180px; height: 150px;">
@@ -43,6 +44,9 @@ require_once '../header_master.php';
 									<div class="col-sm-offset-5 col-sm-1">
 										<input class="btn btn-primary btn-block" type="button"
 											name="request" id="request" value="Request">
+									</div>
+									<div class="col-sm-2">
+										<a class="btn btn-primary btn-block" href="#">Manage Vehicles</a>
 									</div>
 									<div class="col-sm-1">
 										<a class="btn btn-primary btn-block" href="../manageaccount">Back</a>

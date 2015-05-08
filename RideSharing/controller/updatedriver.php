@@ -11,7 +11,7 @@ $getreq = array (
 
 $ch = curl_init ();
 
-curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/customer_accept_itinerary" );
+curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/driver" );
 
 curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 

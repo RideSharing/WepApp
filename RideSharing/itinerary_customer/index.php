@@ -174,13 +174,17 @@ function initialize() {
 	//Set marker on MAP
 	setAllMap(map);
 	  
-	google.maps.event.addListener(start_place, 'place_changed', function() {
+	google.maps.event.addListener(start_place, 'place_changed', function() {	
 
 		var form_data = new FormData();
+		var start = "123";
+		
+		start = codeAddress($('#start-place').val());
+		alert(start);
+		
 		
 		form_data.append('start_place',$('#start-place').val());
 		form_data.append('end_place',$('#end-place').val());
-		
 		
 		$.ajax({
 			url: "../controller/getListItinerary.php", // point to server-side PHP script 
@@ -270,6 +274,7 @@ function initialize() {
 	google.maps.event.addListener(end_place, 'place_changed', function() {
 
 		var form_data = new FormData();
+		
 
 		form_data.append('start_place',$('#start-place').val());
 		form_data.append('end_place',$('#end-place').val());
@@ -385,6 +390,21 @@ function handleNoGeolocation(errorFlag) {
     var infowindow = new google.maps.InfoWindow(options);
     map.setCenter(options.position);
   }
+
+function codeAddress(address) {
+	  
+	  geocoder.geocode( {'address': address}, function(results, status) {
+	    if (status == google.maps.GeocoderStatus.OK) {
+		    
+	    	return results[0].geometry.location+"";
+	      
+	    } else {
+		    
+	      showError('Geocode was not successful for the following reason: ' + status);
+	      
+	    }
+	  });
+	}
 
 </script>
 </body>
