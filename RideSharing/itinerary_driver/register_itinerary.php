@@ -1,4 +1,5 @@
 <?php
+include_once '../controller/Constant.php';
 session_start ();
 if (! isset ( $_SESSION ["api_key"] ) || $_SESSION ['driver'] == 'customer') {
 	header ( 'Location: ../' );
@@ -58,6 +59,40 @@ require_once '../header_master.php';
 										placeholder="Cost (VND)">
 								</div>
 								<div class="form-group">
+									<label class="col-sm-5 control-label">Choose your vehicle:</label>
+									<div>
+									<?php
+									$api_key = $_SESSION ["api_key"];
+									$ch = curl_init ();
+									
+									curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/vehicles" );
+									curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+									curl_setopt ( $ch, CURLOPT_HTTPHEADER, array (
+											'Authorization: ' . $api_key 
+									) );
+									curl_setopt($ch,CURLOPT_CUSTOMREQUEST, "GET");
+									
+									// execute the request
+									$result = curl_exec ( $ch );
+									
+									// close curl resource to free up system resources
+									curl_close ( $ch );
+									
+									$json = json_decode ( $result );
+									
+									$res = $json->{'vehicles'};
+									
+									?>
+									<select id=list_vehicle class="selectpicker">
+										<?php for($i = 0; $i < sizeof($res); $i++){
+											$value = $res[$i];
+										?>
+											<option value = "<?php echo $value->{'vehicle_id'};?>"><?php echo $value->{'type'}; echo " - "; echo $value->{'license_plate'};?></option>
+										<?php }?>
+									</select>
+									</div>
+								</div>
+								<div class="form-group">
 									<input class="btn btn-primary btn-block" type="button"
 										name="register_itinerary" id="register_iti" value="Register">
 								</div>
@@ -76,8 +111,8 @@ require_once '../header_master.php';
 $('document').ready(function(){
 	$("#register_iti").click(function(){
 
+		var e = document.getElementById("list_vehicle");
 		var form_data = new FormData();
-		
 		form_data.append("start_address",$("#start_place").val());
 		form_data.append("start_address_lat",$("#start_place_lat").val());
 		form_data.append("start_address_long",$("#start_place_lng").val());
@@ -89,6 +124,7 @@ $('document').ready(function(){
 		form_data.append("distance",$("#distance").val());
 		form_data.append("cost",$("#cost").val());
 		form_data.append("description",$("#description").val());
+		form_data.append("vehicle_id",document.getElementById("list_vehicle"));
 
 		$.ajax({
 			url: '../controller/register_itinerary.php', // point to server-side PHP script 
@@ -139,7 +175,8 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var rendererOptions = {
 		
-		  suppressMarkers : true
+		  suppressMarkers : true,
+		  draggable: true
 		  
 		};
 
@@ -282,6 +319,10 @@ function initialize() {
 	      
 	    });
 
+	google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
+	    computeTotalDistance(directionsDisplay.getDirections());
+	  });
+
 	/*
 	 * google.maps.event.addListener(map,'center_changed',function() { // 3
 	 * seconds after the center of the map has changed, pan back to the marker
@@ -409,7 +450,7 @@ function showSteps(directionResult) {
 
 	  var myroute = result.routes[0];
 	  $('#distance').val(myroute.legs[0].distance.value/1000.0);
-	  $('#duration').val(myroute.legs[0].duration.value/60.0);
+	  $('#duration').val(Math.ceil(myroute.legs[0].duration.value/60.0));
 	  
 	}
 

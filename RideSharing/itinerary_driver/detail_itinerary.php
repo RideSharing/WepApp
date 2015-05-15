@@ -100,39 +100,14 @@ $("document").ready(function(){
         		document.getElementById("distance").innerHTML = getData['distance']+" km";
         		document.getElementById("cost").innerHTML = "VND "+getData['cost'];
         		document.getElementById("description").innerHTML = getData['description'];
-        		document.getElementById("view_customer").href = "customer_profile.php?customer_id="+getData['customer_id']+"&itinerary_id="+getData['itinerary_id'];
+        		document.getElementById("view_customer").href = "customer_profile.php?itinerary_id="+getData['itinerary_id']+"&customer_id="+getData['customer_id']+"&driver=<?php echo $_REQUEST{'driver'}?>";
         		
             }
         	
         }
     });
 
-	$("#join").click(function(){
-
-		var form_data = new FormData();   
-		
-		form_data.append("itinerary_id",<?php echo $_REQUEST{'itinerary_id'}?>);
-		
-		$.ajax({
-			url: '../controller/join_itinerary.php', // point to server-side PHP script 
-            dataType: 'text',  // what to expect back from the PHP script, if anything
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,         	                
-            type: 'post',
-            success: function(string){
-
-            	var getData = $.parseJSON(string);
-
-            	if(getData['error'])
-            		showError(getData['message']);
-            	else
-            		showSuccess(getData['message']);
-            }
-        });
-
-	});
+	
 
 	// Initialize tooltip
     $('[data-toggle="tooltip"]').tooltip({

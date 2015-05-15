@@ -26,28 +26,24 @@ require_once '../header_master.php';
 											style="height: 150px; width: 180px;" id="driver_avatar"/>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-4">Driver Name:</label>
-										<label class="col-lg-4" id="driver_name"  style="text-align: left; color:maroon; "></label>
+										<label class="col-lg-3">Driver Name:</label>
+										<label class="col-lg-4" id="driver_name"  style="text-align: left; color:#2C3E50; "><?php echo $_REQUEST{'driver'};?></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-4">Email:</label>
-										<label class="col-lg-4" id="driver_email" style="text-align: left; color:maroon; "></label>
+										<label class="col-lg-3">Email:</label>
+										<label class="col-lg-4" id="driver_email" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-4">Phone Number:</label>
-										<label class="col-lg-4" id="driver_phone" style="text-align: left; color:maroon; "></label>
+										<label class="col-lg-3">Phone Number:</label>
+										<label class="col-lg-4" id="driver_phone" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-4">Personal ID:</label>
-										<label class="col-lg-4" id="driver_id" style="text-align: left; color:maroon; "></label>
-									</div>
-									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-4">Driver License:</label>
-										<label class="col-lg-4" id="driver_license" style="text-align: left; color:maroon; "></label>
+										<label class="col-lg-3">Personal ID:</label>
+										<label class="col-lg-4" id="driver_id" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-sm-7" style="text-align: left;">
 										<div class="col-lg-2">
-											<a class="btn btn-primary btn-block" href="../itinerary_customer/detail_itinerary.php">Back</a>
+											<a class="btn btn-primary btn-block" href="../itinerary_customer/detail_itinerary.php?itinerary_id=<?php echo $_REQUEST{'itinerary_id'};?>&driver=<?php echo $_REQUEST{'driver'};?>&driver_id=<?php echo $_REQUEST{'driver_id'};?>">Back</a>
 										</div>
 									</div>
 							</div>
@@ -68,10 +64,10 @@ $("document").ready(function(){
 
 	var form_data = new FormData(); 
 	 
-	form_data.append("driver_id",<?php echo $_REQUEST{'driver_id'}?>);
+	form_data.append("user_id",<?php echo $_REQUEST{'driver_id'}?>);
 	
 	$.ajax({
-		url: '../controller/viewprofile.php', // point to server-side PHP script 
+		url: '../controller/view_OtherProfile.php', // point to server-side PHP script 
         dataType: 'text',  // what to expect back from the PHP script, if anything
         cache: false,
         contentType: false,
@@ -83,14 +79,11 @@ $("document").ready(function(){
         	var getData = $.parseJSON(string);
 
         	if(!getData['error']){
-
-        		document.getElementById("start_address").innerHTML = getData['start_address'];
-        		document.getElementById("end_address").innerHTML = getData['end_address'];
-        		document.getElementById("time").innerHTML = getData['leave_date'];
-        		document.getElementById("duration").innerHTML = getData['duration']+" minutes";
-        		document.getElementById("distance").innerHTML = getData['distance']+" km";
-        		document.getElementById("cost").innerHTML = "VND "+getData['cost'];
-        		document.getElementById("description").innerHTML = getData['description'];
+        		
+        		$("#driver_avatar").attr('src','data:image/jpeg;base64,'+getData['link_avatar']);
+        		document.getElementById("driver_email").innerHTML = getData['email'];
+        		document.getElementById("driver_phone").innerHTML = getData['phone'];
+        		document.getElementById("driver_id").innerHTML = getData['personalID'];
         		
             }
         	

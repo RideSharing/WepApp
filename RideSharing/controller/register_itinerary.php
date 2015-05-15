@@ -15,7 +15,8 @@ $getreq = array (
 		'duration' => $_POST{'duration'},
 		'distance' => $_POST{'distance'},
 		'cost' => $_POST{'cost'},
-		'description' => $_POST{'description'}
+		'description' => $_POST{'description'},
+		'vehicle_id' => $_POST{'vehicle_id'},
 );
 
 $ch = curl_init ();

@@ -22,7 +22,7 @@ require_once '../header_master.php';
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Driver Name:</label>
 								<div class="col-sm-4 control-label" style="text-align: left;">
-									<a href="driver_profile.php?driver_id=<?php echo $_REQUEST{'driver_id'};?>" style="color: blue; text-decoration: underline;" data-toggle="tooltip" data-original-title="Click to see Driver Information"><?php echo $_REQUEST{'driver'};?></a>
+									<a href="driver_profile.php?itinerary_id=<?php echo $_REQUEST{'itinerary_id'};?>&driver=<?php echo $_REQUEST{'driver'};?>&driver_id=<?php echo $_REQUEST{'driver_id'};?>" style="color: blue; text-decoration: underline;" data-toggle="tooltip" data-original-title="Click to see Driver Information"><?php echo $_REQUEST{'driver'};?></a>
 								</div>
 							</div>
 							<div class="form-group">

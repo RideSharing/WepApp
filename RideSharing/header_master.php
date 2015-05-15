@@ -63,6 +63,8 @@
     <link rel="stylesheet" href="../css/toastr.css">
 
     <!-- bootstrap css Select -->
+    <link href="../css/bootstrap-select.min.css" rel="stylesheet">
+    
     <link href="../css/bootstrap-datetimepicker.css" rel="stylesheet">
     
     
@@ -156,7 +158,7 @@
 									</ul>
 							</li>
 							<li role="presentation">
-									<a role="menuitem" tabindex="-1" href="#">Statistic</a>
+									<a role="menuitem" tabindex="-1" href="../statistic">Statistic</a>
 							</li>
                             <li role="presentation" class="divider"></li>
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="../controller/logout.php">Logout</a></li>

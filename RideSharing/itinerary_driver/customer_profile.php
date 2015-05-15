@@ -52,13 +52,10 @@ require_once '../header_master.php';
 											<input type="button" class="btn btn-primary btn-block" id="no" value="No" />
 										</div>
 										<div class="col-lg-2">
-											<a class="btn btn-primary btn-block" href="../itinerary_customer/accepted_itinerary.php">Back</a>
+											<a class="btn btn-primary btn-block" href="detail_itinerary.php?itinerary_id=<?php echo $_REQUEST{'itinerary_id'}; ?>&driver=<?php echo $_REQUEST{'driver'}; ?>">Back</a>
 										</div>
 									</div>
-							</div>
-							
-							
-							
+							</div>		
 						</fieldset>
 					</form>
 				</div>
@@ -75,10 +72,10 @@ $("document").ready(function(){
 
 	var form_data = new FormData(); 
 	 
-	form_data.append("customer_id",<?php echo $_REQUEST{'customer_id'}?>);
+	form_data.append("user_id",<?php echo $_REQUEST{'customer_id'};?>);
 	
 	$.ajax({
-		url: '../controller/viewprofile.php', // point to server-side PHP script 
+		url: '../controller/view_OtherProfile.php', // point to server-side PHP script 
         dataType: 'text',  // what to expect back from the PHP script, if anything
         cache: false,
         contentType: false,
@@ -90,14 +87,12 @@ $("document").ready(function(){
         	var getData = $.parseJSON(string);
 
         	if(!getData['error']){
-
-        		document.getElementById("start_address").innerHTML = getData['start_address'];
-        		document.getElementById("end_address").innerHTML = getData['end_address'];
-        		document.getElementById("time").innerHTML = getData['leave_date'];
-        		document.getElementById("duration").innerHTML = getData['duration']+" minutes";
-        		document.getElementById("distance").innerHTML = getData['distance']+" km";
-        		document.getElementById("cost").innerHTML = "VND "+getData['cost'];
-        		document.getElementById("description").innerHTML = getData['description'];
+        		
+        		$("#customer_avatar").attr('src','data:image/jpeg;base64,'+getData['link_avatar']);
+        		document.getElementById("customer_name").innerHTML = getData['fullname'];
+        		document.getElementById("customer_email").innerHTML = getData['email'];
+        		document.getElementById("customer_phone").innerHTML = getData['phone'];
+        		document.getElementById("customer_id").innerHTML = getData['personalID'];
         		
             }
         	
@@ -109,7 +104,7 @@ $("document").ready(function(){
 		var form_data = new FormData(); 
 		 
 		form_data.append("itinerary_id",<?php echo $_REQUEST{'itinerary_id'};?>);
-		
+
 		$.ajax({
 			url: '../controller/accept_itinerary.php', // point to server-side PHP script 
 	        dataType: 'text',  // what to expect back from the PHP script, if anything
@@ -136,7 +131,41 @@ $("document").ready(function(){
 	    });
 		
 	});
-	
+
+	$('#no').click(function(){
+
+		var form_data = new FormData();   
+		
+		form_data.append("itinerary_id",<?php echo $_REQUEST{'itinerary_id'}?>);
+		
+		$.ajax({
+			url: '../controller/driver_reject_itinerary.php', // point to server-side PHP script 
+            dataType: 'text',  // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,         	                
+            type: 'post',
+            success: function(string){
+
+            	var getData = $.parseJSON(string);
+
+            	if(getData['error']){
+
+            		showError(getData['message']);
+            		
+                }
+            		
+            	else {
+
+            		showSuccess(getData['message']);
+
+                }      	
+            }
+        });
+
+	});
+
 });
 </script>
 <!-- Plugin JavaScript -->

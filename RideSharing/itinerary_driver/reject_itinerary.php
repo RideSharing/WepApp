@@ -55,7 +55,7 @@ require_once '../header_master.php';
 							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-4 col-sm-3">
-									<input class="btn btn-primary btn-block" id="cancel_itinerary" type="button" value="Cancel itinerary">
+									<input class="btn btn-primary btn-block" id="reject_itinerary" type="button" value="Reject itinerary">
 								</div>
 								<div class="col-sm-2">
 									<a class="btn btn-primary btn-block" href="accepted_itinerary.php">Back</a>
@@ -107,14 +107,14 @@ $("document").ready(function(){
         }
     });
 
-	$("#cancel_itinerary").click(function(){
+	$("#reject_itinerary").click(function(){
 
 		var form_data = new FormData();   
 		
 		form_data.append("itinerary_id",<?php echo $_REQUEST{'itinerary_id'}?>);
 		
 		$.ajax({
-			url: '../controller/cancel_itinerary.php', // point to server-side PHP script 
+			url: '../controller/driver_reject_itinerary.php', // point to server-side PHP script 
             dataType: 'text',  // what to expect back from the PHP script, if anything
             cache: false,
             contentType: false,
