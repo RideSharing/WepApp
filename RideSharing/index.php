@@ -394,7 +394,12 @@ require_once 'header.php';
 
     function searchFunc() {
 
-        window.location.href = "search-itinerary.php?searchQry=" + $('#searchQry').val();
+        if($('#searchQry').val() != ""){
+
+        	window.location.href = "itinerary_customer?End_Address=" + $('#searchQry').val();
+        	
+        }
+    
     }
 
     $(function() {

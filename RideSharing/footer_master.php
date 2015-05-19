@@ -49,8 +49,13 @@
 <!-- jQuery -->
 <script src="../js/jquery.js"></script>
 
+<script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
+
+
 <!-- Bootstrap Core JavaScript -->
 <script src="../js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="../js/bootstrap-select.js"></script>
 
 <!-- Plugin JavaScript -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
@@ -66,7 +71,7 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="../js/freelancer.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 <script>
     function showSuccess(message) {
         toastr.options = {
@@ -118,12 +123,12 @@
     }
     function change_mode(message){
     	$.ajax({
-			url: 'controller/changemode.php', // point to server-side PHP script 
+			url: '../controller/changemode.php', // point to server-side PHP script 
             cache: false,
             data: "nothing",         	                
             type: 'post',
             success: function(){
-                showSuccess("Change mode to "+ message +" successful!");
+            	location.reload();
             }
 		});
     }
@@ -162,28 +167,32 @@ $('document').ready(function(){
 
 	$('#driver').click(
 			function(){
+				
+				if("<?php echo $_SESSION['driver'];?>" == 'driver') {
 
-				change_mode("driver");
+					showSuccess("You're already a Driver!");
+					
+				} else {
 
-				document.getElementById('accepted_itinerary').href = "../itinerary_driver/accepted_itinerary.php";
-				document.getElementById('schedule').href = "../itinerary_driver/schedule.php";
-				document.getElementById('search_itinerary').style.display = 'none';
-				document.getElementById('posted_itinerary').style.display = '';
-				document.getElementById('register_itinerary').style.display = '';
-		 
+					change_mode("driver");
+
+				}
+
 			}
 	);
 
 	$('#customer').click(
 			function(){
 					
-					change_mode("customer");
+				if("<?php echo $_SESSION['driver'];?>" == 'customer') {
 
-					document.getElementById('accepted_itinerary').href = "../itinerary_customer/accepted_itinerary.php";
-					document.getElementById('schedule').href = "../itinerary_customer/schedule.php";
-					document.getElementById('search_itinerary').style.display = '';
-					document.getElementById('posted_itinerary').style.display = 'none';
-					document.getElementById('register_itinerary').style.display = 'none';
+					showSuccess("You're already a Customer!");
+					
+				} else {
+
+					change_mode("customer");
+					
+				}
 				
 			}
 	);

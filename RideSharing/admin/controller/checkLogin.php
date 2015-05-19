@@ -1,6 +1,9 @@
 <?php
+require_once '../include/Config.php';
+
 session_start();
-if (isset($_SESSION["api_key"])) {
+
+if (isset($_SESSION["staff_api_key"])) {
 	header('Location: ../index.php');
 	die();
 }
@@ -14,7 +17,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 	//Initial curl
 	$ch = curl_init();
 
-	curl_setopt($ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/staff/login");
+	curl_setopt($ch, CURLOPT_URL, REST_HOST."/RESTFul/v1/staff/login");
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
@@ -27,7 +30,17 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 	$json = json_decode($result);
 
 	if (!$json->{'error'}) {
-		$_SESSION['api_key'] = $json->{'apiKey'};
+		$_SESSION["staff_api_key"] = $json->{'apiKey'};
+		$staff = array(
+			'fullname' => $json->{'fullname'},
+			'email' => $json->{'email'},
+			'personalID' => $json->{'personalID'},
+			'link_avatar' => $json->{'link_avatar'},
+			'created_at' => $json->{'created_at'},
+			'staff_id' => $json->{'staff_id'},
+			);
+
+		$_SESSION["StaffProfile"] = $staff;
 		
 		header('Location: ../index.php');
 		die();

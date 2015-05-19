@@ -1,6 +1,6 @@
 <?php
 session_start ();
-if (! isset ( $_SESSION ["api_key"] )) {
+if (! isset ( $_SESSION ["api_key"] )|| $_SESSION['driver'] == 'driver') {
 	header ( 'Location: ../' );
 	die ();
 }
@@ -22,36 +22,36 @@ require_once '../header_master.php';
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Driver Name:</label>
 								<div class="col-sm-4 control-label" style="text-align: left;">
-									<a href="#" style="color: blue; text-decoration: underline;" data-toggle="tooltip" data-original-title="Click to see Driver Information"><?php echo $_REQUEST{'driver'}?></a>
+									<a href="driver_profile.php?itinerary_id=<?php echo $_REQUEST{'itinerary_id'};?>&driver=<?php echo $_REQUEST{'driver'};?>&driver_id=<?php echo $_REQUEST{'driver_id'};?>" style="color: blue; text-decoration: underline;" data-toggle="tooltip" data-original-title="Click to see Driver Information"><?php echo $_REQUEST{'driver'};?></a>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Start Place:</label>
-								<label class="col-sm-4 control-label" id="start_address" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="start_address" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">End Place:</label>
-								<label class="col-sm-4 control-label" id="end_address" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="end_address" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Departure Time:</label>
-								<label class="col-sm-4 control-label" id="time" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="time" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Duration:</label>
-								<label class="col-sm-4 control-label" id="duration" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="duration" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Distance:</label>
-								<label class="col-sm-4 control-label" id="distance" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="distance" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Cost:</label>
-								<label class="col-sm-4 control-label" id="cost" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="cost" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Description:</label>
-								<label class="col-sm-4 control-label" id="description" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="description" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-5 col-sm-2">

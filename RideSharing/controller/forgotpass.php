@@ -1,11 +1,12 @@
 <?php
+include_once 'Constant.php';
 session_start ();
 
 $getreq = $_POST{'email'};
 
 $ch = curl_init ();
 
-curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.132/RESTFul/v1/forgotpass/$getreq" );
+curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/forgotpass/$getreq" );
 
 curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 

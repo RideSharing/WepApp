@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once '../include/Config.php';
 ?>
 <div class="row">
 	<div id="breadcrumb" class="col-xs-12">
@@ -41,10 +42,10 @@ session_start();
 						<!-- Start: list_row -->
 						<?php
 						require_once '/Config.php';
-						$api_key = $_SESSION["api_key"];
+						$api_key = $_SESSION["staff_api_key"];
 						$ch = curl_init();
 
-						curl_setopt($ch, CURLOPT_URL, "http://192.168.10.74/RESTFul/v1/staff/itineraries");
+						curl_setopt($ch, CURLOPT_URL, REST_HOST."/RESTFul/v1/staff/itineraries");
 						curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 						curl_setopt($ch,CURLOPT_HTTPHEADER,array('Authorization: '.$api_key));
 
@@ -55,9 +56,9 @@ session_start();
 						curl_close($ch);
 
 						$json = json_decode($result);
-						//echo "Jsom: ";
-						//echo $json;
+						
 						$res = $json->{'itineraries'};
+
 						$i = 1;
 						foreach ($res as $value) {
 						?>

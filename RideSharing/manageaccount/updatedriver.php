@@ -6,6 +6,7 @@ if (! isset ( $_SESSION ["api_key"] )) {
 }
 require_once '../header_master.php';
 ?>
+<title>Update Driver</title>
 	<!-- Header -->
 	<header>
 		<div class="container" style="padding-top: 100px">
@@ -15,7 +16,7 @@ require_once '../header_master.php';
 						<!-- form -->
 						<form class="form-horizontal">
 							<fieldset>
-								<legend>Profile</legend>
+								<legend>Driver Information</legend>
 								<div class="form-group">
 									<label class="col-sm-5 control-label">Your Avatar</label>
 									<div class="col-sm-3" style="width: 180px; height: 150px;">
@@ -44,6 +45,9 @@ require_once '../header_master.php';
 										<input class="btn btn-primary btn-block" type="button"
 											name="request" id="request" value="Request">
 									</div>
+									<div class="col-sm-2">
+										<a class="btn btn-primary btn-block" href="vehicles.php">Manage Vehicles</a>
+									</div>
 									<div class="col-sm-1">
 										<a class="btn btn-primary btn-block" href="../manageaccount">Back</a>
 									</div>
@@ -61,6 +65,15 @@ require_once '../header_master.php';
     ?>
 <script>
 $("document").ready(function(){
+
+	<?php 
+			if(isset($_SESSION['showMessage'])){
+			?>
+				showSuccess("You became to <?php echo $_SESSION['driver'];?>!");
+			<?php	
+				$_SESSION['showMessage'] = null;
+			}
+			?>
 
 	var tmp;
 

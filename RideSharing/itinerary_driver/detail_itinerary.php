@@ -1,6 +1,6 @@
 <?php
 session_start ();
-if (! isset ( $_SESSION ["api_key"] )) {
+if (! isset ( $_SESSION ["api_key"] )|| $_SESSION['driver'] == 'customer') {
 	header ( 'Location: ../' );
 	die ();
 }
@@ -27,39 +27,38 @@ require_once '../header_master.php';
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Start Place:</label>
-								<label class="col-sm-4 control-label" id="start_address" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="start_address" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">End Place:</label>
-								<label class="col-sm-4 control-label" id="end_address" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="end_address" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Departure Time:</label>
-								<label class="col-sm-4 control-label" id="time" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="time" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Duration:</label>
-								<label class="col-sm-4 control-label" id="duration" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="duration" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Distance:</label>
-								<label class="col-sm-4 control-label" id="distance" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="distance" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Cost:</label>
-								<label class="col-sm-4 control-label" id="cost" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="cost" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label">Description:</label>
-								<label class="col-sm-4 control-label" id="description" style="text-align: left; color:maroon; "></label>
+								<label class="col-sm-4 control-label" id="description" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<div class="col-sm-offset-5 col-sm-2">
-									<input class="btn btn-primary btn-block" type="button"
-										id="join" value="Join in Itinerary">
+								<div class="col-sm-offset-4 col-sm-3">
+									<a class="btn btn-primary btn-block" href="" id="view_customer">View Customer Information</a>
 								</div>
 								<div class="col-sm-2">
-									<a class="btn btn-primary btn-block" href="../itinerary_customer">Back</a>
+									<a class="btn btn-primary btn-block" href="accepted_itinerary.php">Back</a>
 								</div>
 							</div>
 						</fieldset>
@@ -101,38 +100,14 @@ $("document").ready(function(){
         		document.getElementById("distance").innerHTML = getData['distance']+" km";
         		document.getElementById("cost").innerHTML = "VND "+getData['cost'];
         		document.getElementById("description").innerHTML = getData['description'];
+        		document.getElementById("view_customer").href = "customer_profile.php?itinerary_id="+getData['itinerary_id']+"&customer_id="+getData['customer_id']+"&driver=<?php echo $_REQUEST{'driver'}?>";
         		
             }
         	
         }
     });
 
-	$("#join").click(function(){
-
-		var form_data = new FormData();   
-		
-		form_data.append("itinerary_id",<?php echo $_REQUEST{'itinerary_id'}?>);
-		
-		$.ajax({
-			url: '../controller/join_itinerary.php', // point to server-side PHP script 
-            dataType: 'text',  // what to expect back from the PHP script, if anything
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,         	                
-            type: 'post',
-            success: function(string){
-
-            	var getData = $.parseJSON(string);
-
-            	if(getData['error'])
-            		showError(getData['message']);
-            	else
-            		showSuccess(getData['message']);
-            }
-        });
-
-	});
+	
 
 	// Initialize tooltip
     $('[data-toggle="tooltip"]').tooltip({

@@ -1,4 +1,5 @@
 <?php
+include_once 'Constant.php';
 session_start ();
 
 $getreq = array (
@@ -9,7 +10,7 @@ $getreq = array (
 
 $ch = curl_init ();
 
-curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.132/RESTFul/v1/feedback" );
+curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/feedback" );
 
 curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 

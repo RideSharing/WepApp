@@ -1,6 +1,7 @@
 <?php
+include '../controller/Constant.php';
 session_start ();
-if (! isset ( $_SESSION ["api_key"] )) {
+if (! isset ( $_SESSION ["api_key"] )|| $_SESSION['driver'] == 'customer') {
 	header ( 'Location: ../' );
 	die ();
 }
@@ -22,7 +23,7 @@ require_once '../header_master.php';
 						$api_key = $_SESSION ["api_key"];
 						$ch = curl_init ();
 						
-						curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.132/RESTFul/v1/itineraries/driver/itinerary_status" );
+						curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/itineraries/driver/itinerary_status" );
 						curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 						curl_setopt ( $ch, CURLOPT_HTTPHEADER, array (
 								'Authorization: ' . $api_key 
@@ -41,7 +42,7 @@ require_once '../header_master.php';
 						foreach ( $res as $value ) {
 							if ($value->{'status'} == 3) {
 								?>
-								<a href="detail_itinerary.php?itinerary_id=<?php echo $value->{'itinerary_id'} ?>&driver=<?php echo $value->{'fullname'} ?>" class="list-group-item">
+								<a href="reject_itinerary.php?itinerary_id=<?php echo $value->{'itinerary_id'} ?>&driver=<?php echo $value->{'fullname'} ?>" class="list-group-item">
 									<h6 class="list-group-item-heading">
 										<label style="color: red;">FROM:</label>
 										<?php echo $value->{'start_address'}==NULL?' ':$value->{'start_address'}?>

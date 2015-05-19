@@ -186,7 +186,6 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="js/freelancer.js"></script>
-
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 <script>
     function showSuccess(message) {
@@ -280,13 +279,22 @@
             data: "nothing",         	                
             type: 'post',
             success: function(){
-                showSuccess("Change mode to "+ message +" successful!");
+            	location.reload();
             }
 		});
     }
 </script>
 <script>
 $('document').ready(function(){
+
+	<?php 
+	if(isset($_SESSION['showMessage'])){
+	?>
+		showSuccess("You became to <?php echo $_SESSION['driver'];?>!");
+	<?php	
+		$_SESSION['showMessage'] = null;
+	}
+	?>
 
 	$.ajax({
 		url: 'controller/get_avatar.php', // point to server-side PHP script 
@@ -317,30 +325,33 @@ $('document').ready(function(){
 	});
 
 	$('#driver').click(function(){
-
-		change_mode("driver");
-
-		document.getElementById('accepted_itinerary').href = "itinerary_driver/accepted_itinerary.php";
-		document.getElementById('schedule').href = "itinerary_driver/schedule.php";
-		document.getElementById('search_itinerary').style.display = 'none';
-		document.getElementById('posted_itinerary').style.display = '';
-		document.getElementById('register_itinerary').style.display = '';
-		 
+	
+		if("<?php echo $_SESSION['driver'];?>" == 'driver') {
+	
+			showSuccess("You're already a Driver!");
+			
+		} else {
+			
+			change_mode("driver");
+			
 		}
-	);
+		 
+	});
 
 	$('#customer').click(function(){
 					
-		change_mode("customer");
+		
+		if("<?php echo $_SESSION['driver'];?>" == 'customer') {
 
-		document.getElementById('accepted_itinerary').href = "itinerary_customer/accepted_itinerary.php";
-		document.getElementById('schedule').href = "itinerary_customer/schedule.php";
-		document.getElementById('search_itinerary').style.display = '';
-		document.getElementById('posted_itinerary').style.display = 'none';
-		document.getElementById('register_itinerary').style.display = 'none';
-				
+			showSuccess("You're already a Customer!");
+			
+		} else {
+			
+			change_mode("customer");
+						
 		}
-	);
+				
+	});
 	
 });
 </script>

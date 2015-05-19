@@ -6,6 +6,7 @@ if (! isset ( $_SESSION ["api_key"] )) {
 }
 require_once '../header_master.php';
 ?>
+<title>Profile</title>
 	<!-- Header -->
 	<header>
 		<div class="container" style="padding-top: 100px">
@@ -91,6 +92,15 @@ require_once '../header_master.php';
     ?>
 <script>
 $("document").ready(function(){
+
+	<?php 
+			if(isset($_SESSION['showMessage'])){
+			?>
+				showSuccess("You became to <?php echo $_SESSION['driver'];?>!");
+			<?php	
+				$_SESSION['showMessage'] = null;
+			}
+			?>
 
 	$.ajax({
 		url: '../controller/viewprofile.php', // point to server-side PHP script 

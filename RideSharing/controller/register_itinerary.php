@@ -1,4 +1,5 @@
 <?php
+include_once 'Constant.php';
 session_start ();
 
 $api_key = $_SESSION ["api_key"];
@@ -14,12 +15,13 @@ $getreq = array (
 		'duration' => $_POST{'duration'},
 		'distance' => $_POST{'distance'},
 		'cost' => $_POST{'cost'},
-		'description' => $_POST{'description'}
+		'description' => $_POST{'description'},
+		'vehicle_id' => $_POST{'vehicle_id'},
 );
 
 $ch = curl_init ();
 
-curl_setopt ( $ch, CURLOPT_URL, "http://192.168.10.132/RESTFul/v1/itinerary" );
+curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/itinerary" );
 
 curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 

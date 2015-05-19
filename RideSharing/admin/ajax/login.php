@@ -1,15 +1,30 @@
 <?php
 session_start();
-if (isset($_SESSION["api_key"])) {
+
+// Set language for website
+if(isset($_COOKIE['lang'])) {
+	if ($_COOKIE['lang'] == "vi") {
+		require_once '../include/lang_vi.php';
+	} else {
+		require_once '../include/lang_en.php';
+	}
+} else {
+    setcookie('lang', 'en', time() + (86400 * 365), "/");
+}
+
+//Check if user not login
+if (isset($_SESSION["staff_api_key"])) {
 	header('Location: ../index.php');
 	die();
 }
+
 ?>
+
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 	<head>
 		<meta charset="utf-8">
-		<title>RideSharing - Đăng nhập hệ thống</title>
+		<title>RideSharing - <?php echo $lang['LOGINPAGE_TITLE'] ?></title>
 		<meta name="description" content="description">
 		<meta name="author" content="Evgeniya">
 		<meta name="keyword" content="keywords">
@@ -28,6 +43,13 @@ if (isset($_SESSION["api_key"])) {
 <body>
 <div class="container-fluid">
 	<div id="page-login" class="row">
+		<div class="col-xs-12 col-xs-offset-10">
+			<!-- HeadSectionDl BEGIN -->
+			<div id="languages">
+			<a href="../index.php?lang=en"><img src="../img/en.png" /></a>
+			<a href="../index.php?lang=vi"><img src="../img/vi.png" /></a>
+			</div>
+		</div>
 		<div class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
 			<div class="box">
 				<div class="box-content">
@@ -55,15 +77,15 @@ if (isset($_SESSION["api_key"])) {
 <script src="../plugins/jquery/jquery.min.js"></script>
 <script src="../plugins/toast/javascript/jquery.toastmessage.js"></script>
 <script type="text/javascript">
-	$(document).ready(function () {
-	    <?php 
-			if (isset($_SESSION["message"])) {
-		?>
-	    $().toastmessage('showErrorToast', '<?php echo $_SESSION["message"] ?>')
-	    <?php
-	    		$_SESSION["message"] = null;
-			}
-		?>
+$(document).ready(function () {
+    <?php 
+		if (isset($_SESSION["message"])) {
+	?>
+    $().toastmessage('showErrorToast', '<?php echo $_SESSION["message"] ?>')
+    <?php
+    		$_SESSION["message"] = null;
+		}
+	?>
 })
 </script>
 </body>

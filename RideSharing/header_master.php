@@ -61,6 +61,12 @@
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/toastr.css">
+
+    <!-- bootstrap css Select -->
+    <link href="../css/bootstrap-select.min.css" rel="stylesheet">
+    
+    <link href="../css/bootstrap-datetimepicker.css" rel="stylesheet">
+    
     
     <!-- Custom CSS -->
     <link href="../css/freelancer.css" rel="stylesheet">
@@ -68,6 +74,7 @@
 
     <!-- Custom Fonts -->
     <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../font-awesome-icon/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
@@ -79,8 +86,7 @@
     <![endif]-->
 
 <script src="http://maps.googleapis.com/maps/api/js"></script>
-<script
-	src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 </head>
 
 <body id="page-top" class="index">
@@ -152,7 +158,7 @@
 									</ul>
 							</li>
 							<li role="presentation">
-									<a role="menuitem" tabindex="-1" href="#">Statistic</a>
+									<a role="menuitem" tabindex="-1" href="../statistic">Statistic</a>
 							</li>
                             <li role="presentation" class="divider"></li>
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="../controller/logout.php">Logout</a></li>
