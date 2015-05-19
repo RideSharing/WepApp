@@ -167,38 +167,15 @@ require_once 'header.php';
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <img src="images/hoang.png" class="img-responsive circle-member center-block" alt="">
                     <h4 class="text-center">Nguyễn Trần Tấn Hoàng</h4>
-                    <p class="text-center">Trưởng dự án - Sinh viên đại học Bách Khoa Đà Nẵng, lập trình viên front-end.</p>
+                    <p class="text-center">Sinh viên lớp 10T3 - Đại học Bách Khoa Đà Nẵng<br>Lập trình viên front-end.</p>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <img src="images/thanh.png" class="img-responsive circle-member center-block" alt="">
                     <h4 class="text-center">Trần Duy Thành</h4>
-                    <p class="text-center">Trưởng nhóm - Sinh viên đại học Bách Khoa Đà Nẵng, lập trình viên back-end.</p>
-                </div>
-                <div class="col-lg-4">
-                    <img src="images/vi.png" class="img-responsive circle-member center-block" alt="">
-                    <h4 class="text-center">Lê Trung Vĩ</h4>
-                    <p class="text-center">Sinh viên đại học Bách Khoa Đà Nẵng, lập trình viên front-end.</p>
-                </div>
-            </div>
-            <br><br>
-            <div class="row">
-                <div class="col-lg-4">
-                    <img src="images/cuong.png" class="img-responsive circle-member center-block" alt="">
-                    <h4 class="text-center">Nguyễn Nhật Cường</h4>
-                    <p class="text-center">Sinh viên đại học Sư phạm Đà nẵng, lập trình viên ứng dụng Android.</p>
-                </div>
-                <div class="col-lg-4">
-                    <img src="images/huy.png" class="img-responsive circle-member center-block" alt="">
-                    <h4 class="text-center">Bùi Quang Huy</h4>
-                    <p class="text-center">Sinh viên đại học Sư phạm Đà nẵng, lập trình viên ứng dụng Android.</p>
-                </div>
-                <div class="col-lg-4">
-                    <img src="images/trung.png" class="img-responsive circle-member center-block" alt="">
-                    <h4 class="text-center">Nguyễn Quang Trung</h4>
-                    <p class="text-center">Sinh viên đại học Sư phạm Đà nẵng, lập trình viên ứng dụng Window Phone.</p>
+                    <p class="text-center">Sinh viên lớp 10T1 - Đại học Bách Khoa Đà Nẵng<br>Lập trình viên back-end.</p>
                 </div>
             </div>
         </div>
@@ -395,6 +372,8 @@ require_once 'header.php';
     function searchFunc() {
 
         if($('#searchQry').val() != ""){
+
+            <?php ?>
 
         	window.location.href = "itinerary_customer?End_Address=" + $('#searchQry').val();
         	

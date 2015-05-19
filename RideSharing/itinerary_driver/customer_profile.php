@@ -42,9 +42,14 @@ require_once '../header_master.php';
 										<label class="col-lg-4" id="customer_id" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
+										<label class="col-lg-3">Rating:</label>
+										<div id="rating"></div>
+									</div>
+									
+									<div class="col-lg-7" style="text-align: left;">
 										<label class="col-lg-7">Do you want to accept this itinerary?</label>
 									</div>
-									<div class="col-sm-7">
+									<div class="col-lg-offset-5 col-sm-7">
 										<div class="col-lg-2">
 											<input type="button" class="btn btn-primary btn-block" id="yes" value="Yes" />
 										</div>
@@ -164,6 +169,15 @@ $("document").ready(function(){
             }
         });
 
+	});
+
+	$.fn.raty.defaults.path = '../images/rating';
+	
+	$('#rating').raty({
+
+	  readOnly:true,
+	  score: 3.3
+	  
 	});
 
 });

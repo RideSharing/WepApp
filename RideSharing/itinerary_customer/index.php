@@ -28,6 +28,9 @@ require_once '../header_master.php';
 								'Authorization: ' . $api_key 
 						) );
 						
+						// Thiết lập sử dụng GET
+						curl_setopt($ch,CURLOPT_CUSTOMREQUEST, "GET");
+						
 						// execute the request
 						$result = curl_exec ( $ch );
 						

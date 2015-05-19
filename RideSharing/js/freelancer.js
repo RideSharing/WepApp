@@ -39,7 +39,7 @@ $('.navbar-collapse ul li a').click(function() {
 $('#nav-search').on('keydown', function(e){
         if (e.keyCode == 13){
             e.preventDefault();
-            window.location.href = "search-itinerary.php?searchQry=" + ($('#nav-search').val());
+            window.location.href = window.location.href = "itinerary_customer?End_Address=" + $('#nav-search').val();
         }
 });
 

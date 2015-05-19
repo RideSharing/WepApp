@@ -55,6 +55,8 @@
 <!-- jQuery -->
 <script src="../js/jquery.js"></script>
 
+<script src="../js/jquery.raty.js"></script>
+
 <script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
 
 

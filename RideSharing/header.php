@@ -98,8 +98,8 @@
 				</button>
 				<a class="navbar-brand" href="">Ride Sharing</a>
 				<div>
-					<span id="map-marker"><i class="fa fa-map-marker"></i></span> <input
-						id="nav-search" type="text" placeholder="Nhập địa chỉ muốn tìm..."></input>
+					<span id="map-marker"><i class="fa fa-map-marker"></i></span> 
+					<input id="nav-search" type="text" placeholder="Nhập địa chỉ muốn tìm..."></input>
 				</div>
 			</div>
 
