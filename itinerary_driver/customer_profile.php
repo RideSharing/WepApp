@@ -1,12 +1,23 @@
 <?php
 session_start ();
+
+if(isset($_COOKIE['lang'])) {
+    if ($_COOKIE['lang'] == "en") {
+        require_once '../includes/lang_en.php';
+    } else {
+        require_once '../includes/lang_vi.php';
+    }
+} else {
+    setcookie('lang', 'en', time() + (86400 * 365), "/");
+}
+
 if (! isset ( $_SESSION ["api_key"] )|| $_SESSION['driver'] == 'customer') {
 	header ( 'Location: ../' );
 	die ();
 }
 require_once '../header_master.php';
 ?>
-<title>Customer Profile</title>
+<title><?php echo $lang['CUSTOMER_PROFILE']?></title>
 <!-- Header -->
 <header>
 	<div class="container" style="padding-top: 100px">
@@ -17,7 +28,7 @@ require_once '../header_master.php';
 					<form class="form-horizontal">
 						<fieldset>
 							<legend>
-								<b>Customer Profile</b>
+								<b><?php echo $lang['CUSTOMER_PROFILE']?></b>
 							</legend>
 							<div class="form-group">
 									<label class="col-lg-3 control-label"></label>
@@ -26,28 +37,28 @@ require_once '../header_master.php';
 											style="height: 150px; width: 180px;" id="customer_avatar"/>
 									</div>
 									<div class="col-lg-7" style="text-align: left;" >
-										<label class="col-lg-3">Customer Name:</label>
+										<label class="col-lg-3"><?php echo $lang['CUSTOMER_NAME']?></label>
 										<label class="col-lg-4" id="customer_name"  style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-3" >Email:</label>
+										<label class="col-lg-3" ><?php echo $lang['EMAIL']?></label>
 										<label class="col-lg-4" id="customer_email" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-3">Phone Number:</label>
+										<label class="col-lg-3"><?php echo $lang['PHONE']?></label>
 										<label class="col-lg-4" id="customer_phone" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-3">Personal ID:</label>
+										<label class="col-lg-3"><?php echo $lang['PERSONAL_ID']?></label>
 										<label class="col-lg-4" id="customer_id" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-3">Rating:</label>
+										<label class="col-lg-3"><?php echo $lang['RATING']?></label>
 										<div id="rating"></div>
 									</div>
 									
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-7">Do you want to accept this itinerary?</label>
+										<label class="col-lg-7"><?php echo $lang['JOINT_ITINERARY']?></label>
 									</div>
 									<div class="col-lg-offset-5 col-sm-7">
 										<div class="col-lg-2">

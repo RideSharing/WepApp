@@ -1,12 +1,23 @@
 <?php
 session_start ();
+
+if(isset($_COOKIE['lang'])) {
+    if ($_COOKIE['lang'] == "en") {
+        require_once '../includes/lang_en.php';
+    } else {
+        require_once '../includes/lang_vi.php';
+    }
+} else {
+    setcookie('lang', 'en', time() + (86400 * 365), "/");
+}
+
 if (! isset ( $_SESSION ["api_key"] )) {
 	header ( 'Location: ../' );
 	die ();
 }
 require_once '../header_master.php';
 ?>
-<title>Update Driver</title>
+<title><?php echo $lang['UPDATE_DRIVER'] ?></title>
 	<!-- Header -->
 	<header>
 		<div class="container" style="padding-top: 100px">
@@ -16,23 +27,23 @@ require_once '../header_master.php';
 						<!-- form -->
 						<form class="form-horizontal">
 							<fieldset>
-								<legend>Driver Information</legend>
+								<legend><?php echo $lang['DRIVER_INFO'] ?></legend>
 								<div class="form-group">
-									<label class="col-sm-5 control-label">Your Avatar</label>
+									<label class="col-sm-5 control-label"><?php echo $lang['AVATAR'] ?></label>
 									<div class="col-sm-3" style="width: 180px; height: 150px;">
 										<img src="" class="img-thumbnail"
 											style="height: 150px; width: 180px;" id="avatar" />
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-5 control-label">Driver License</label>
+									<label class="col-sm-5 control-label"><?php echo $lang['DRIVER_LICENSE'] ?></label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="driver_license"
 											id="driver_license" placeholder="Driver License">
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-5 control-label">Driver License Image</label>
+									<label class="col-sm-5 control-label"><?php echo $lang['DRIVER_LICENSE_PHOTO'] ?></label>
 									<input type="file" class="col-sm-4" name="imageDL"
 										id="upimageDL">
 									<div class="col-sm-4">
@@ -46,10 +57,10 @@ require_once '../header_master.php';
 											name="request" id="request" value="Request">
 									</div>
 									<div class="col-sm-2">
-										<a class="btn btn-primary btn-block" href="vehicles.php">Manage Vehicles</a>
+										<a class="btn btn-primary btn-block" href="vehicles.php"><?php echo $lang['VEHICLE_MANAGEMENT'] ?></a>
 									</div>
 									<div class="col-sm-1">
-										<a class="btn btn-primary btn-block" href="../manageaccount">Back</a>
+										<a class="btn btn-primary btn-block" href="../manageaccount"><?php echo $lang['BACK'] ?></a>
 									</div>
 								</div>
 							</fieldset>

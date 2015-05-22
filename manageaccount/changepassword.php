@@ -1,5 +1,15 @@
 <?php
 session_start ();
+if(isset($_COOKIE['lang'])) {
+    if ($_COOKIE['lang'] == "en") {
+        require_once '../includes/lang_en.php';
+    } else {
+        require_once '../includes/lang_vi.php';
+    }
+} else {
+    setcookie('lang', 'en', time() + (86400 * 365), "/");
+}
+
 if (! isset ( $_SESSION ["api_key"] )) {
 	header ( 'Location: ../' );
 	die ();
@@ -11,7 +21,7 @@ require_once '../header_master.php';
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Change Password</title>
+<title><?php echo $lang['CHANGE_PASS']?></title>
 
 <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -50,9 +60,9 @@ require_once '../header_master.php';
 						<!-- form -->
 						<form class="form-horizontal">
 							<fieldset>
-								<legend>Change Password</legend>
+								<legend><?php echo $lang['CHANGE_PASS']?></legend>
 								<div class="form-group">
-									<label class="col-sm-5 control-label">Your Avatar</label>
+									<label class="col-sm-5 control-label"><?php echo $lang['AVATAR']?></label>
 									<div class="col-sm-3" style="width: 180px; height: 150px;">
 										<img src="" class="img-thumbnail"
 											style="height: 150px; width: 180px;" id="avatar" />
@@ -60,7 +70,7 @@ require_once '../header_master.php';
 								</div>
 								<div class="form-group">
 									<label class="col-sm-5 control-label"
-										style="font-style: italic;">New Password</label>
+										style="font-style: italic;"><?php echo $lang['NEW_PASS']?></label>
 									<div class="col-sm-4">
 										<input type="password" class="form-control" id="newPassword"
 											name="newPassword" placeholder="New Password">
@@ -68,7 +78,7 @@ require_once '../header_master.php';
 								</div>
 								<div class="form-group">
 									<label class="col-sm-5 control-label"
-										style="font-style: italic;">Retype Password</label>
+										style="font-style: italic;"><?php echo $lang['RETYPE_PASS']?></label>
 									<div class="col-sm-4">
 										<input type="password" class="form-control"
 											name="retypePassword" id="retypePassword"
@@ -81,7 +91,7 @@ require_once '../header_master.php';
 											name="oK" id="oK" value="OK">
 									</div>
 									<div class="col-sm-1">
-										<a class="btn btn-primary btn-block" href="../manageaccount">Back</a>
+										<a class="btn btn-primary btn-block" href="../manageaccount"><?php echo $lang['BACK']?></a>
 									</div>
 								</div>
 							</fieldset>

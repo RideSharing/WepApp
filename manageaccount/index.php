@@ -1,5 +1,16 @@
 <?php
 session_start ();
+
+if(isset($_COOKIE['lang'])) {
+    if ($_COOKIE['lang'] == "en") {
+        require_once '../includes/lang_en.php';
+    } else {
+        require_once '../includes/lang_vi.php';
+    }
+} else {
+    setcookie('lang', 'en', time() + (86400 * 365), "/");
+}
+
 if (! isset ( $_SESSION ["api_key"] )) {
 	header ( 'Location: ../' );
 	die ();
@@ -16,9 +27,9 @@ require_once '../header_master.php';
 						<!-- form -->
 						<form class="form-horizontal">
 							<fieldset>
-								<legend><b>Profile</b></legend>
+								<legend><b><?php echo $lang['PROFILE'] ?></b></legend>
 								<div class="form-group">
-									<label class="col-sm-5 control-label">Your Avatar</label>
+									<label class="col-sm-5 control-label"><?php echo $lang['AVATAR'] ?></label>
 									<div class="col-sm-3" style="width: 180px; height: 150px;">
 										<img src="" class="img-thumbnail"
 											style="height: 150px; width: 180px;" id="avatar"
@@ -28,34 +39,34 @@ require_once '../header_master.php';
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-5 control-label">Full Name</label>
+									<label class="col-sm-5 control-label"><?php echo $lang['FULLNAME'] ?></label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="fullname"
 											id="fullname" placeholder="Full Name">
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-5 control-label">Email</label>
+									<label class="col-sm-5 control-label"><?php echo $lang['EMAIL'] ?></label>
 									<div class="col-sm-4">
 										<input type="email" class="form-control" id="email" disabled>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-5 control-label">Phone Number</label>
+									<label class="col-sm-5 control-label"><?php echo $lang['PHONE'] ?></label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="phonenumber"
 											id="phonenumber" placeholder="Phone Number">
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-5 control-label">PersonalID</label>
+									<label class="col-sm-5 control-label"><?php echo $lang['PERSONAL_ID'] ?></label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="numberID"
 											id="numberID" placeholder="Personal ID">
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-5 control-label">Personal ID Image</label>
+									<label class="col-sm-5 control-label"><?php echo $lang['PERSONAL_ID_PHOTO'] ?></label>
 									<input type="file" class="col-sm-4" name="imageID" id="upImage">
 									<div class="col-sm-4">
 										<img src="" class="img-thumbnail"
@@ -68,15 +79,13 @@ require_once '../header_master.php';
 											name="update" id="update" value="Update">
 									</div>
 									<div class="col-sm-2">
-										<a class="btn btn-primary btn-block" href="changepassword.php">Change
-											Password</a>
+										<a class="btn btn-primary btn-block" href="changepassword.php"><?php echo $lang['CHANGE_PASS']?></a>
 									</div>
 									<div class="col-sm-2">
-										<a class="btn btn-primary btn-block" href="updatedriver.php">Update
-											Driver</a>
+										<a class="btn btn-primary btn-block" href="updatedriver.php"><?php echo $lang['UPDATE_DRIVER']?></a>
 									</div>
 									<div class="col-sm-1">
-										<a class="btn btn-primary btn-block" href="../">Back</a>
+										<a class="btn btn-primary btn-block" href="../"><?php echo $lang['BACK']?></a>
 									</div>
 								</div>
 							</fieldset>

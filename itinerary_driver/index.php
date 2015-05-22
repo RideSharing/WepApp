@@ -1,18 +1,29 @@
 <?php
 include '../controller/Constant.php';
 session_start ();
+
+if(isset($_COOKIE['lang'])) {
+    if ($_COOKIE['lang'] == "en") {
+        require_once '../includes/lang_en.php';
+    } else {
+        require_once '../includes/lang_vi.php';
+    }
+} else {
+    setcookie('lang', 'en', time() + (86400 * 365), "/");
+}
+
 if (! isset ( $_SESSION ["api_key"] )|| $_SESSION['driver'] == 'customer') {
 	header ( 'Location: ../' );
 	die ();
 }
 require_once '../header_master.php';
 ?>
-<title>Registered Itinerary</title>
+<title><?php echo $lang['REGISTER_ITINERARY']?></title>
 
 <!-- Section -->
 <section class="full-content">
 	<div class="row">
-		<h4 style="text-align: center;">List of Registered Schedule</h1>
+		<h4 style="text-align: center;"><?php echo $lang['LIST_REGISTER_ITINERARY']?></h1>
 	</div>
 	<div class="row">
 		<div class="col-lg-4 no-padding">
@@ -44,14 +55,14 @@ require_once '../header_master.php';
 								?>
 								<a href="cancel_itinerary.php?itinerary_id=<?php echo $value->{'itinerary_id'} ?>&driver=<?php echo $value->{'fullname'} ?>" class="list-group-item">
 									<h6 class="list-group-item-heading">
-										<label style="color: red;">FROM:</label>
+										<label style="color: red;"><?php echo $lang['FROM']?></label>
 										<?php echo $value->{'start_address'}==NULL?' ':$value->{'start_address'}?>
-										<br> <label style="color: red;">TO:</label>
+										<br> <label style="color: red;"><?php echo $lang['TO']?></label>
 										<?php echo $value->{'end_address'}==NULL?' ':$value->{'end_address'}?>
 									</h6> 
-									<b>Driver: </b> <?php echo $value->{'fullname'}==NULL?' ':$value->{'fullname'}?>
-									<br> <b>Email: </b> <?php echo $value->{'email'}==NULL?' ':$value->{'email'} ?>	
-									<br> <b>Phone: </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>									
+									<b><?php echo $lang['DRIVER']?> </b> <?php echo $value->{'fullname'}==NULL?' ':$value->{'fullname'}?>
+									<br> <b><?php echo $lang['EMAIL']?> </b> <?php echo $value->{'email'}==NULL?' ':$value->{'email'} ?>	
+									<br> <b><?php echo $lang['PHONE']?> </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>									
 								</a> 
 						<?php
 							} 

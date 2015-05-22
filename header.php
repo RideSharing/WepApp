@@ -58,7 +58,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Ride Sharing - Trang chủ</title>
+<title><?php echo $lang['RIDESHARING_HOMEPAGE']?></title>
 
 <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -92,14 +92,14 @@
 			<div class="navbar-header page-scroll">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <span
+					<span class="sr-only"><?php echo $lang['TOGGLE_NAVIGATION']?></span> <span
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="">Ride Sharing</a>
+				<a class="navbar-brand" href=""><?php echo $lang['RIDE_SHARING']?></a>
 				<div>
 					<span id="map-marker"><i class="fa fa-map-marker"></i></span> 
-					<input id="nav-search" type="text" placeholder="Nhập địa chỉ muốn tìm..."></input>
+					<input id="nav-search" type="text" placeholder="Enter address want to find..."></input>
 				</div>
 			</div>
 
@@ -111,16 +111,16 @@
                     <?php
                     if (!isset($_SESSION['api_key'])) {
                     ?>
-                    <li class="page-scroll"><a href="#register">Đăng kí</a>
+                    <li class="page-scroll"><a href="#register"><?php echo $lang['REGISTER']?></a>
 					</li>
 					<li class="page-scroll"><a href="#" class="btn btn-md btn-success"
-						data-toggle="modal" data-target="#loginModal">Đăng nhập</a></li>
+						data-toggle="modal" data-target="#loginModal"><?php echo $lang['LOGON']?></a></li>
                     <?php 
                     }
                     ?>
-                    <li class="page-scroll"><a href="#about">Giới thiệu</a>
+                    <li class="page-scroll"><a href="#about"><?php echo $lang['INTRODUCTION']?></a>
 					</li>
-					<li class="page-scroll"><a href="#contact">Liên hệ</a></li>
+					<li class="page-scroll"><a href="#contact"><?php echo $lang['CONTACT']?></a></li>
                     <?php
                     if (isset($_SESSION['api_key'])) {
                     ?>
@@ -131,9 +131,9 @@
 							</a>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href="manageaccount">Personal</a></li>
+									href="manageaccount"><?php echo $lang['PERSONAL']?></a></li>
 								<li class="dropdown-submenu">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Itinerary</a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $lang['ITINERARY_MANAGEMENT']?></a>
 								<ul class="dropdown-menu">
 									<li role="presentation">
 											<a role="menuitem" tabindex="-1" id="search_itinerary" href="itinerary_customer" style="display:  <?php echo $_SESSION['driver'] == 'customer' ? "" : "none";?>;">Search Itinerary</a>
@@ -153,7 +153,7 @@
 								</ul>
 								</li>
 								<li class="dropdown-submenu">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">User Mode</a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $lang['USER_MODE']?></a>
 									<ul class="dropdown-menu">
 										<div class="radio">
 											<label style="color: #336EAA;"><input type="radio" name="mode" id="customer" <?php echo $_SESSION['driver'] == 'customer' ? "checked" : "";?>>Customer</label>
@@ -164,11 +164,11 @@
 									</ul>
 								</li>
 								<li role="presentation">
-									<a role="menuitem" tabindex="-1" href="statistic">Statistic</a>
+									<a role="menuitem" tabindex="-1" href="statistic"><?php echo $lang['STATISTIC']?></a>
 								</li>
 								<li role="presentation" class="divider"></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href="controller/logout.php">Logout</a></li>
+									href="controller/logout.php"><?php echo $lang['LOGOUT']?></a></li>
 							</ul>
 						</div>
 					</li>

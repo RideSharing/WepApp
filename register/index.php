@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Create New Account</title>
+<title><?php echo $lang['NEW_ACCOUNT']?> </title>
 
 <!-- Bootstrap CSS -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
 	<!-- form -->
 	<form class="form-horizontal" action="../controller/checkRegister.php" method="post">
 		<fieldset>
-			<legend>Create New Account</legend>
+			<legend><?php echo $lang['NEW_ACCOUNT']?></legend>
 			<!-- FullName
 			<div class="form-group">
 				<label class="col-sm-5 control-label">Full Name</label>
@@ -30,7 +30,7 @@
 			</div>
 			 -->
 			<div class="form-group">
-				<label class="col-sm-5 control-label">Email</label>
+				<label class="col-sm-5 control-label"><?php echo $lang['EMAIL']?></label>
 				<div class="col-sm-3">
 					<input type="email" class="form-control" name="email"
 						placeholder="Email">
@@ -38,7 +38,7 @@
 			</div>
 			<div class="form-group">
 				<label class="col-sm-5 control-label" style="font-style: italic;">
-					Password</label>
+					<?php echo $lang['PASSWORD']?></label>
 				<div class="col-sm-3">
 					<input type="text" class="form-control" name="password"
 						placeholder="New Password" id="password">

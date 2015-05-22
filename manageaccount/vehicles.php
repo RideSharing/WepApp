@@ -1,13 +1,24 @@
 <?php
 include_once '../controller/Constant.php';
 session_start ();
+
+if(isset($_COOKIE['lang'])) {
+    if ($_COOKIE['lang'] == "en") {
+        include '../includes/lang_en.php';
+    } else {
+        include '../includes/lang_vi.php';
+    }
+} else {
+    setcookie('lang', 'en', time() + (86400 * 365), "/");
+}
+
 if (! isset ( $_SESSION ["api_key"] )) {
 	header ( 'Location: ../' );
 	die ();
 }
-require_once '../header_master.php';
+include '../header_master.php';
 ?>
-<title>Manage Vehicles</title>
+<title><?php echo $lang['VEHICLE_MANAGEMENT'] ?></title>
 <!-- Header -->
 <header>
 	<div class="container" style="padding-top: 100px">
@@ -15,7 +26,7 @@ require_once '../header_master.php';
 		<!-- form -->
 			<form class="form-horizontal">
 				<div class="form-group">
-					<label class="col-sm-5 control-label">Choose your vehicle to view information</label>
+					<label class="col-sm-5 control-label"><?php echo $lang['VEHICLE_SELECT'] ?></label>
 					<div class="col-sm-4">
 					<?php
 						$api_key = $_SESSION ["api_key"];
@@ -46,7 +57,7 @@ require_once '../header_master.php';
 							?>
 								<option value = "<?php echo $i;?>"><?php echo $value->{'type'}; echo " - "; echo $value->{'license_plate'};?></option>
 							<?php }?>
-							<option value = "e" style="font-style: italic;">Add new Vehicle</option>	
+							<option value = "e" style="font-style: italic;"><?php echo $lang['ADD_VEHICLE'] ?></option>	
 						</select>
 					</div>
 				</div>
@@ -59,28 +70,28 @@ require_once '../header_master.php';
 					<form id="form_vehicle" class="form-horizontal" style="display: none;">
 						<fieldset>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Type:</label>
+								<label class="col-sm-5 control-label"><?php echo $lang['TYPE'] ?></label>
 								<div class="col-sm-4">
 									<input type="text" class="form-control" name="Vehicle Type"
 										id="type_vehicle" placeholder="Vehicle Type:">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Register Certification:</label>
+								<label class="col-sm-5 control-label"><?php echo $lang['REGISTER_CERTIFICATE'] ?></label>
 								<div class="col-sm-4">
 									<input type="text" class="form-control" name="Register Certification"
 										id="Register_Certification" placeholder="Register_Certification:">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">License Plate:</label>
+								<label class="col-sm-5 control-label"><?php echo $lang['LICENSE_PLATE'] ?></label>
 								<div class="col-sm-4">
 									<input type="text" class="form-control" name="License Plate"
 										id="License_Plate" placeholder="License_Plate">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">License Plate Image: </label>
+								<label class="col-sm-5 control-label"><?php echo $lang['LICENSE_PLATE_PHOTO'] ?></label>
 								<input type="file" class="col-sm-4" name="License_Plate_Image" id="up_LP_Image">
 								<div class="col-sm-4">
 									<img src="" class="img-thumbnail"
@@ -88,7 +99,7 @@ require_once '../header_master.php';
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Vehicle Image: </label>
+								<label class="col-sm-5 control-label"><?php echo $lang['VEHICLE_PHOTO'] ?></label>
 								<input type="file" class="file col-sm-4" name="Vehicle_Image" id="up_V_Image">
 								<div class="col-sm-4">
 									<img src="" class="img-thumbnail"
@@ -96,7 +107,7 @@ require_once '../header_master.php';
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Vehicle Insurrance Image: </label>
+								<label class="col-sm-5 control-label"><?php echo $lang['VEHICLE_INSURANCE_PHOTO'] ?> </label>
 								<input type="file" class="col-sm-4" name="Vehicle_Insurrance_Image" id="up_VI_Image">
 								<div class="col-sm-4">
 									<img src="" class="img-thumbnail"
@@ -113,7 +124,7 @@ require_once '../header_master.php';
 										name="delete" id="delete" value="Delete">
 								</div>
 								<div class="col-sm-1">
-									<a class="btn btn-primary btn-block" href="updatedriver.php">Back</a>
+									<a class="btn btn-primary btn-block" href="updatedriver.php"><?php echo $lang['BACK'] ?></a>
 								</div>
 							</div>
 						</fieldset>

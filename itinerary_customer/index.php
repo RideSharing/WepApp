@@ -2,18 +2,28 @@
 include '../controller/Constant.php';
 session_start ();
 
+if(isset($_COOKIE['lang'])) {
+    if ($_COOKIE['lang'] == "en") {
+        require_once '../includes/lang_en.php';
+    } else {
+        require_once '../includes/lang_vi.php';
+    }
+} else {
+    setcookie('lang', 'en', time() + (86400 * 365), "/");
+}
+
 if (! isset ( $_SESSION ["api_key"] ) || $_SESSION ['driver'] == 'driver') {
 	header ( 'Location: ../' );
 	die ();
 }
 require_once '../header_master.php';
 ?>
-<title>Search Itinerary</title>
+<title><?php echo $lang['SEARCH_ITINERARY']?></title>
 
 <!-- Section -->
 <section class="full-content">
 	<div class="row" class="input-group-addon">
-		<h4 style="text-align: center;">Search Itinerary</h4>
+		<h4 style="text-align: center;"><?php echo $lang['SEARCH_ITINERARY']?></h4>
 	</div>
 	<div class="row">
 		<div class="col-lg-4 no-padding">
@@ -58,7 +68,7 @@ require_once '../header_master.php';
 		<div class="col-lg-12">
 			<div class="input-group input-group-sm">
 				<span class="input-group-addon" id="sizing-addon3"
-					style="color: #FFF; background-color: #F39C12">Start Place</span> 
+					style="color: #FFF; background-color: #F39C12"><?php echo $lang['DEPARTURE']?>span> 
 				<input id="start-place" type="text"
 					class="form-control" placeholder="Enter the Start Place ..."
 					aria-describedby="sizing-addon3">
@@ -67,7 +77,7 @@ require_once '../header_master.php';
 		<div class="col-lg-12">
 			<div class="input-group input-group-sm">
 				<span class="input-group-addon" id="sizing-addon3"
-					style="color: #FFF; background-color: #F39C12">End Place&nbsp&nbsp</span>
+					style="color: #FFF; background-color: #F39C12"><?php echo $lang['DESTINATION']?></span>
 				<input id="end-place" type="text" class="form-control"
 					placeholder="Enter the End Place ..." aria-describedby="sizing-addon3">
 			</div>
@@ -77,7 +87,7 @@ require_once '../header_master.php';
 		<div class="col-lg-12">
 			<div class="input-group input-group-sm">
 				<span class="input-group-addon" id="sizing-addon3"
-					style="color: #FFF; background-color: #F39C12">Date Departure</span> 
+					style="color: #FFF; background-color: #F39C12"><?php echo $lang['STARTING_DAY']?></span> 
 				<input type="text" id="date_departure" data-beatpicker="true" data-beatpicker-position="['*','*']"
 					data-beatpicker-disable="{from:[2014,1,1],to:'<'}" />
 			</div>

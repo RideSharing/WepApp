@@ -4,11 +4,11 @@
         <div class="container">
             <div class="row">
                 <div class="footer-col col-md-3">
-                    <h3>Địa chỉ</h3>
-                    <p>453 - 455 Hoàng Diệu<br>Hải Châu - Đà Nẵng</p>
+                    <h3><?php echo $lang['ADDRRESS']?></h3>
+                    <p><?php echo $lang['HOANG_DIEU']?><br><?php echo $lang['HC_DN']?></p>
                 </div>
                 <div class="footer-col col-md-4">
-                    <h3>Tìm chúng tôi trên:</h3>
+                    <h3><?php echo $lang['FIND_US']?></h3>
                     <ul class="list-inline">
                         <li>
                             <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
@@ -19,17 +19,11 @@
                         <li>
                             <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
                         </li>
-                        <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
-                        </li>
                     </ul>
                 </div>
                 <div class="footer-col col-md-5">
-                    <h3>Thông tin về RideSharing</h3>
-                    <p>RideSharing là hệ thống cho phép đi chung xe phát triển bởi <a href="#">RideSharing Group</a>.</p>
+                    <h3><?php echo $lang['ABOUT_RIDESHARING']?></h3>
+                    <p><?php echo $lang['RIDESHARING_DEVELOPED_BY']?><a href="#"><?php echo $lang['RIDESHARING_TEAM']?></a>.</p>
                 </div>
             </div>
         </div>
@@ -38,7 +32,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    Bản quyền thuộc về &copy; Ride Sharing Group 2015
+                    <?php echo $lang['COPYRIGHT_BY']?> &copy; <?php echo $lang['RIDESHARING_TEAM_2015']?>
                 </div>
             </div>
         </div>
@@ -96,7 +90,7 @@
         <div class="modal-content">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-            <h4 class="modal-title" id="myModalLabel">Đăng nhập hệ thống</h4>
+            <h4 class="modal-title" id="myModalLabel"><?php echo $lang['LOGON']?></h4>
             </div>
             <form novalidate>
             <div class="modal-body">
@@ -105,21 +99,21 @@
                     <div class="col-lg-8 col-lg-offset-2">
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <label>Địa chỉ email</label>
-                                    <input type="email" class="form-control" placeholder="Địa chỉ email" id="log_email" required data-validation-required-message="Vui lòng nhập địa chỉ email của bạn.">
+                                    <label><?php echo $lang['EMAIL']?></label>
+                                    <input type="email" class="form-control" placeholder="Email..." id="log_email" required data-validation-required-message="Vui lòng nhập địa chỉ email của bạn.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <label>Mật khẩu</label>
-                                    <input type="password" class="form-control" placeholder="Nhập mật khẩu..." id="log_password" required data-validation-required-message="Vui lòng nhập mật khẩu.">
+                                    <label><?php echo $lang['PASSWORD']?></label>
+                                    <input type="password" class="form-control" placeholder="Password..." id="log_password" required data-validation-required-message="Vui lòng nhập mật khẩu.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <br>
                             <div>
-                            	<a href="#" data-toggle="modal" data-target="#forgotPassModal">Forgotten password? </a>
+                            	<a href="#" data-toggle="modal" data-target="#forgotPassModal"><?php echo $lang['FORGOT_PASSWORD']?> </a>
                             </div>
                     </div>
                 </div>
@@ -128,7 +122,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 text-center">
                         <div id="action"></div>
-                        <button onclick="log_func()" href="#" class="btn btn-lg btn-outline1"> Đăng nhập</button>
+                        <button onclick="log_func()" href="#" class="btn btn-lg btn-outline1"> <?php echo $lang['LOGON']?></button>
                     </div>
                 </div>
             </div>
@@ -141,7 +135,7 @@
         <div class="modal-content">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-            <h4 class="modal-title" id="myModalLabel">Forgot Password</h4>
+            <h4 class="modal-title" id="myModalLabel"><?php echo $lang['FORGOT_PASSWORD']?></h4>
             </div>
             <form novalidate>
             <div class="modal-body">
@@ -149,7 +143,7 @@
                     <div class="col-lg-8 col-lg-offset-2">
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <label>Email</label>
+                                    <label><?php echo $lang['EMAIL']?></label>
                                     <input type="email" class="form-control" placeholder="Email" id="forgot_email" required data-validation-required-message="Vui lòng nhập địa chỉ email của bạn.">
                                     <p class="help-block text-danger"></p>                        			
                                 </div>
@@ -162,7 +156,7 @@
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <button onclick="getPass_func()" href="#" class="btn btn-lg btn-outline1">Request</button>
+                        <button onclick="getPass_func()" href="#" class="btn btn-lg btn-outline1"><?php echo $lang['REQUEST']?></button>
                     </div>
                 </div>
             </div>

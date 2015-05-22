@@ -2,10 +2,10 @@
 session_start();
 
 if(isset($_COOKIE['lang'])) {
-    if ($_COOKIE['lang'] == "vi") {
-        require_once 'includes/lang_vi.php';
-    } else {
+    if ($_COOKIE['lang'] == "en") {
         require_once 'includes/lang_en.php';
+    } else {
+        require_once 'includes/lang_vi.php';
     }
 } else {
     setcookie('lang', 'en', time() + (86400 * 365), "/");
@@ -26,14 +26,14 @@ require_once 'header.php';
                             <div class="row control-group" style="border: 1px solid #eee;">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <span style="font-size: 35px  !important; position: absolute; z-index: 10; color: rgba(0, 0, 0, 0.55); top: 5px; left: 10px;"><i class="fa fa-map-marker"></i></span>
-                                    <input style="margin-top:10px;" type="text" class="form-control" placeholder="Nhập địa điểm mà bạn muốn đến..." id="searchQry" required data-validation-required-message="Vui lòng nhập địa điểm cần đến.">
+                                    <input style="margin-top:10px;" type="text" class="form-control" placeholder="Enter address you want to go..." id="searchQry" required data-validation-required-message="Vui lòng nhập địa điểm cần đến.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <br>
                             <div class="col-lg-8 col-lg-offset-2 text-center">
                                 <button type="submit" onclick="searchFunc()" class="btn btn-lg btn-outline">
-                                    <i class="fa fa-search"></i> Tìm kiếm
+                                    <i class="fa fa-search"></i> <?php echo $lang['SEARCH'] ?>
                                 </button>
                             </div>
                         </form>
@@ -48,7 +48,7 @@ require_once 'header.php';
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Nhận xét của khách hàng</h2>
+                    <h2><?php echo $lang['CUSTOMER_FEEDBACK'] ?></h2>
                     <hr class="star-primary">
                 </div>
             </div>
@@ -126,7 +126,7 @@ require_once 'header.php';
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Đăng kí</h2>
+                    <h2><?php echo $lang['REGISTER']?></h2>
                     <hr class="star-primary">
                 </div>
             </div>
@@ -137,15 +137,15 @@ require_once 'header.php';
                     <form name="register" id="regForm" novalidate>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Địa chỉ email</label>
-                                <input type="email" class="form-control" placeholder="Địa chỉ email" id="reg_email" required data-validation-required-message="Vui lòng nhập địa chỉ email của bạn.">
+                                <label><?php echo $lang['EMAIL']?></label>
+                                <input type="email" class="form-control" placeholder="Email" id="reg_email" required data-validation-required-message="Please enter email address.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Mật khẩu</label>
-                                <input type="password" class="form-control" placeholder="Nhập mật khẩu..." id="reg_password" required data-validation-required-message="Vui lòng nhập mật khẩu.">
+                                <label><?php echo $lang['PASSWORD']?></label>
+                                <input type="password" class="form-control" placeholder="Password..." id="reg_password" required data-validation-required-message="Please enter password.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -155,7 +155,7 @@ require_once 'header.php';
                             <div class="col-lg-8 col-lg-offset-2 text-center">
                                 <div id="action"></div>
                                 <button class="btn btn-lg btn-outline1" id="reg_button">
-                                    <i class="fa fa-bus"></i> Register
+                                    <i class="fa fa-bus"></i> <?php echo $lang['REGISTER']?>
                                 </button>
                             </div>
                         </div>
@@ -173,7 +173,7 @@ require_once 'header.php';
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Nhóm tác giả</h2>
+                    <h2><?php echo $lang['AUTHOR']?></h2>
                     <hr class="star-light">
                 </div>
             </div>
@@ -181,12 +181,12 @@ require_once 'header.php';
                 <div class="col-lg-6">
                     <img src="images/hoang.png" class="img-responsive circle-member center-block" alt="">
                     <h4 class="text-center">Nguyễn Trần Tấn Hoàng</h4>
-                    <p class="text-center">Sinh viên lớp 10T3 - Đại học Bách Khoa Đà Nẵng<br>Lập trình viên front-end.</p>
+                    <p class="text-center"> <?php echo $lang['CLASST3_UNIVERSITY'] ?> <br><?php echo $lang['FRONT_END'] ?></p>
                 </div>
                 <div class="col-lg-6">
                     <img src="images/thanh.png" class="img-responsive circle-member center-block" alt="">
                     <h4 class="text-center">Trần Duy Thành</h4>
-                    <p class="text-center">Sinh viên lớp 10T1 - Đại học Bách Khoa Đà Nẵng<br>Lập trình viên back-end.</p>
+                    <p class="text-center"><?php echo $lang['CLASST1_UNIVERSITY'] ?><br><?php echo $lang['BACK_END'] ?> </p>
                 </div>
             </div>
         </div>
@@ -197,7 +197,7 @@ require_once 'header.php';
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Liên hệ với chúng tôi</h2>
+                    <h2><?php echo $lang['CONTACT']?></h2>
                     <hr class="star-primary">
                 </div>
             </div>
@@ -208,22 +208,22 @@ require_once 'header.php';
                     <form name="sentMessage" id="contactForm" novalidate>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Họ tên</label>
-                                <input type="text" class="form-control" placeholder="Họ tên" id="contact_name" required data-validation-required-message="Vui lòng nhập họ tên của bạn.">
+                                <label><?php echo $lang['FULLNAME']?></label>
+                                <input type="text" class="form-control" placeholder="Full Name" id="contact_name" required data-validation-required-message="Please enter your name.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Địa chỉ email</label>
-                                <input type="email" class="form-control" placeholder="Địa chỉ email" id="contact_email" required data-validation-required-message="Vui lòng nhập địa chỉ email.">
+                                <label><?php echo $lang['EMAIL']?></label>
+                                <input type="email" class="form-control" placeholder="Email" id="contact_email" required data-validation-required-message="Please enter your email.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Nội dung liên hệ</label>
-                                <textarea rows="5" class="form-control" placeholder="Nội dung" id="contact_message" required data-validation-required-message="Vui lòng nhập nội dung liên hệ."></textarea>
+                                <label><?php echo $lang['FEEDBACK_CONTENT']?></label>
+                                <textarea rows="5" class="form-control" placeholder="Content" id="contact_message" required data-validation-required-message="Please enter content."></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -231,7 +231,7 @@ require_once 'header.php';
                         <div id="contact_success"></div>
                         <div class="row">
                             <div class="form-group col-xs-12">
-                                <button class="btn btn-success btn-lg" id="contact_button">Gửi liên hệ</button>
+                                <button class="btn btn-success btn-lg" id="contact_button"><?php echo $lang['SEND_FEEDBACK']?></button>
                             </div>
                         </div>
                     </form>

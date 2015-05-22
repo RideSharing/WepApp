@@ -1,12 +1,23 @@
 <?php
 session_start ();
+
+if(isset($_COOKIE['lang'])) {
+    if ($_COOKIE['lang'] == "en") {
+        require_once '../includes/lang_en.php';
+    } else {
+        require_once '../includes/lang_vi.php';
+    }
+} else {
+    setcookie('lang', 'en', time() + (86400 * 365), "/");
+}
+
 if (! isset ( $_SESSION ["api_key"] )|| $_SESSION['driver'] == 'customer') {
 	header ( 'Location: ../' );
 	die ();
 }
 require_once '../header_master.php';
 ?>
-<title>Detail Itinerary</title>
+<title><?php echo $lang['DETAILS_ITINERARY']?></title>
 <!-- Header -->
 <header>
 	<div class="container" style="padding-top: 100px">
@@ -17,40 +28,40 @@ require_once '../header_master.php';
 					<form class="form-horizontal">
 						<fieldset>
 							<legend>
-								<b>Itinerary Detail</b>
+								<b><?php echo $lang['DETAILS_ITINERARY']?></b>
 							</legend>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Driver Name:</label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DRIVER_NAME']?>label>
 								<div class="col-sm-4 control-label" style="text-align: left;">
 									<a href="#" style="color: blue; text-decoration: underline;" data-toggle="tooltip" data-original-title="Click to see Driver Information"><?php echo $_REQUEST{'driver'}?></a>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Start Place:</label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DEPARTURE']?></label>
 								<label class="col-sm-4 control-label" id="start_address" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">End Place:</label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DESTINATION']?></label>
 								<label class="col-sm-4 control-label" id="end_address" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Departure Time:</label>
+								<label class="col-sm-5 control-label"><?php echo $lang['STARTING_TIME']?></label>
 								<label class="col-sm-4 control-label" id="time" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Duration:</label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DURATION']?></label>
 								<label class="col-sm-4 control-label" id="duration" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Distance:</label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DISTANCE']?></label>
 								<label class="col-sm-4 control-label" id="distance" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Cost:</label>
+								<label class="col-sm-5 control-label"><?php echo $lang['COST']?></label>
 								<label class="col-sm-4 control-label" id="cost" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label">Description:</label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DESCRIPTION']?></label>
 								<label class="col-sm-4 control-label" id="description" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
@@ -58,7 +69,7 @@ require_once '../header_master.php';
 									<input class="btn btn-primary btn-block" id="reject_itinerary" type="button" value="Reject itinerary">
 								</div>
 								<div class="col-sm-2">
-									<a class="btn btn-primary btn-block" href="accepted_itinerary.php">Back</a>
+									<a class="btn btn-primary btn-block" href="accepted_itinerary.php"><?php echo $lang['BACK']?></a>
 								</div>
 							</div>
 						</fieldset>

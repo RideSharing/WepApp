@@ -4,11 +4,11 @@
         <div class="container">
             <div class="row">
                 <div class="footer-col col-md-3">
-                    <h3>Địa chỉ</h3>
-                    <p>453 - 455 Hoàng Diệu<br>Hải Châu - Đà Nẵng</p>
+                    <h3><?php echo $lang['ADDRRESS']?></h3>
+                    <p><?php echo $lang['HOANG_DIEU']?><br><?php echo $lang['HC_DN']?></p>
                 </div>
                 <div class="footer-col col-md-4">
-                    <h3>Tìm chúng tôi trên:</h3>
+                    <h3><?php echo $lang['FIND_US']?></h3>
                     <ul class="list-inline">
                         <li>
                             <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
@@ -28,8 +28,8 @@
                     </ul>
                 </div>
                 <div class="footer-col col-md-5">
-                    <h3>Thông tin về RideSharing</h3>
-                    <p>RideSharing là hệ thống cho phép đi chung xe phát triển bởi <a href="#">RideSharing Group</a>.</p>
+                    <h3><?php echo $lang['ABOUT_RIDESHARING']?></h3>
+                    <p><?php echo $lang['RIDESHARING_DEVELOPED_BY']?><a href="#"><?php echo $lang['RIDESHARING_TEAM']?></a>.</p>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    Bản quyền thuộc về &copy; Ride Sharing Group 2015
+                    <?php echo $lang['COPYRIGHT_BY']?> &copy; <?php echo $lang['RIDESHARING_TEAM_2015']?>
                 </div>
             </div>
         </div>

@@ -1,12 +1,23 @@
 <?php
 session_start ();
+
+if(isset($_COOKIE['lang'])) {
+    if ($_COOKIE['lang'] == "en") {
+        require_once '../includes/lang_en.php';
+    } else {
+        require_once '../includes/lang_vi.php';
+    }
+} else {
+    setcookie('lang', 'en', time() + (86400 * 365), "/");
+}
+
 if (! isset ( $_SESSION ["api_key"] )|| $_SESSION['driver'] == 'driver') {
 	header ( 'Location: ../' );
 	die ();
 }
 require_once '../header_master.php';
 ?>
-<title>Driver Profile</title>
+<title><?php echo $lang['DRIVER_PROFILE']?></title>
 <!-- Header -->
 <header>
 	<div class="container" style="padding-top: 100px">
@@ -17,7 +28,7 @@ require_once '../header_master.php';
 					<form class="form-horizontal">
 						<fieldset>
 							<legend>
-								<b>Driver Profile</b>
+								<b><?php echo $lang['DRIVER_PROFILE']?></b>
 							</legend>
 							<div class="form-group">
 									<label class="col-lg-3 control-label"></label>
@@ -26,19 +37,19 @@ require_once '../header_master.php';
 											style="height: 150px; width: 180px;" id="driver_avatar"/>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-3">Driver Name:</label>
+										<label class="col-lg-3"><?php echo $lang['DRIVER_NAME']?></label>
 										<label class="col-lg-4" id="driver_name"  style="text-align: left; color:#2C3E50; "><?php echo $_REQUEST{'driver'};?></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-3">Email:</label>
+										<label class="col-lg-3"><?php echo $lang['EMAIL']?></label>
 										<label class="col-lg-4" id="driver_email" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-3">Phone Number:</label>
+										<label class="col-lg-3"><?php echo $lang['PHONE']?></label>
 										<label class="col-lg-4" id="driver_phone" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-3">Personal ID:</label>
+										<label class="col-lg-3"><?php echo $lang['PERSONAL_ID']?></label>
 										<label class="col-lg-4" id="driver_id" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-sm-7" style="text-align: left;">

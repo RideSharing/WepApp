@@ -3,13 +3,24 @@ include_once '../controller/Constant.php';
    /* **Step 1:** Include the `fusioncharts.php` file that contains functions to embed the charts. */
    include("../includes/fusioncharts.php");
    session_start ();
+
+if(isset($_COOKIE['lang'])) {
+    if ($_COOKIE['lang'] == "en") {
+        require_once 'includes/lang_en.php';
+    } else {
+        require_once 'includes/lang_vi.php';
+    }
+} else {
+    setcookie('lang', 'en', time() + (86400 * 365), "/");
+}
+   
    if (! isset ( $_SESSION ["api_key"] )) {
    	header ( 'Location: ../' );
    	die ();
    }
    require_once '../header_master.php';
    ?>
-   <title>Statistic</title>
+   <title><?php echo $lang['STATISTIC']?></title>
 	<!-- Header -->
 	<script src="../fusioncharts/fusioncharts.js"></script>
 	<header>

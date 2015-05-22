@@ -96,12 +96,12 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only"><?php echo $lang['TOGGLE_NAVIGATION']?></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="../">Ride Sharing</a>
+                <a class="navbar-brand" href="../"><?php echo $lang['RIDE_SHARING']?></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -111,10 +111,10 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="../#about">Giới thiệu</a>
+                        <a href="../#about"><?php echo $lang['INTRODUCTION']?></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="../#contact">Liên hệ</a>
+                        <a href="../#contact"><?php echo $lang['CONTACT']?></a>
                     </li>
                     <?php
                     if (isset($_SESSION['api_key'])) {
@@ -125,9 +125,9 @@
                                 <img src="" class="circle-profile" id="mini_avatar">
                             </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                              <li role="presentation"><a role="menuitem" tabindex="-1" href="../manageaccount">Personal</a></li>
+                              <li role="presentation"><a role="menuitem" tabindex="-1" href="../manageaccount"><?php echo $lang['PERSONAL']?></a></li>
                             <li class="dropdown-submenu">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Itinerary</a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $lang['ITINERARY_MANAGEMENT']?></a>
 								<ul class="dropdown-menu">
 									<li role="presentation">
 											<a role="menuitem" tabindex="-1" id="search_itinerary" href="../itinerary_customer" style="display:  <?php echo $_SESSION['driver'] == 'customer' ? "" : "none";?>;">Search Itinerary</a>
@@ -147,7 +147,7 @@
 								</ul>
 							</li>
                             <li class="dropdown-submenu"><a href="#" class="dropdown-toggle"
-									data-toggle="dropdown">User Mode</a>
+									data-toggle="dropdown"><?php echo $lang['USER_MODE']?></a>
 									<ul class="dropdown-menu">
 										<div class="radio">
 											<label style="color: #336EAA;"><input type="radio" name="mode" id="customer" <?php echo $_SESSION['driver'] == 'customer' ? "checked" : "";?>>Customer</label>
@@ -158,10 +158,10 @@
 									</ul>
 							</li>
 							<li role="presentation">
-									<a role="menuitem" tabindex="-1" href="../statistic">Statistic</a>
+									<a role="menuitem" tabindex="-1" href="../statistic"><?php echo $lang['STATISTIC']?></a>
 							</li>
                             <li role="presentation" class="divider"></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="../controller/logout.php">Logout</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="../controller/logout.php"><?php echo $lang['LOGOUT']?></a></li>
                             </ul>
                       	</div>
                     </li>

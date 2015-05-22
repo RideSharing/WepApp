@@ -1,6 +1,17 @@
 <?php
 include_once '../controller/Constant.php';
 session_start ();
+
+if(isset($_COOKIE['lang'])) {
+    if ($_COOKIE['lang'] == "en") {
+        require_once '../includes/lang_en.php';
+    } else {
+        require_once '../includes/lang_vi.php';
+    }
+} else {
+    setcookie('lang', 'en', time() + (86400 * 365), "/");
+}
+
 if (! isset ( $_SESSION ["api_key"] ) || $_SESSION ['driver'] == 'customer') {
 	header ( 'Location: ../' );
 	die ();
@@ -8,7 +19,7 @@ if (! isset ( $_SESSION ["api_key"] ) || $_SESSION ['driver'] == 'customer') {
 require_once '../header_master.php';
 ?>
 
-<title>Register Itinerary</title>
+<title><?php echo $lang['REGISTER_ITINERARY']?></title>
 
 <body>
 	<!-- Header -->
@@ -19,7 +30,7 @@ require_once '../header_master.php';
 					<form>
 						<fieldset>
 							<legend style="text-align: center;">
-								<b>Register Itinerary</b>
+								<b><?php echo $lang['REGISTER_ITINERARY']?></b>
 							</legend>
 							<div class="col-lg-5">
 								<div class="form-group">
@@ -59,7 +70,7 @@ require_once '../header_master.php';
 										placeholder="Cost (VND)">
 								</div>
 								<div class="form-group">
-									<label class="col-sm-5 control-label">Choose your vehicle:</label>
+									<label class="col-sm-5 control-label"><?php echo $lang['VEHICLE_SELECT']?> </label>
 									<div>
 									<?php
 									$api_key = $_SESSION ["api_key"];
