@@ -92,4 +92,6 @@ $lang['COPYRIGHT_BY']            = "Copyright by";
 $lang['FORGOT_PASSWORD']         = "Forgot password";
 $lang['REQUEST']                 = "Request";
 $lang['RIDESHARING_HOMEPAGE']    = "RideSharing - Homepage";
+$lang['LIST_ACCEPT_ITINERARY']    = "Ready to go List";
+
 ?>

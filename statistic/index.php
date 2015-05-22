@@ -6,9 +6,9 @@ include_once '../controller/Constant.php';
 
 if(isset($_COOKIE['lang'])) {
     if ($_COOKIE['lang'] == "en") {
-        require_once 'includes/lang_en.php';
+        require_once '../includes/lang_en.php';
     } else {
-        require_once 'includes/lang_vi.php';
+        require_once '../includes/lang_vi.php';
     }
 } else {
     setcookie('lang', 'en', time() + (86400 * 365), "/");
