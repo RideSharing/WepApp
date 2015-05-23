@@ -68,7 +68,7 @@ require_once '../header_master.php';
 		<div class="col-lg-12">
 			<div class="input-group input-group-sm">
 				<span class="input-group-addon" id="sizing-addon3"
-					style="color: #FFF; background-color: #F39C12"><?php echo $lang['DEPARTURE']?>span> 
+					style="color: #FFF; background-color: #F39C12"><?php echo $lang['DEPARTURE']?>&nbsp;&nbsp;&nbsp;</span>
 				<input id="start-place" type="text"
 					class="form-control" placeholder="Enter the Start Place ..."
 					aria-describedby="sizing-addon3">

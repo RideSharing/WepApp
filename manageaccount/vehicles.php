@@ -259,7 +259,7 @@ $('document').ready(function(){
 		form_data.append("reg_certificate",$('#Register_Certification').val());
 		form_data.append("license_plate_img",$('#License_Plate_Image').attr('src').replace("data:image/jpeg;base64,",""));
 		form_data.append("vehicle_img",$('#Vehicle_Image').attr('src').replace("data:image/jpeg;base64,",""));
-		form_data.append("motor_insurance_img",$('#Vehicle_Image').attr('src').replace("data:image/jpeg;base64,",""));
+		form_data.append("motor_insurance_img",$('##Vehicle_Insurrance_Image').attr('src').replace("data:image/jpeg;base64,",""));
 
 		$.ajax({
 			url: link, // point to server-side PHP script 
