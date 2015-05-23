@@ -33,7 +33,7 @@ if(isset($_COOKIE['lang'])) {
 						$api_key = $_SESSION ["api_key"];
 						$ch = curl_init ();
 						
-						curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/statistic_driver/itinerary/all" );
+						curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/statistic_driver/all" );
 						curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 						curl_setopt ( $ch, CURLOPT_HTTPHEADER, array (
 						'Authorization: ' . $api_key
@@ -50,7 +50,7 @@ if(isset($_COOKIE['lang'])) {
 						
 						$json = json_decode ( $result );
 						
-						$stats = $json->{'stats'};
+						$stats = $json->{'stats_driver'};
 						
 
 

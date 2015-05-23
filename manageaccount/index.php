@@ -244,9 +244,7 @@ function readURL(input,id) {
         	showError("Please add the image!");
 
             }	
-
     }
-   
 }
 </script>
 <!-- Plugin JavaScript -->
