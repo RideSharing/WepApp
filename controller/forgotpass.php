@@ -6,7 +6,7 @@ $getreq = $_POST{'email'};
 
 $ch = curl_init ();
 
-curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/forgotpass/$getreq" );
+curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/forgotpass/".$getreq );
 
 curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 

@@ -144,7 +144,7 @@
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label><?php echo $lang['EMAIL']?></label>
-                                    <input type="email" class="form-control" placeholder="Email" id="forgot_email" required data-validation-required-message="Vui lòng nhập địa chỉ email của bạn.">
+                                    <input type="email" class="form-control" placeholder="Email" id="forgot_email" required data-validation-required-message="Please enter your email address.">
                                     <p class="help-block text-danger"></p>                        			
                                 </div>
                         		
@@ -289,9 +289,8 @@ $('document').ready(function(){
 
 	<?php 
 	if(isset($_SESSION['showMessage'])){
-	?>
-		showSuccess("You became to <?php echo $_SESSION['driver'];?>!");
-	<?php	
+        alert(123);
+		showSuccess($_SESSION['showMessage']);	
 		$_SESSION['showMessage'] = null;
 	}
 	?>

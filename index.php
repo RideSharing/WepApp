@@ -397,8 +397,6 @@ require_once 'header.php';
             preventSubmit: true,
             submitSuccess: function($form, event) {
                 event.preventDefault(); // prevent default submit behaviour
-                
-                
             }
         });
 

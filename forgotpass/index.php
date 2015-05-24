@@ -1,3 +1,19 @@
+<?php
+
+session_start();
+
+if(isset($_COOKIE['lang'])) {
+    if ($_COOKIE['lang'] == "en") {
+        require_once '../includes/lang_en.php';
+    } else {
+        require_once '../includes/lang_vi.php';
+    }
+} else {
+    setcookie('lang', 'en', time() + (86400 * 365), "/");
+}
+
+?>
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
