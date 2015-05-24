@@ -26,7 +26,7 @@ require_once 'header.php';
                             <div class="row control-group" style="border: 1px solid #eee;">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <span style="font-size: 35px  !important; position: absolute; z-index: 10; color: rgba(0, 0, 0, 0.55); top: 5px; left: 10px;"><i class="fa fa-map-marker"></i></span>
-                                    <input style="margin-top:10px;" type="text" class="form-control" placeholder="Enter address you want to go..." id="searchQry" required data-validation-required-message="Vui lòng nhập địa điểm cần đến.">
+                                    <input style="margin-top:10px;" type="text" class="form-control" placeholder="Enter address you want to go..." id="searchQry" required data-validation-required-message="Please enter address.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
@@ -255,9 +255,10 @@ require_once 'header.php';
 		    data: _data,         	                
 		    type: 'post',
 		    success: function(string){
-		        
 		    	var getData = $.parseJSON(string);
 		    	var message = getData['message'];
+
+                alert(getData['error']);
 		    	
 		    	if(!getData['error']){
 	
@@ -276,7 +277,6 @@ require_once 'header.php';
 		    		showSuccess(getData['message']);
 		    		
 		        }else {
-	
 	
 		        	// Fail message
 	                $('#reg_success').html("<div class='alert alert-danger'>");
@@ -384,10 +384,18 @@ require_once 'header.php';
 
         if($('#searchQry').val() != ""){
 
-            <?php ?>
-
+            <?php 
+            if (isset($_SESSION['api_key'])) {
+            ?>
         	window.location.href = "itinerary_customer?End_Address=" + $('#searchQry').val();
-        	
+
+        	<?php 
+            } else {
+            ?>
+            showError('You have to login first!')
+            <?php 
+            }
+            ?>
         }
     
     }

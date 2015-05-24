@@ -169,7 +169,6 @@ $('document').ready(function(){
 
 		}
 		if($(this).val() === "e"){
-			 
 			link = "../controller/add_Vehicle.php";
 	    	document.getElementById('form_vehicle').style.display = 'block';
 	    	document.getElementById('delete').disabled = true;
@@ -253,16 +252,16 @@ $('document').ready(function(){
 
 		var form_data = new FormData();
 		
-		form_data.append("vehicle_ID",vehicle_ID);
+		form_data.append("vehicle_ID", vehicle_ID);
 		form_data.append("type",$('#type_vehicle').val());
 		form_data.append("license_plate",$('#License_Plate').val());
 		form_data.append("reg_certificate",$('#Register_Certification').val());
 		form_data.append("license_plate_img",$('#License_Plate_Image').attr('src').replace("data:image/jpeg;base64,",""));
 		form_data.append("vehicle_img",$('#Vehicle_Image').attr('src').replace("data:image/jpeg;base64,",""));
-		form_data.append("motor_insurance_img",$('##Vehicle_Insurrance_Image').attr('src').replace("data:image/jpeg;base64,",""));
+		form_data.append("motor_insurance_img",$('#Vehicle_Insurrance_Image').attr('src').replace("data:image/jpeg;base64,",""));
 
 		$.ajax({
-			url: link, // point to server-side PHP script 
+			url: '../controller/update_Vehicle.php', // point to server-side PHP script 
 		    dataType: 'text',  // what to expect back from the PHP script, if anything
 		    cache: false,
 		    contentType: false,
@@ -270,9 +269,8 @@ $('document').ready(function(){
 		    data: form_data,         	                
 		    type: 'post',
 		    success: function(string){
-		        
 		    	var getData = $.parseJSON(string);
-		    	
+
 		    	if(!getData['error']){
 
 		    			showSuccess(getData['message']);
@@ -282,14 +280,14 @@ $('document').ready(function(){
 		    				
 			    		},500);
 		    		
-		        }else {
-
+		        } else {
 		        	showError(getData['message']);
-
-		            }
+		        }
 		    	
 		    },
 		    error: function(){
+
+		    	alert(123);
 
 		    	showError("Error unknow!");
 

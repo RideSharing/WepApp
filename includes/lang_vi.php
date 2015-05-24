@@ -92,4 +92,5 @@ $lang['FORGOT_PASSWORD']         = "Quên mật khẩu";
 $lang['REQUEST']                 = "Yêu cầu";
 $lang['RIDESHARING_HOMEPAGE']    = "RideSharing - Trang chủ";
 $lang['LIST_ACCEPT_ITINERARY']    = "Danh sách hành trình sắp đi";
+$lang['DISTANCE']    			 = "Khoảng cách";
 ?>

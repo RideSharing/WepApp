@@ -144,10 +144,10 @@
 											<a role="menuitem" tabindex="-1" id="posted_itinerary" href="itinerary_driver" style="display:  <?php echo $_SESSION['driver'] == 'driver' ? "" : "none";?>;" >Registered Itinerary</a>
 									</li>
 									<li role="presentation">
-											<a role="menuitem" tabindex="-1" id="accepted_itinerary" href="<?php echo $_SESSION['driver'] == 'customer' ? "itinerary_customer/accepted_itinerary.php" : "itinerary_driver/accepted_itinerary.php";?>">Accepted Itinerary</a>
+											<a role="menuitem" tabindex="-1" id="accepted_itinerary" href="<?php echo $_SESSION['driver'] == 'customer' ? "itinerary_customer/accepted_itinerary.php" : "itinerary_driver/accepted_itinerary.php";?>">Joinning Itinerary</a>
 									</li>
 									<li role="presentation">
-											<a role="menuitem" tabindex="-1" id="schedule" href="<?php echo $_SESSION['driver'] == 'customer' ? "itinerary_customer/schedule.php" : "itinerary_driver/schedule.php";?>">Schedule</a>
+											<a role="menuitem" tabindex="-1" id="schedule" href="<?php echo $_SESSION['driver'] == 'customer' ? "itinerary_customer/schedule.php" : "itinerary_driver/schedule.php";?>">Accepted Itinerary</a>
 									</li>
 								</ul>
 								</li>
