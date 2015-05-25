@@ -261,7 +261,7 @@ $('document').ready(function(){
 		form_data.append("motor_insurance_img",$('#Vehicle_Insurrance_Image').attr('src').replace("data:image/jpeg;base64,",""));
 
 		$.ajax({
-			url: '../controller/update_Vehicle.php', // point to server-side PHP script 
+			url: link, // point to server-side PHP script 
 		    dataType: 'text',  // what to expect back from the PHP script, if anything
 		    cache: false,
 		    contentType: false,

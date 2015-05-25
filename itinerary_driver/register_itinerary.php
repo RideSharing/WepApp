@@ -35,9 +35,9 @@ require_once '../header_master.php';
 							<div class="col-lg-5">
 								<div class="form-group">
 									<input class="form-control" id="start_place" type="text"
-										placeholder="Start Place"> <input id="start_place_lat"
-										type="text" style="display: none;"> <input
-										id="start_place_lng" type="text" style="display: none;">
+										placeholder="Start Place"> 
+									<input id="start_place_lat" type="text" style="display: none;"> 
+									<input id="start_place_lng" type="text" style="display: none;">
 								</div>
 								<div class="form-group">
 									<input class="form-control" id="end_place" type="text"
@@ -124,6 +124,7 @@ $('document').ready(function(){
 
 		var e = document.getElementById("list_vehicle");
 		var form_data = new FormData();
+		
 		form_data.append("start_address",$("#start_place").val());
 		form_data.append("start_address_lat",$("#start_place_lat").val());
 		form_data.append("start_address_long",$("#start_place_lng").val());
@@ -135,7 +136,7 @@ $('document').ready(function(){
 		form_data.append("distance",$("#distance").val());
 		form_data.append("cost",$("#cost").val());
 		form_data.append("description",$("#description").val());
-		form_data.append("vehicle_id",document.getElementById("list_vehicle"));
+		form_data.append("vehicle_id",e.options[e.selectedIndex].value);
 
 		$.ajax({
 			url: '../controller/register_itinerary.php', // point to server-side PHP script 

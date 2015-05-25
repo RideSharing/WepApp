@@ -285,8 +285,9 @@ $('document').ready(function(){
 
 	<?php 
 	if(isset($_SESSION['showMessage'])){
-        alert(123);
-		showSuccess($_SESSION['showMessage']);	
+    ?>
+		showSuccess("You became the <?php echo $_SESSION['driver']; ?>!");
+	<?php 	
 		$_SESSION['showMessage'] = null;
 	}
 	?>

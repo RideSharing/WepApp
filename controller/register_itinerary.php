@@ -29,11 +29,10 @@ curl_setopt ( $ch, CURLOPT_HTTPHEADER, array (
 'Authorization: ' . $api_key
 ) );
 
-// Thiết lập sử dụng POST
-curl_setopt ( $ch, CURLOPT_POST, 1 );
+// Thiết lập sử dụng GET
+curl_setopt($ch,CURLOPT_CUSTOMREQUEST, "POST");
 
-// Thiết lập các dữ liệu gửi đi
-curl_setopt ( $ch, CURLOPT_POSTFIELDS, $getreq );
+curl_setopt ( $ch, CURLOPT_POSTFIELDS, http_build_query ( $getreq ) );
 
 // execute the request
 $result = curl_exec ( $ch );
