@@ -35,19 +35,19 @@ require_once '../header_master.php';
 							<div class="col-lg-5">
 								<div class="form-group">
 									<input class="form-control" id="start_place" type="text"
-										placeholder="Start Place"> 
+										placeholder="<?php echo $lang['DEPARTURE'];?>"> 
 									<input id="start_place_lat" type="text" style="display: none;"> 
 									<input id="start_place_lng" type="text" style="display: none;">
 								</div>
 								<div class="form-group">
 									<input class="form-control" id="end_place" type="text"
-										placeholder="End Place"> <input id="end_place_lat" type="text"
+										placeholder="<?php echo $lang['DESTINATION'];?>"> <input id="end_place_lat" type="text"
 										style="display: none;"> <input id="end_place_lng" type="text"
 										style="display: none;">
 								</div>
 								<div class="form-group">
 									<div id="datetimepicker" class="input-group date">
-										<input id="leave_date" class="form-control" type="text"></input> 
+										<input id="leave_date" class="form-control" type="text" placeholder="<?php echo $lang['STARTING_TIME'];?> - <?php echo $lang['TIME_FORMAT']?>" ></input> 
 										<span class="input-group-addon add-on"> 
 											<span class="glyphicon glyphicon-calendar"></span>
 										</span>
@@ -55,19 +55,19 @@ require_once '../header_master.php';
 								</div>
 								<div class="form-group">
 									<textarea class="form-control" id="description"
-										placeholder="Description" style="resize: none;"></textarea>
+										placeholder="<?php echo $lang['DESCRIPTION'];?>" style="resize: none;"></textarea>
 								</div>
 								<div class="form-group">
 									<input class="form-control" id="distance" type="text"
-										placeholder="Distance (km)">
+										placeholder="<?php echo $lang['DISTANCE'];?> (km)">
 								</div>
 								<div class="form-group">
 									<input class="form-control" id="duration" type="text"
-										placeholder="Duration (minutes)">
+										placeholder="<?php echo $lang['DURATION'];?>">
 								</div>
 								<div class="form-group">
 									<input class="form-control" id="cost" type="text"
-										placeholder="Cost (VND)">
+										placeholder="<?php echo $lang['COST'];?>">
 								</div>
 								<div class="form-group">
 									<label class="col-sm-5 control-label"><?php echo $lang['VEHICLE_SELECT']?> </label>
@@ -105,7 +105,7 @@ require_once '../header_master.php';
 								</div>
 								<div class="form-group">
 									<input class="btn btn-primary btn-block" type="button"
-										name="register_itinerary" id="register_iti" value="Register">
+										name="register_itinerary" id="register_iti" value="<?php echo $lang['POST'];?>">
 								</div>
 							</div>
 							<div id="googleMap" style="height: 485px; width: 680px;"></div>

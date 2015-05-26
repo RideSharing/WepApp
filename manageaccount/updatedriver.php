@@ -54,7 +54,7 @@ require_once '../header_master.php';
 								<div class="form-group">
 									<div class="col-sm-offset-5 col-sm-1">
 										<input class="btn btn-primary btn-block" type="button"
-											name="request" id="request" value="Request">
+											name="request" id="request" value="<?php echo $lang['UPDATE']?>">
 									</div>
 									<div class="col-sm-2">
 										<a class="btn btn-primary btn-block" href="vehicles.php"><?php echo $lang['VEHICLE_MANAGEMENT'] ?></a>

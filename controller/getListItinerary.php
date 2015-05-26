@@ -2,6 +2,17 @@
 include_once 'Constant.php';
 session_start();
 
+$lang = "";
+if(isset($_COOKIE['lang'])) {
+	if ($_COOKIE['lang'] == "en") {
+		$lang = "en";
+	} else {
+		$lang = "vi";
+	}
+} else {
+	$lang = "en";
+}
+
 $api_key = $_SESSION["api_key"];
 
 $start_place = "";
@@ -16,7 +27,7 @@ if(isset($_POST{'end_place_Lat'})&&$_POST{'end_place_Lat'}!=""&&isset($_POST{'en
 
 $ch = curl_init();
 
-curl_setopt($ch,CURLOPT_URL,IP_ADDRESS."/RESTFul/v1/itineraries?$start_place&$end_place");
+curl_setopt($ch,CURLOPT_URL,IP_ADDRESS."/RESTFul/v1/itineraries?$start_place&$end_place?lang=$lang");
 
 curl_setopt( $ch,CURLOPT_RETURNTRANSFER,1);
 

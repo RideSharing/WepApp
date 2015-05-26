@@ -111,6 +111,19 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
+							<a id="menu1" class="dropdown-toggle" data-toggle="dropdown" href="#"> 
+								<?php echo $lang['LANGUAGE']; ?>
+							</a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+								<li role="presentation">
+								<a role="menuitem" tabindex="-1" id = "lang_vie" href=""><?php echo $lang['VIE'];?></a>
+								</li>
+								<li role="presentation">
+								<a role="menuitem" tabindex="-1" id = "lang_eng" href=""><?php echo $lang['ENG'];?></a>
+								</li>
+							</ul>
+					</li>
+                    <li class="page-scroll">
                         <a href="../#about"><?php echo $lang['INTRODUCTION']?></a>
                     </li>
                     <li class="page-scroll">
@@ -130,19 +143,19 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $lang['ITINERARY_MANAGEMENT']?></a>
 								<ul class="dropdown-menu">
 									<li role="presentation">
-											<a role="menuitem" tabindex="-1" id="search_itinerary" href="../itinerary_customer" style="display:  <?php echo $_SESSION['driver'] == 'customer' ? "" : "none";?>;">Search Itinerary</a>
+											<a role="menuitem" tabindex="-1" id="search_itinerary" href="../itinerary_customer" style="display:  <?php echo $_SESSION['driver'] == 'customer' ? "" : "none";?>;"><?php echo $lang['SEARCH_ITINERARY'];?></a>
 									</li>
 									<li role="presentation">
-											<a role="menuitem" tabindex="-1" id="register_itinerary" href="../itinerary_driver/register_itinerary.php" style="display:  <?php echo $_SESSION['driver'] == 'driver' ? "" : "none";?>;" >Register Itinerary</a>
+											<a role="menuitem" tabindex="-1" id="register_itinerary" href="../itinerary_driver/register_itinerary.php" style="display:  <?php echo $_SESSION['driver'] == 'driver' ? "" : "none";?>;" ><?php echo $lang['REGISTER_ITINERARY'];?></a>
 									</li>
 									<li role="presentation">
-											<a role="menuitem" tabindex="-1" id="posted_itinerary" href="../itinerary_driver" style="display:  <?php echo $_SESSION['driver'] == 'driver' ? "" : "none";?>;" >Registered Itinerary</a>
+											<a role="menuitem" tabindex="-1" id="posted_itinerary" href="../itinerary_driver" style="display:  <?php echo $_SESSION['driver'] == 'driver' ? "" : "none";?>;" ><?php echo $lang['LIST_REGISTER_ITINERARY'];?></a>
 									</li>
 									<li role="presentation">
-											<a role="menuitem" tabindex="-1" id="accepted_itinerary" href="<?php echo $_SESSION['driver'] == 'customer' ? "../itinerary_customer/accepted_itinerary.php" : "../itinerary_driver/accepted_itinerary.php";?>">Accepted Itinerary</a>
+											<a role="menuitem" tabindex="-1" id="accepted_itinerary" href="<?php echo $_SESSION['driver'] == 'customer' ? "../itinerary_customer/accepted_itinerary.php" : "../itinerary_driver/accepted_itinerary.php";?>"><?php echo $lang['WAIT_ITINERARY'];?></a>
 									</li>
 									<li role="presentation">
-											<a role="menuitem" tabindex="-1" id="schedule" href="<?php echo $_SESSION['driver'] == 'customer' ? "../itinerary_customer/schedule.php" : "../itinerary_driver/schedule.php";?>">Schedule</a>
+											<a role="menuitem" tabindex="-1" id="schedule" href="<?php echo $_SESSION['driver'] == 'customer' ? "../itinerary_customer/schedule.php" : "../itinerary_driver/schedule.php";?>"><?php echo $lang['ACCEPTED_ITINERARY'];?></a>
 									</li>
 								</ul>
 							</li>
@@ -150,10 +163,10 @@
 									data-toggle="dropdown"><?php echo $lang['USER_MODE']?></a>
 									<ul class="dropdown-menu">
 										<div class="radio">
-											<label style="color: #336EAA;"><input type="radio" name="mode" id="customer" <?php echo $_SESSION['driver'] == 'customer' ? "checked" : "";?>>Customer</label>
+											<label style="color: #336EAA;"><input type="radio" name="mode" id="customer" <?php echo $_SESSION['driver'] == 'customer' ? "checked" : "";?>><?php echo $lang['CUSTOMER'];?></label>
 										</div>
 										<div class="radio">
-											<label style="color: #336EAA;"><input type="radio" name="mode" id="driver" <?php echo $_SESSION['driver'] == 'driver' ? "checked" : "";?>>Driver</label>
+											<label style="color: #336EAA;"><input type="radio" name="mode" id="driver" <?php echo $_SESSION['driver'] == 'driver' ? "checked" : "";?>><?php echo $lang['DRIVER'];?></label>
 										</div>
 									</ul>
 							</li>

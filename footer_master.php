@@ -23,7 +23,7 @@
                 </div>
                 <div class="footer-col col-md-5">
                     <h3><?php echo $lang['ABOUT_RIDESHARING']?></h3>
-                    <p><?php echo $lang['RIDESHARING_DEVELOPED_BY']?><a href="#"><?php echo $lang['RIDESHARING_TEAM']?></a>.</p>
+                    <p><?php echo $lang['RIDESHARING_DEVELOPED_BY']?> <a href="#"><?php echo $lang['RIDESHARING_TEAM']?></a>.</p>
                 </div>
             </div>
         </div>
@@ -123,9 +123,20 @@
         });
         
     }
-    function change_mode(message){
+    function change_mode(){
     	$.ajax({
 			url: '../controller/changemode.php', // point to server-side PHP script 
+            cache: false,
+            data: "nothing",         	                
+            type: 'post',
+            success: function(){
+            	location.reload();
+            }
+		});
+    }
+    function change_lang(){
+    	$.ajax({
+			url: '../controller/change_Lang.php', // point to server-side PHP script 
             cache: false,
             data: "nothing",         	                
             type: 'post',
@@ -153,18 +164,9 @@ $('document').ready(function(){
 	    		$("#mini_avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
 	    		$("#avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);	
 	    		
-	        }else {
-
-	        	showError("Can not get your avatar!");
-
-	            }
-	    	
-	    },
-	    error: function(){
-
-	    	showError("Error unknow!");
-
 	        }
+	    	
+	    }
 	});
 
 	$('#driver').click(
@@ -176,7 +178,7 @@ $('document').ready(function(){
 					
 				} else {
 
-					change_mode("driver");
+					change_mode();
 
 				}
 
@@ -192,12 +194,28 @@ $('document').ready(function(){
 					
 				} else {
 
-					change_mode("customer");
+					change_mode();
 					
 				}
 				
 			}
 	);
+
+	$('#lang_vie').click(function(){
+		
+		<?php if ($_COOKIE['lang'] == "en") {?>
+				change_lang();
+		<?php }?>
+		 
+	});
+
+	$('#lang_eng').click(function(){
+		
+		<?php if ($_COOKIE['lang'] == "vi") {?>
+				change_lang();
+		<?php }?>
+		 
+	});
 	
 });
 </script>

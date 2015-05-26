@@ -23,7 +23,7 @@
                 </div>
                 <div class="footer-col col-md-5">
                     <h3><?php echo $lang['ABOUT_RIDESHARING']?></h3>
-                    <p><?php echo $lang['RIDESHARING_DEVELOPED_BY']?><a href="#"><?php echo $lang['RIDESHARING_TEAM']?></a>.</p>
+                    <p><?php echo $lang['RIDESHARING_DEVELOPED_BY']?> <a href="#"><?php echo $lang['RIDESHARING_TEAM']?></a>.</p>
                 </div>
             </div>
         </div>
@@ -96,14 +96,14 @@
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label><?php echo $lang['EMAIL']?></label>
-                                    <input type="email" class="form-control" placeholder="Email..." id="log_email" required data-validation-required-message="Vui lòng nhập địa chỉ email của bạn.">
+                                    <input type="email" class="form-control" placeholder="<?php echo $lang['EMAIL']?> 	..." id="log_email" required data-validation-required-message="<?php echo $lang['EMAIL_REQUIRED']?>">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label><?php echo $lang['PASSWORD']?></label>
-                                    <input type="password" class="form-control" placeholder="Password..." id="log_password" required data-validation-required-message="Vui lòng nhập mật khẩu.">
+                                    <input type="password" class="form-control" placeholder="<?php echo $lang['PASSWORD']?> ..." id="log_password" required data-validation-required-message="<?php echo $lang['PASSWORD_REQUIRED']?>">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label><?php echo $lang['EMAIL']?></label>
-                                    <input type="email" class="form-control" placeholder="Email" id="forgot_email" required data-validation-required-message="Please enter your email address.">
+                                    <input type="email" class="form-control" placeholder="<?php echo $lang['EMAIL']?>" id="forgot_email" required data-validation-required-message="<?php echo $lang['EMAIL_REQUIRED']?>">
                                     <p class="help-block text-danger"></p>                        			
                                 </div>
                         		
@@ -268,9 +268,21 @@
         
     }
     
-    function change_mode(message){
+    function change_mode(){
     	$.ajax({
 			url: 'controller/changemode.php', // point to server-side PHP script 
+            cache: false,
+            data: "nothing",         	                
+            type: 'post',
+            success: function(){
+            	location.reload();
+            }
+		});
+    }
+
+    function change_lang(){
+    	$.ajax({
+			url: 'controller/change_Lang.php', // point to server-side PHP script 
             cache: false,
             data: "nothing",         	                
             type: 'post',
@@ -285,9 +297,23 @@ $('document').ready(function(){
 
 	<?php 
 	if(isset($_SESSION['showMessage'])){
+		if(isset($_COOKIE['lang'])) {
+			if ($_COOKIE['lang'] == "en") {
+			
     ?>
 		showSuccess("You became the <?php echo $_SESSION['driver']; ?>!");
 	<?php 	
+
+			} else {
+	?>
+		showSuccess("Bạn đã trở thành <?php echo $_SESSION['driver']; ?>!");
+	<?php 
+			}
+		} else {
+	?>
+		showSuccess("You became the <?php echo $_SESSION['driver']; ?>!");
+	<?php 
+		}
 		$_SESSION['showMessage'] = null;
 	}
 	?>
@@ -306,29 +332,36 @@ $('document').ready(function(){
 
 	    		$("#mini_avatar").attr('src',"data:image/jpeg;base64,"+getData['link_avatar']);
 	    		
-	        }else {
-
-	        	showError("Can not get your avatar!");
-
-	            }
-	    	
-	    },
-	    error: function(){
-
-	    	showError("Error unknow!");
-
 	        }
+	    }
 	});
 
 	$('#driver').click(function(){
 	
 		if("<?php echo $_SESSION['driver'];?>" == 'driver') {
-	
-			showSuccess("You're already a Driver!");
-			
+			<?php 
+				
+				if(isset($_COOKIE['lang'])) {
+					if ($_COOKIE['lang'] == "en") {
+					
+		    ?>
+						showSuccess("You're already a Driver!");
+			<?php 	
+
+					} else {
+			?>
+						showSuccess("Bạn hiện đang là Driver!");
+			<?php 
+					}
+				} else {
+			?>
+					showSuccess("You're already a Driver!");
+			<?php 
+				}
+			?>
 		} else {
 			
-			change_mode("driver");
+			change_mode();
 			
 		}
 		 
@@ -338,12 +371,29 @@ $('document').ready(function(){
 					
 		
 		if("<?php echo $_SESSION['driver'];?>" == 'customer') {
+			<?php 
+					
+					if(isset($_COOKIE['lang'])) {
+						if ($_COOKIE['lang'] == "en") {
+						
+			    ?>
+							showSuccess("You're already a Customer!");
+				<?php 	
 
-			showSuccess("You're already a Customer!");
-			
+						} else {
+				?>
+							showSuccess("Bạn hiện đang là Customer!");
+				<?php 
+						}
+					} else {
+				?>
+						showSuccess("You're already a Customer!");
+				<?php 
+					}
+				?>
 		} else {
 			
-			change_mode("customer");
+			change_mode();
 						
 		}
 				

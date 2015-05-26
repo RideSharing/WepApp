@@ -37,11 +37,11 @@ require_once '../header_master.php';
 											style="height: 150px; width: 180px;" id="customer_avatar"/>
 									</div>
 									<div class="col-lg-7" style="text-align: left;" >
-										<label class="col-lg-3"><?php echo $lang['CUSTOMER_NAME']?></label>
+										<label class="col-lg-3"><?php echo $lang['CUSTOMER_NAME']?>:</label>
 										<label class="col-lg-4" id="customer_name"  style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-3" ><?php echo $lang['EMAIL']?></label>
+										<label class="col-lg-3" ><?php echo $lang['EMAIL']?>:</label>
 										<label class="col-lg-4" id="customer_email" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
@@ -53,12 +53,12 @@ require_once '../header_master.php';
 										<label class="col-lg-4" id="customer_id" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-3"><?php echo $lang['RATING']?></label>
-										<div id="rating"></div>
+										<label class="col-lg-3"><?php echo $lang['RATING']?>:</label>
+										<div class="col-lg-4" id="rating"></div>
 									</div>
 									
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-7"><?php echo $lang['JOINT_ITINERARY']?></label>
+										<label class="col-lg-7"><?php echo $lang['ACCEPT_CUSTOMER']?></label>
 									</div>
 									<div class="col-lg-offset-5 col-sm-7">
 										<div class="col-lg-2">

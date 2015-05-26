@@ -18,12 +18,12 @@ if (! isset ( $_SESSION ["api_key"] )|| $_SESSION['driver'] == 'customer') {
 }
 require_once '../header_master.php';
 ?>
-<title><?php echo $lang['ACCEPT_ITINERARY']?></title>
+<title><?php echo $lang['WAIT_ITINERARY']?></title>
 
 <!-- Section -->
 <section class="full-content">
 	<div class="row">
-		<h4 style="text-align: center;"><?php echo $lang['LIST_ACCEPT_ITINERARY']?></h1>
+		<h4 style="text-align: center;"><?php echo $lang['WAIT_ITINERARY'];?></h4>
 	</div>
 	<div class="row">
 		<div class="col-lg-4 no-padding">
@@ -62,8 +62,10 @@ require_once '../header_master.php';
 									</h6> 
 									<b><?php echo $lang['DRIVER']?> </b> <?php echo $value->{'fullname'}==NULL?' ':$value->{'fullname'}?>
 									<br> <b><?php echo $lang['EMAIL']?> </b> <?php echo $value->{'email'}==NULL?' ':$value->{'email'} ?>	
-									<br> <b><?php echo $lang['PHONE']?> </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>	
-									<br> <label style="color: red; font-style:italic;"><b><?php echo $lang['VIEW_INFOR']?>  </b></label>								
+									<br> <b><?php echo $lang['PHONE']?> </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>
+									<br> <b><?php echo $lang['DISTANCE']?>:</b> <?php echo $value->{'distance'}==NULL?' ':$value->{'distance'}?> km
+									<br> <b><?php echo $lang['COST']?>:</b> <?php echo $value->{'cost'}==NULL?' ':$value->{'cost'}?>	
+									<br> <label style="color: red; font-style:italic;"><b><?php echo $lang['VIEW_CUSTOMER_INFOR'];?> . . . . . . . . </b></label>								
 								</a> 
 						<?php
 							} 
@@ -107,13 +109,14 @@ function initialize() {
 				icon : '../icons/icon_motor.png',
 			});
 
-			var infocontent = '<b>FROM:</b> ' + value['start_address'] + '<br><b>TO:</b> ' + 
-				value['end_address'] + '<br><b>DRIVER: </b>' + value['fullname'] + 
-				'<br><div><img src="data:image/jpeg;base64,' + value['link_avatar'] + 
-				'" style="height: 50px; width: 6	0px;"/></div><b>DISTANCE: </b>' + 
-				value['distance'] + ' KM<br><b>COST:</b> VND ' + value['cost'] + 
-				'<br><a href="detail_itinerary.php?itinerary_id=' + value['customer_id'] + 
-				'&driver=' + value['fullname'] + '">View Itinerary Information	........</a>';
+			var infocontent = '<b><?php echo $lang['FROM']?></b> ' + value['start_address'] + '<br><b><?php echo $lang['TO']?></b> ' + 
+			value['end_address'] + '<br><b><?php echo $lang['DRIVER']?>: </b>' + value['fullname'] + 
+			'<br><div><img src="data:image/jpeg;base64,' + value['link_avatar'] + 
+			'" style="height: 50px; width: 6	0px;"/></div><b><?php echo $lang['PHONE']?> </b>' + 
+			value['phone'] + '<br><b><?php echo $lang['DISTANCE']?>: </b>' + 
+			value['distance'] + ' KM<br><b><?php echo $lang['COST']?>:</b> ' + value['cost'] + 
+				'<br><a href="detail_itinerary.php?itinerary_id=' + value['itinerary_id'] + 
+				'&driver=' + value['fullname'] + '"><?php echo $lang['VIEW_CUSTOMER_INFOR'];?>';
 
 			marker.info = new google.maps.InfoWindow({
 				  content: infocontent,

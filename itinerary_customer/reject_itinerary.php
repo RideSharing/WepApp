@@ -33,7 +33,7 @@ require_once '../header_master.php';
 							<div class="form-group">
 								<label class="col-sm-5 control-label"><?php echo $lang['DRIVER_NAME']?></label>
 								<div class="col-sm-4 control-label" style="text-align: left;">
-									<a href="driver_profile.php?driver_id=<?php echo $_REQUEST{'driver_id'};?>" style="color: blue; text-decoration: underline;" data-toggle="tooltip" data-original-title="Click to see Driver Information"><?php echo $_REQUEST{'driver'};?></a>
+									<a href="driver_profile.php?itinerary_id=<?php echo $_REQUEST{'itinerary_id'};?>&driver_id=<?php echo $_REQUEST{'driver_id'};?>&driver=<?php echo $_REQUEST{'driver'};?>" style="color: blue; text-decoration: underline;" data-toggle="tooltip" data-original-title="Click to see Driver Information"><?php echo $_REQUEST{'driver'};?></a>
 								</div>
 							</div>
 							<div class="form-group">
@@ -67,7 +67,7 @@ require_once '../header_master.php';
 							<div class="form-group">
 								<div class="col-sm-offset-5 col-sm-2">
 									<input class="btn btn-primary btn-block" type="button"
-										id="reject" value="Reject Itinerary">
+										id="reject" value="<?php echo $lang['REJECT_ITINERARY'];?>">
 								</div>
 								<div class="col-sm-2">
 									<a class="btn btn-primary btn-block" href="accepted_itinerary.php"><?php echo $lang['BACK']?></a>

@@ -72,23 +72,20 @@ require_once '../header_master.php';
 									<label class="col-sm-5 control-label"
 										style="font-style: italic;"><?php echo $lang['NEW_PASS']?></label>
 									<div class="col-sm-4">
-										<input type="password" class="form-control" id="newPassword"
-											name="newPassword" placeholder="New Password">
+										<input type="password" class="form-control" id="newPassword" name="newPassword">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-5 control-label"
 										style="font-style: italic;"><?php echo $lang['RETYPE_PASS']?></label>
 									<div class="col-sm-4">
-										<input type="password" class="form-control"
-											name="retypePassword" id="retypePassword"
-											placeholder="RetypePassword">
+										<input type="password" class="form-control" name="retypePassword" id="retypePassword">
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="col-sm-offset-5 col-sm-1">
 										<input class="btn btn-primary btn-block" type="button"
-											name="oK" id="oK" value="OK">
+											name="oK" id="oK" value="<?php echo $lang['UPDATE']?>">
 									</div>
 									<div class="col-sm-1">
 										<a class="btn btn-primary btn-block" href="../manageaccount"><?php echo $lang['BACK']?></a>

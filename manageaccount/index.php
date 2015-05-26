@@ -76,7 +76,7 @@ require_once '../header_master.php';
 								<div class="form-group">
 									<div class="col-sm-offset-4 col-sm-1">
 										<input class="btn btn-primary btn-block" type="button"
-											name="update" id="update" value="Update">
+											name="update" id="update" value="<?php echo $lang['UPDATE']?>">
 									</div>
 									<div class="col-sm-2">
 										<a class="btn btn-primary btn-block" href="changepassword.php"><?php echo $lang['CHANGE_PASS']?></a>

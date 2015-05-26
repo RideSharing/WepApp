@@ -66,7 +66,7 @@ require_once '../header_master.php';
 							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-4 col-sm-3">
-									<input class="btn btn-primary btn-block" id="cancel_itinerary" type="button" value="Cancel itinerary">
+									<input class="btn btn-primary btn-block" id="cancel_itinerary" type="button" value="<?php echo $lang['CANCEL_ITINERARY'];?>">
 								</div>
 								<div class="col-sm-2">
 									<a class="btn btn-primary btn-block" href="accepted_itinerary.php"><?php echo $lang['BACK']?></a>
@@ -109,7 +109,7 @@ $("document").ready(function(){
         		document.getElementById("time").innerHTML = getData['leave_date'];
         		document.getElementById("duration").innerHTML = getData['duration']==null?"":getData['duration']+" minutes";
         		document.getElementById("distance").innerHTML = getData['distance']==null?"":getData['distance']+" km";
-        		document.getElementById("cost").innerHTML = getData['cost']==null?"":"VND "+getData['cost'];
+        		document.getElementById("cost").innerHTML = getData['cost']==null?"":getData['cost'];
         		document.getElementById("description").innerHTML = getData['description'];
         		document.getElementById("view_customer").href = "customer_profile.php?customer_id="+getData['customer_id']+"&itinerary_id="+getData['itinerary_id'];
         		

@@ -37,11 +37,11 @@ require_once '../header_master.php';
 											style="height: 150px; width: 180px;" id="driver_avatar"/>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-3"><?php echo $lang['DRIVER_NAME']?></label>
+										<label class="col-lg-3"><?php echo $lang['DRIVER_NAME']?>:</label>
 										<label class="col-lg-4" id="driver_name"  style="text-align: left; color:#2C3E50; "><?php echo $_REQUEST{'driver'};?></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-3"><?php echo $lang['EMAIL']?></label>
+										<label class="col-lg-3"><?php echo $lang['EMAIL']?>:</label>
 										<label class="col-lg-4" id="driver_email" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
@@ -51,6 +51,10 @@ require_once '../header_master.php';
 									<div class="col-lg-7" style="text-align: left;">
 										<label class="col-lg-3"><?php echo $lang['PERSONAL_ID']?></label>
 										<label class="col-lg-4" id="driver_id" style="text-align: left; color:#2C3E50; "></label>
+									</div>
+									<div class="col-lg-7" style="text-align: left;">
+										<label class="col-lg-3"><?php echo $lang['RATING']?>:</label>
+										<div class="col-lg-4" id="rating"></div>
 									</div>
 									<div class="col-sm-7" style="text-align: left;">
 										<div class="col-lg-2">
@@ -101,7 +105,14 @@ $("document").ready(function(){
         }
     });
 
+	$.fn.raty.defaults.path = '../images/rating';
 	
+	$('#rating').raty({
+
+	  readOnly:true,
+	  score: 3.3
+	  
+	});
 	
 });
 </script>

@@ -33,7 +33,7 @@ require_once '../header_master.php';
 							<div class="form-group">
 								<label class="col-sm-5 control-label"><?php echo $lang['DRIVER_NAME']?></label>
 								<div class="col-sm-4 control-label" style="text-align: left;">
-									<a href="#" style="color: blue; text-decoration: underline;" data-toggle="tooltip" data-original-title="Click to see Driver Information"><?php echo $_REQUEST{'driver'}?></a>
+									<a href="#" style="color: blue; text-decoration: underline;"><?php echo $_REQUEST{'driver'}?></a>
 								</div>
 							</div>
 							<div class="form-group">

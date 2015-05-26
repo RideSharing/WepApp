@@ -65,9 +65,9 @@ require_once '../header_master.php';
 								<label class="col-sm-4 control-label" id="description" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<div class="col-sm-offset-5 col-sm-2">
+								<div class="col-sm-offset-4 col-sm-2">
 									<input class="btn btn-primary btn-block" type="button"
-										id="join" value="Join in Itinerary">
+										id="join" value="<?php echo $lang['JOIN_ITINERARY'];?>">
 								</div>
 								<div class="col-sm-2">
 									<a class="btn btn-primary btn-block" href="../itinerary_customer"><?php echo $lang['BACK']?></a>

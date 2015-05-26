@@ -2,13 +2,24 @@
 include_once 'Constant.php';
 session_start();
 
+$lang = "";
+if(isset($_COOKIE['lang'])) {
+	if ($_COOKIE['lang'] == "en") {
+		$lang = "en";
+	} else {
+		$lang = "vi";
+	}
+} else {
+	$lang = "en";
+}
+
 $api_key = $_SESSION["api_key"];
 
 $user_id = $_POST{'user_id'};
 
 $ch = curl_init();
 
-curl_setopt($ch,CURLOPT_URL,IP_ADDRESS."/RESTFul/v1/users/$user_id");
+curl_setopt($ch,CURLOPT_URL,IP_ADDRESS."/RESTFul/v1/users/$user_id?lang=$lang");
 
 curl_setopt( $ch,CURLOPT_RETURNTRANSFER,1);
 

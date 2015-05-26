@@ -2,11 +2,22 @@
 include_once 'Constant.php';
 session_start ();
 
+$lang = "";
+if(isset($_COOKIE['lang'])) {
+	if ($_COOKIE['lang'] == "en") {
+		$lang = "en";
+	} else {
+		$lang = "vi";
+	}
+} else {
+	$lang = "en";
+}
+
 $getreq = $_GET{'active_key'};
 
 $ch = curl_init ();
 
-curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/active/".$getreq );
+curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/active/$getreq?lang=$lang");
 
 curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 

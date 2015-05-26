@@ -299,13 +299,14 @@ function search() {
             				icon : '../icons/icon_motor.png'
             			});
 
-            			var infocontent = '<b>FROM:</b> ' + value['start_address'] + '<br><b>TO:</b> ' + 
-            				value['end_address'] + '<br><b>DRIVER: </b>' + value['fullname'] + 
+            			var infocontent = '<b><?php echo $lang['FROM']?></b> ' + value['start_address'] + 
+            				'<br><b><?php echo $lang['TO']?></b> ' + value['end_address'] + 
+            				'<br><b><?php echo $lang['DRIVER']?>: </b>' + value['fullname'] + 
             				'<br><div><img src="data:image/jpeg;base64,' + value['link_avatar'] + 
-            				'" style="height: 50px; width: 6	0px;"/></div><b>DISTANCE: </b>' + 
-            				value['distance'] + ' KM<br><b>COST:</b> VND ' + value['cost'] + 
+            				'" style="height: 50px; width: 6	0px;"/></div><b><?php echo $lang['DISTANCE']?>: </b>' + 
+            				value['distance'] + ' KM<br><b><?php echo $lang['COST']?>:</b> ' + value['cost'] + 
             				'<br><a href="detail_itinerary.php?itinerary_id=' + value['itinerary_id'] + 
-            				'&driver=' + value['fullname'] + '">View Detail Information	........</a>';
+            				'&driver=' + value['fullname'] + '"><?php echo $lang['VIEW_INFOR'];?></a>';
 
             			marker.info = new google.maps.InfoWindow({
             				  content: infocontent,
@@ -324,11 +325,12 @@ function search() {
             			content = '<a href="detail_itinerary.php?itinerary_id='+
             			value["itinerary_id"]+'&driver='+value["fullname"]+'&driver_id='+
             			value["driver_id"]+'" class="list-group-item"><h6 class="list-group-item-heading">'+
-            			'<label style="color: red;">FROM:</label>'+
-            			value["start_address"]+'<br> <label style="color: red;">TO:</label>'+
-            			value["end_address"]+'</h6><b>Driver: </b>'+value["fullname"]+
-            			'<br> <b>Email: </b>'+value["email"]+
-            			'<br> <b>Phone: </b>'+value["phone"]+									
+            			'<label style="color: red;"><?php echo $lang['FROM']?></label>'+
+            			value["start_address"]+'<br> <label style="color: red;"><?php echo $lang['TO']?></label>'+
+            			value["end_address"]+'</h6><b><?php echo $lang['DRIVER']?>: </b>'+value["fullname"]+
+            			'<br> <b><?php echo $lang['PHONE']?> </b>'+value["phone"]+	
+            			'<br> <b><?php echo $lang['DISTANCE']?>: </b>'+value["distance"]+	
+            			' km<br> <b><?php echo $lang['COST']?>: </b>'+value["cost"]+								
             			'</a>  ';
             			
             			list_content = list_content.concat(content);
@@ -395,7 +397,6 @@ list_itinerary.forEach (function(value){
 			'<label style="color: red;">FROM:</label>'+
 			value["start_address"]+'<br> <label style="color: red;">TO:</label>'+
 			value["end_address"]+'</h6><b>Driver: </b>'+value["fullname"]+
-			'<br> <b>Email: </b>'+value["email"]+
 			'<br> <b>Phone: </b>'+value["phone"]+									
 			'</a>  ';
 			
