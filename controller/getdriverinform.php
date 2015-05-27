@@ -2,6 +2,17 @@
 include_once 'Constant.php';
 session_start();
 
+$lang = "";
+if(isset($_COOKIE['lang'])) {
+	if ($_COOKIE['lang'] == "en") {
+		$lang = "en";
+	} else {
+		$lang = "vi";
+	}
+} else {
+	$lang = "en";
+}
+
 $api_key = $_SESSION["api_key"];
 
 
@@ -11,7 +22,7 @@ $ch = curl_init();
 
 
 // execute the request
-$result = getInform($ch, IP_ADDRESS."/RESTFul/v1/driver",$api_key);
+$result = getInform($ch, IP_ADDRESS."/RESTFul/v1/driver?lang=$lang",$api_key);
 
 $httpCode = curl_getinfo ( $ch, CURLINFO_HTTP_CODE );
 

@@ -31,43 +31,43 @@ require_once '../header_master.php';
 								<b><?php echo $lang['DETAILS_ITINERARY']?></b>
 							</legend>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['DRIVER_NAME']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DRIVER_NAME']?>:</label>
 								<div class="col-sm-4 control-label" style="text-align: left;">
 									<a href="driver_profile.php?itinerary_id=<?php echo $_REQUEST{'itinerary_id'};?>&driver=<?php echo $_REQUEST{'driver'};?>&driver_id=<?php echo $_REQUEST{'driver_id'};?>" style="color: blue; text-decoration: underline;" data-toggle="tooltip" data-original-title="Click to see Driver Information"><?php echo $_REQUEST{'driver'};?></a>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['DEPARTURE']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DEPARTURE']?>:</label>
 								<label class="col-sm-4 control-label" id="start_address" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['DESTINATION']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DESTINATION']?>:</label>
 								<label class="col-sm-4 control-label" id="end_address" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['STARTING_TIME']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['STARTING_TIME']?>:</label>
 								<label class="col-sm-4 control-label" id="time" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['DURATION']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DURATION']?>:</label>
 								<label class="col-sm-4 control-label" id="duration" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['DISTANCE']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DISTANCE']?>:</label>
 								<label class="col-sm-4 control-label" id="distance" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['COST']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['COST']?>:</label>
 								<label class="col-sm-4 control-label" id="cost" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['DESCRIPTION']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DESCRIPTION']?>:</label>
 								<label class="col-sm-4 control-label" id="description" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<div class="col-sm-offset-5 col-sm-2">
+								<div class="col-sm-offset-4 col-sm-2">
 									<input class="btn btn-primary btn-block" type="button"
-										id="join" value="Join in Itinerary">
+										id="join" value="<?php echo $lang['JOIN_ITINERARY'];?>">
 								</div>
 								<div class="col-sm-2">
 									<a class="btn btn-primary btn-block" href="../itinerary_customer"><?php echo $lang['BACK']?></a>
@@ -108,9 +108,9 @@ $("document").ready(function(){
         		document.getElementById("start_address").innerHTML = getData['start_address'];
         		document.getElementById("end_address").innerHTML = getData['end_address'];
         		document.getElementById("time").innerHTML = getData['leave_date'];
-        		document.getElementById("duration").innerHTML = getData['duration']+" minutes";
+        		document.getElementById("duration").innerHTML = getData['duration'];
         		document.getElementById("distance").innerHTML = getData['distance']+" km";
-        		document.getElementById("cost").innerHTML = "VND "+getData['cost'];
+        		document.getElementById("cost").innerHTML = getData['cost'];
         		document.getElementById("description").innerHTML = getData['description'];
         		
             }
@@ -136,10 +136,20 @@ $("document").ready(function(){
 
             	var getData = $.parseJSON(string);
 
-            	if(getData['error'])
+            	if(getData['error']){
+                	
             		showError(getData['message']);
-            	else
+            		
+            	} else{
+                	
             		showSuccess(getData['message']);
+            		setTimeout(function(){
+
+               			location.assign( 'accepted_itinerary.php' );
+	    				
+		    		},500);
+            	}
+        		
             }
         });
 

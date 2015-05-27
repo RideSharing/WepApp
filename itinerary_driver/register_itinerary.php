@@ -35,19 +35,19 @@ require_once '../header_master.php';
 							<div class="col-lg-5">
 								<div class="form-group">
 									<input class="form-control" id="start_place" type="text"
-										placeholder="Start Place"> <input id="start_place_lat"
-										type="text" style="display: none;"> <input
-										id="start_place_lng" type="text" style="display: none;">
+										placeholder="<?php echo $lang['DEPARTURE'];?>"> 
+									<input id="start_place_lat" type="text" style="display: none;"> 
+									<input id="start_place_lng" type="text" style="display: none;">
 								</div>
 								<div class="form-group">
 									<input class="form-control" id="end_place" type="text"
-										placeholder="End Place"> <input id="end_place_lat" type="text"
+										placeholder="<?php echo $lang['DESTINATION'];?>"> <input id="end_place_lat" type="text"
 										style="display: none;"> <input id="end_place_lng" type="text"
 										style="display: none;">
 								</div>
 								<div class="form-group">
 									<div id="datetimepicker" class="input-group date">
-										<input id="leave_date" class="form-control" type="text"></input> 
+										<input id="leave_date" class="form-control" type="text" placeholder="<?php echo $lang['STARTING_TIME'];?> - <?php echo $lang['TIME_FORMAT']?>" ></input> 
 										<span class="input-group-addon add-on"> 
 											<span class="glyphicon glyphicon-calendar"></span>
 										</span>
@@ -55,19 +55,19 @@ require_once '../header_master.php';
 								</div>
 								<div class="form-group">
 									<textarea class="form-control" id="description"
-										placeholder="Description" style="resize: none;"></textarea>
+										placeholder="<?php echo $lang['DESCRIPTION'];?>" style="resize: none;"></textarea>
 								</div>
 								<div class="form-group">
 									<input class="form-control" id="distance" type="text"
-										placeholder="Distance (km)">
+										placeholder="<?php echo $lang['DISTANCE'];?> (km)">
 								</div>
 								<div class="form-group">
 									<input class="form-control" id="duration" type="text"
-										placeholder="Duration (minutes)">
+										placeholder="<?php echo $lang['DURATION'];?>">
 								</div>
 								<div class="form-group">
 									<input class="form-control" id="cost" type="text"
-										placeholder="Cost (VND)">
+										placeholder="<?php echo $lang['COST'];?>">
 								</div>
 								<div class="form-group">
 									<label class="col-sm-5 control-label"><?php echo $lang['VEHICLE_SELECT']?> </label>
@@ -105,10 +105,10 @@ require_once '../header_master.php';
 								</div>
 								<div class="form-group">
 									<input class="btn btn-primary btn-block" type="button"
-										name="register_itinerary" id="register_iti" value="Register">
+										name="register_itinerary" id="register_iti" value="<?php echo $lang['POST'];?>">
 								</div>
 							</div>
-							<div id="googleMap" style="height: 485px; width: 680px;"></div>
+							<div id="map" style="height: 545px; width: 680px;"></div>
 						</fieldset>
 					</form>
 				</div>
@@ -124,6 +124,7 @@ $('document').ready(function(){
 
 		var e = document.getElementById("list_vehicle");
 		var form_data = new FormData();
+		
 		form_data.append("start_address",$("#start_place").val());
 		form_data.append("start_address_lat",$("#start_place_lat").val());
 		form_data.append("start_address_long",$("#start_place_lng").val());
@@ -135,7 +136,7 @@ $('document').ready(function(){
 		form_data.append("distance",$("#distance").val());
 		form_data.append("cost",$("#cost").val());
 		form_data.append("description",$("#description").val());
-		form_data.append("vehicle_id",document.getElementById("list_vehicle"));
+		form_data.append("vehicle_id",e.options[e.selectedIndex].value);
 
 		$.ajax({
 			url: '../controller/register_itinerary.php', // point to server-side PHP script 
@@ -186,8 +187,7 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var rendererOptions = {
 		
-		  suppressMarkers : true,
-		  draggable: true
+		  suppressMarkers : true
 		  
 		};
 
@@ -207,7 +207,7 @@ function initialize() {
 
 	directionsService = new google.maps.DirectionsService();
 	
-	map = new google.maps.Map(document.getElementById('googleMap'), {
+	map = new google.maps.Map(document.getElementById('map'), {
 	    mapTypeId : google.maps.MapTypeId.ROADMAP,
 	    center : danang,
 	    zoom : 13
@@ -372,8 +372,15 @@ function calcRoute() {
 	  
 	directionsService.route(request, function(response, status) {
 	    if (status == google.maps.DirectionsStatus.OK) {
+		    
 	      directionsDisplay.setDirections(response);
-	      showSteps(response);
+	      
+	      var myRoute = response.routes[0].legs[0];
+
+	      start_marker.setPosition(myRoute.steps[0].start_point);
+
+	      end_marker.setPosition(myRoute.steps[myRoute.steps.length-1].end_point);
+	      
 	      $("#start_place_lat").val(start_marker.getPosition().lat());
 	      $("#start_place_lng").val(start_marker.getPosition().lng());
 	      $("#end_place_lat").val(end_marker.getPosition().lat());
@@ -406,56 +413,8 @@ function calcRoute() {
 	      showError('Geocoder failed due to: ' + status);
 	    }
 	});
-
-	
-	
+		
 }
-
-function showSteps(directionResult) {
-    // For each step, place a marker, and add the text to the marker's
-    // info window. Also attach the marker to an array so we
-    // can keep track of it and remove it when calculating new
-    // routes.
-    var myRoute = directionResult.routes[0].legs[0];
-    
-    for (var i = 0; i < myRoute.steps.length-1; i++) {
-      var icon = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + i + "|FF0000|000000";
-      if (i == 0) {
-
-    	  start_marker.setPosition(myRoute.steps[0].start_point);
-    	  markerArray.push(start_marker);
-          
-      }else {
-
-    	  var marker = new google.maps.Marker({
-    	        position: myRoute.steps[i].start_point, 
-    	        map: map,
-    	        icon: icon
-    	  });
-    	  
-    	  attachInstructionText(marker, myRoute.steps[i].instructions);
-
-    	  markerArray.push(marker);
-
-      }
-      
-    }
-
-    end_marker.setPosition(myRoute.steps[i].end_point);
-    
-    markerArray.push(end_marker);
-    
-    google.maps.event.trigger(markerArray[0], "click");
-  }
-
-  function attachInstructionText(marker, text) {
-    google.maps.event.addListener(marker, 'click', function() {
-      // Open an info window when the marker is clicked on,
-      // containing the text of the step.	
-      stepDisplay.setContent(text);
-      stepDisplay.open(map, marker);
-    });
-  }
 
   function computeTotalDistance(result) {
 

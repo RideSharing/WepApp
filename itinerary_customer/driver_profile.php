@@ -1,4 +1,5 @@
 <?php
+include_once '../controller/Constant.php';
 session_start ();
 
 if(isset($_COOKIE['lang'])) {
@@ -10,6 +11,8 @@ if(isset($_COOKIE['lang'])) {
 } else {
     setcookie('lang', 'en', time() + (86400 * 365), "/");
 }
+
+$api_key = $_SESSION["api_key"];
 
 if (! isset ( $_SESSION ["api_key"] )|| $_SESSION['driver'] == 'driver') {
 	header ( 'Location: ../' );
@@ -37,11 +40,11 @@ require_once '../header_master.php';
 											style="height: 150px; width: 180px;" id="driver_avatar"/>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-3"><?php echo $lang['DRIVER_NAME']?></label>
+										<label class="col-lg-3"><?php echo $lang['DRIVER_NAME']?>:</label>
 										<label class="col-lg-4" id="driver_name"  style="text-align: left; color:#2C3E50; "><?php echo $_REQUEST{'driver'};?></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
-										<label class="col-lg-3"><?php echo $lang['EMAIL']?></label>
+										<label class="col-lg-3"><?php echo $lang['EMAIL']?>:</label>
 										<label class="col-lg-4" id="driver_email" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
@@ -52,6 +55,10 @@ require_once '../header_master.php';
 										<label class="col-lg-3"><?php echo $lang['PERSONAL_ID']?></label>
 										<label class="col-lg-4" id="driver_id" style="text-align: left; color:#2C3E50; "></label>
 									</div>
+									<div class="col-lg-7" style="text-align: left;">
+										<label class="col-lg-3"><?php echo $lang['RATING']?>:</label>
+										<div class="col-lg-4" id="rating"></div>
+									</div>
 									<div class="col-sm-7" style="text-align: left;">
 										<div class="col-lg-2">
 											<a class="btn btn-primary btn-block" href="../itinerary_customer/detail_itinerary.php?itinerary_id=<?php echo $_REQUEST{'itinerary_id'};?>&driver=<?php echo $_REQUEST{'driver'};?>&driver_id=<?php echo $_REQUEST{'driver_id'};?>">Back</a>
@@ -61,6 +68,47 @@ require_once '../header_master.php';
 							
 						</fieldset>
 					</form>
+					<div class="no-padding"><h5><?php echo $lang['COMMENT'];?></h5></div>
+					<div class="col-lg-offset-3 col-lg-6 id="list-comment"">
+						<ul class="list-group" style="text-align: left;">
+						  <?php
+						  $ch = curl_init();
+						  
+						  curl_setopt($ch,CURLOPT_URL,IP_ADDRESS."/RESTFul/v1/commentsofuser/".$_REQUEST{'driver_id'});
+						  
+						  curl_setopt( $ch,CURLOPT_RETURNTRANSFER,1);
+						  
+						  curl_setopt($ch,CURLOPT_HTTPHEADER, array('Authorization: '.$api_key));
+						  
+						  // Thiết lập sử dụng GET
+						  curl_setopt($ch,CURLOPT_CUSTOMREQUEST, "GET");
+						  
+						  
+						  // execute the request
+						  $result = curl_exec($ch);
+						  
+						  // close curl resource to free up system resources
+						  curl_close ( $ch );
+						  
+						  $json = json_decode ( $result );
+						  
+						  $res = $json->{'comments'};
+						  
+						  if(empty( $res ) ){
+						  ?>
+						  	<li class="list-group-item" style="font-style: italic; color: red; text-align: center;">No comment</li>
+						  <?php 
+						  } else{
+
+							  foreach ( $res as $value ) {
+							  ?>
+							  	<li class="list-group-item list-group-item-info"><?php echo $value->{'content'};?></li>
+							  <?php 
+							  }
+						  }
+						  ?>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -101,7 +149,14 @@ $("document").ready(function(){
         }
     });
 
+	$.fn.raty.defaults.path = '../images/rating';
 	
+	$('#rating').raty({
+
+	  readOnly:true,
+	  score: 3.3
+	  
+	});
 	
 });
 </script>

@@ -31,9 +31,9 @@ require_once '../header_master.php';
 								<b><?php echo $lang['DETAILS_ITINERARY']?></b>
 							</legend>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['DRIVER_NAME']?>label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DRIVER_NAME']?></label>
 								<div class="col-sm-4 control-label" style="text-align: left;">
-									<a href="#" style="color: blue; text-decoration: underline;" data-toggle="tooltip" data-original-title="Click to see Driver Information"><?php echo $_REQUEST{'driver'}?></a>
+									<a href="" style="color: blue; text-decoration: underline;" data-toggle="tooltip" data-original-title="Click to see Driver Information"><?php echo $_REQUEST{'driver'}?></a>
 								</div>
 							</div>
 							<div class="form-group">
@@ -66,7 +66,7 @@ require_once '../header_master.php';
 							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-4 col-sm-3">
-									<input class="btn btn-primary btn-block" id="reject_itinerary" type="button" value="Reject itinerary">
+									<input class="btn btn-primary btn-block" id="reject_itinerary" type="button" value="<?php echo $lang['REJECT_ITINERARY'];?>">
 								</div>
 								<div class="col-sm-2">
 									<a class="btn btn-primary btn-block" href="accepted_itinerary.php"><?php echo $lang['BACK']?></a>
@@ -107,9 +107,9 @@ $("document").ready(function(){
         		document.getElementById("start_address").innerHTML = getData['start_address'];
         		document.getElementById("end_address").innerHTML = getData['end_address'];
         		document.getElementById("time").innerHTML = getData['leave_date'];
-        		document.getElementById("duration").innerHTML = getData['duration']==null?"":getData['duration']+" minutes";
+        		document.getElementById("duration").innerHTML = getData['duration']==null?"":getData['duration'];
         		document.getElementById("distance").innerHTML = getData['distance']==null?"":getData['distance']+" km";
-        		document.getElementById("cost").innerHTML = getData['cost']==null?"":"VND "+getData['cost'];
+        		document.getElementById("cost").innerHTML = getData['cost']==null?"":getData['cost'];
         		document.getElementById("description").innerHTML = getData['description'];
         		document.getElementById("view_customer").href = "customer_profile.php?customer_id="+getData['customer_id']+"&itinerary_id="+getData['itinerary_id'];
         		

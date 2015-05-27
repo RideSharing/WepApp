@@ -82,18 +82,32 @@ require_once '../footer_master.php';
 ?>
 <script>
 var list_itinerary = <?php echo json_encode($res);?>;
-var map;
-
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
 var danang = new google.maps.LatLng(16.054144447313266, 108.20207118988037);
+var rendererOptions = {
+		
+		  suppressMarkers : true
+		  
+};
+var map = new google.maps.Map(document.getElementById('map'), {
+    center : danang,
+    map : map,
+    zoom : 13
+});
+var end_marker = new google.maps.Marker({
+    icon: '../icons/end_marker.png',
+    map : map
+		});
 
 function initialize() {
 
 	geocoder = new google.maps.Geocoder();
 	
-	map = new google.maps.Map(document.getElementById('map'), {
-	    center : danang,
-	    zoom : 13
-	});
+	directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+	// First, remove any existing markers from the map.
+	
+	directionsDisplay.setMap(map);
 	
 	list_itinerary.forEach (function(value){
 		
@@ -124,13 +138,34 @@ function initialize() {
 			google.maps.event.addListener(marker,'click',function() {
 
 				marker.info.open(map, marker);
-			  
+				var end_address = "("+value['end_address_lat']+", "+value['end_address_long']+")";
+				calcRoute(marker.getPosition(),end_address);
 			});
 		}
 
 	});
 
 
+}
+
+function calcRoute(start_address, end_address) {
+
+	var request = {
+	    origin: start_address,
+	    destination: end_address,
+	    travelMode: google.maps.TravelMode.DRIVING
+	};
+	  
+	directionsService.route(request, function(response, status) {
+	    if (status == google.maps.DirectionsStatus.OK) {
+	      directionsDisplay.setDirections(response);
+	      
+	     var myRoute = response.routes[0].legs[0];
+	      
+	     end_marker.setPosition(myRoute.steps[myRoute.steps.length-1].end_point);
+	      
+	    }
+	  });
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);

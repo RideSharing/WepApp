@@ -2,6 +2,17 @@
 include_once 'Constant.php';
 session_start ();
 
+$lang = "";
+if(isset($_COOKIE['lang'])) {
+	if ($_COOKIE['lang'] == "en") {
+		$lang = "en";
+	} else {
+		$lang = "vi";
+	}
+} else {
+	$lang = "en";
+}
+
 $api_key = $_SESSION ["api_key"];
 
 $getreq = array (
@@ -21,7 +32,7 @@ $getreq = array (
 
 $ch = curl_init ();
 
-curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/itinerary" );
+curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/itinerary?lang=$lang" );
 
 curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 
@@ -29,11 +40,10 @@ curl_setopt ( $ch, CURLOPT_HTTPHEADER, array (
 'Authorization: ' . $api_key
 ) );
 
-// Thiết lập sử dụng POST
-curl_setopt ( $ch, CURLOPT_POST, 1 );
+// Thiết lập sử dụng GET
+curl_setopt($ch,CURLOPT_CUSTOMREQUEST, "POST");
 
-// Thiết lập các dữ liệu gửi đi
-curl_setopt ( $ch, CURLOPT_POSTFIELDS, $getreq );
+curl_setopt ( $ch, CURLOPT_POSTFIELDS, http_build_query ( $getreq ) );
 
 // execute the request
 $result = curl_exec ( $ch );

@@ -51,7 +51,7 @@ include '../header_master.php';
 						
 						?>
 						<select id=list_vehicle class="selectpicker">
-							<option value = "n"></option>
+							<option value = "n"> </option>
 							<?php for($i = 0; $i < sizeof($res); $i++){
 								$value = $res[$i];
 							?>
@@ -73,21 +73,21 @@ include '../header_master.php';
 								<label class="col-sm-5 control-label"><?php echo $lang['TYPE'] ?></label>
 								<div class="col-sm-4">
 									<input type="text" class="form-control" name="Vehicle Type"
-										id="type_vehicle" placeholder="Vehicle Type:">
+										id="type_vehicle">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label"><?php echo $lang['REGISTER_CERTIFICATE'] ?></label>
 								<div class="col-sm-4">
 									<input type="text" class="form-control" name="Register Certification"
-										id="Register_Certification" placeholder="Register_Certification:">
+										id="Register_Certification">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-5 control-label"><?php echo $lang['LICENSE_PLATE'] ?></label>
 								<div class="col-sm-4">
 									<input type="text" class="form-control" name="License Plate"
-										id="License_Plate" placeholder="License_Plate">
+										id="License_Plate">
 								</div>
 							</div>
 							<div class="form-group">
@@ -117,11 +117,11 @@ include '../header_master.php';
 							<div class="form-group">
 								<div class="col-sm-offset-5 col-sm-1">
 									<input class="btn btn-primary btn-block" type="button"
-										name="update" id="update" value="Update">
+										name="update" id="update" value="<?php echo $lang['UPDATE']?>">
 								</div>
 								<div class="col-sm-1">
 									<input class="btn btn-primary btn-block" type="button"
-										name="delete" id="delete" value="Delete">
+										name="delete" id="delete" value="<?php echo $lang['DELETE'];?>">
 								</div>
 								<div class="col-sm-1">
 									<a class="btn btn-primary btn-block" href="updatedriver.php"><?php echo $lang['BACK'] ?></a>
@@ -155,7 +155,6 @@ $('document').ready(function(){
 				
 				document.getElementById('form_vehicle').style.display = 'block';
 				document.getElementById('delete').disabled = false;
-				document.getElementById('update').value = 'Update';
 		    	
 				vehicle_ID = list[i]['vehicle_id'];
 				$('#type_vehicle').val(list[i]['type']);
@@ -172,7 +171,6 @@ $('document').ready(function(){
 			link = "../controller/add_Vehicle.php";
 	    	document.getElementById('form_vehicle').style.display = 'block';
 	    	document.getElementById('delete').disabled = true;
-			document.getElementById('update').value = 'Add';
  	
 	    	$('#type_vehicle').val("");
 			$('#Register_Certification').val("");
@@ -261,7 +259,7 @@ $('document').ready(function(){
 		form_data.append("motor_insurance_img",$('#Vehicle_Insurrance_Image').attr('src').replace("data:image/jpeg;base64,",""));
 
 		$.ajax({
-			url: '../controller/update_Vehicle.php', // point to server-side PHP script 
+			url: link, // point to server-side PHP script 
 		    dataType: 'text',  // what to expect back from the PHP script, if anything
 		    cache: false,
 		    contentType: false,

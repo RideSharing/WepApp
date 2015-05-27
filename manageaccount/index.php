@@ -76,7 +76,7 @@ require_once '../header_master.php';
 								<div class="form-group">
 									<div class="col-sm-offset-4 col-sm-1">
 										<input class="btn btn-primary btn-block" type="button"
-											name="update" id="update" value="Update">
+											name="update" id="update" value="<?php echo $lang['UPDATE']?>">
 									</div>
 									<div class="col-sm-2">
 										<a class="btn btn-primary btn-block" href="changepassword.php"><?php echo $lang['CHANGE_PASS']?></a>
@@ -101,15 +101,6 @@ require_once '../header_master.php';
     ?>
 <script>
 $("document").ready(function(){
-
-	<?php 
-			if(isset($_SESSION['showMessage'])){
-			?>
-				showSuccess("You became to <?php echo $_SESSION['driver'];?>!");
-			<?php	
-				$_SESSION['showMessage'] = null;
-			}
-			?>
 
 	$.ajax({
 		url: '../controller/viewprofile.php', // point to server-side PHP script 

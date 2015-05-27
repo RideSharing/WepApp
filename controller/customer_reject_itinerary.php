@@ -2,13 +2,24 @@
 include_once 'Constant.php';
 session_start ();
 
+$lang = "";
+if(isset($_COOKIE['lang'])) {
+	if ($_COOKIE['lang'] == "en") {
+		$lang = "en";
+	} else {
+		$lang = "vi";
+	}
+} else {
+	$lang = "en";
+}
+
 $api_key = $_SESSION ["api_key"];
 
 $id = $_POST{'itinerary_id'};
 
 $ch = curl_init ();
 
-curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/customer_reject_itinerary/$id" );
+curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/customer_reject_itinerary/$id?lang=$lang" );
 
 curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 

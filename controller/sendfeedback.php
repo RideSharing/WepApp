@@ -1,5 +1,17 @@
 <?php
 include_once 'Constant.php';
+
+$lang = "";
+if(isset($_COOKIE['lang'])) {
+	if ($_COOKIE['lang'] == "en") {
+		$lang = "en";
+	} else {
+		$lang = "vi";
+	}
+} else {
+	$lang = "en";
+}
+
 $getreq = array (
 		'fullname' => $_POST {'fullname'},
 		'email' => $_POST {'email'},
@@ -8,7 +20,7 @@ $getreq = array (
 
 $ch = curl_init ();
 
-curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/v1/user" );
+curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/v1/user?lang=$lang" );
 
 curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
 

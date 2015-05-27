@@ -9,6 +9,7 @@ if(isset($_COOKIE['lang'])) {
     }
 } else {
     setcookie('lang', 'en', time() + (86400 * 365), "/");
+    require_once 'includes/lang_en.php';
 }
 
 require_once 'header.php';
@@ -26,7 +27,7 @@ require_once 'header.php';
                             <div class="row control-group" style="border: 1px solid #eee;">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <span style="font-size: 35px  !important; position: absolute; z-index: 10; color: rgba(0, 0, 0, 0.55); top: 5px; left: 10px;"><i class="fa fa-map-marker"></i></span>
-                                    <input style="margin-top:10px;" type="text" class="form-control" placeholder="Enter address you want to go..." id="searchQry" required data-validation-required-message="Please enter address.">
+                                    <input style="margin-top:10px;" type="text" class="form-control" placeholder="<?php echo $lang['ADDRESS_ENTER'];?>" id="searchQry" required data-validation-required-message="<?php echo $lang['ADDRESS_REQUIRED'];?>">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
@@ -138,14 +139,14 @@ require_once 'header.php';
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label><?php echo $lang['EMAIL']?></label>
-                                <input type="email" class="form-control" placeholder="Email" id="reg_email" required data-validation-required-message="Please enter email address.">
+                                <input type="email" class="form-control" placeholder="<?php echo $lang['EMAIL']?>" id="reg_email" required data-validation-required-message="<?php echo $lang['EMAIL_REQUIRED'];?>">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label><?php echo $lang['PASSWORD']?></label>
-                                <input type="password" class="form-control" placeholder="Password..." id="reg_password" required data-validation-required-message="Please enter password.">
+                                <input type="password" class="form-control" placeholder="<?php echo $lang['PASSWORD']?>" id="reg_password" required data-validation-required-message="<?php echo $lang['PASSWORD_REQUIRED'];?>">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -180,12 +181,12 @@ require_once 'header.php';
             <div class="row">
                 <div class="col-lg-6">
                     <img src="images/hoang.png" class="img-responsive circle-member center-block" alt="">
-                    <h4 class="text-center">Nguyễn Trần Tấn Hoàng</h4>
+                    <h4 class="text-center"><?php echo $lang['HOANG_NAME'] ?></h4>
                     <p class="text-center"> <?php echo $lang['CLASST3_UNIVERSITY'] ?> <br><?php echo $lang['FRONT_END'] ?></p>
                 </div>
                 <div class="col-lg-6">
                     <img src="images/thanh.png" class="img-responsive circle-member center-block" alt="">
-                    <h4 class="text-center">Trần Duy Thành</h4>
+                    <h4 class="text-center"><?php echo $lang['THANH_NAME'] ?></h4>
                     <p class="text-center"><?php echo $lang['CLASST1_UNIVERSITY'] ?><br><?php echo $lang['BACK_END'] ?> </p>
                 </div>
             </div>
@@ -209,21 +210,21 @@ require_once 'header.php';
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label><?php echo $lang['FULLNAME']?></label>
-                                <input type="text" class="form-control" placeholder="Full Name" id="contact_name" required data-validation-required-message="Please enter your name.">
+                                <input type="text" class="form-control" placeholder="<?php echo $lang['FULLNAME']?>" id="contact_name" required data-validation-required-message="<?php echo $lang['NAME_REQUIRED'];?>">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label><?php echo $lang['EMAIL']?></label>
-                                <input type="email" class="form-control" placeholder="Email" id="contact_email" required data-validation-required-message="Please enter your email.">
+                                <input type="email" class="form-control" placeholder="<?php echo $lang['EMAIL']?>" id="contact_email" required data-validation-required-message="<?php echo $lang['EMAIL_REQUIRED'];?>">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label><?php echo $lang['FEEDBACK_CONTENT']?></label>
-                                <textarea rows="5" class="form-control" placeholder="Content" id="contact_message" required data-validation-required-message="Please enter content."></textarea>
+                                <textarea rows="5" class="form-control" placeholder="<?php echo $lang['FEEDBACK_CONTENT']?>" id="contact_message" required data-validation-required-message="<?php echo $lang['CONTENT_REQUIRED'];?>"></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -244,6 +245,22 @@ require_once 'header.php';
     require_once 'footer.php';
     ?>
 <script>
+	$('#lang_vie').click(function(){
+		
+		<?php if ($_COOKIE['lang'] == "en") {?>
+				change_lang();
+		<?php }?>
+		
+		 
+	});
+	
+	$('#lang_eng').click(function(){
+		
+		<?php if ($_COOKIE['lang'] == "vi") {?>
+				change_lang();
+		<?php }?>
+		
+	});
 	$('#reg_button').click(function() {
 	
 		var _data = "email="+$("#reg_email").val()+"&password="+$("#reg_password").val();

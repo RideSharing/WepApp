@@ -18,12 +18,12 @@ if (! isset ( $_SESSION ["api_key"] )|| $_SESSION['driver'] == 'customer') {
 }
 require_once '../header_master.php';
 ?>
-<title><?php echo $lang['ACCEPT_ITINERARY']?></title>
+<title><?php echo $lang['WAIT_ITINERARY']?></title>
 
 <!-- Section -->
 <section class="full-content">
 	<div class="row">
-		<h4 style="text-align: center;"><?php echo $lang['LIST_ACCEPT_ITINERARY']?></h1>
+		<h4 style="text-align: center;"><?php echo $lang['WAIT_ITINERARY'];?></h4>
 	</div>
 	<div class="row">
 		<div class="col-lg-4 no-padding">
@@ -62,8 +62,10 @@ require_once '../header_master.php';
 									</h6> 
 									<b><?php echo $lang['DRIVER']?> </b> <?php echo $value->{'fullname'}==NULL?' ':$value->{'fullname'}?>
 									<br> <b><?php echo $lang['EMAIL']?> </b> <?php echo $value->{'email'}==NULL?' ':$value->{'email'} ?>	
-									<br> <b><?php echo $lang['PHONE']?> </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>	
-									<br> <label style="color: red; font-style:italic;"><b><?php echo $lang['VIEW_INFOR']?>  </b></label>								
+									<br> <b><?php echo $lang['PHONE']?> </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>
+									<br> <b><?php echo $lang['DISTANCE']?>:</b> <?php echo $value->{'distance'}==NULL?' ':$value->{'distance'}?> km
+									<br> <b><?php echo $lang['COST']?>:</b> <?php echo $value->{'cost'}==NULL?' ':$value->{'cost'}?>	
+									<br> <label style="color: red; font-style:italic;"><b><?php echo $lang['VIEW_CUSTOMER_INFOR'];?> . . . . . . . . </b></label>								
 								</a> 
 						<?php
 							} 
@@ -83,19 +85,34 @@ require_once '../footer_master.php';
 ?>
 <script>
 var list_itinerary = <?php echo json_encode($res);?>;
-var map;
-
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
 var danang = new google.maps.LatLng(16.054144447313266, 108.20207118988037);
+var rendererOptions = {
+		
+		  suppressMarkers : true
+		  
+};
+var map = new google.maps.Map(document.getElementById('map'), {
+    center : danang,
+    map : map,
+    zoom : 13
+});
+var end_marker = new google.maps.Marker({
+    icon: '../icons/end_marker.png',
+    map : map
+		});
 
 function initialize() {
 
 	geocoder = new google.maps.Geocoder();
 	
-	map = new google.maps.Map(document.getElementById('map'), {
-	    center : danang,
-	    zoom : 13
-	});
 	
+	directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+	// First, remove any existing markers from the map.
+	
+	directionsDisplay.setMap(map);
+	    
 	list_itinerary.forEach (function(value){
 		
 		if(value['status'] == 2){
@@ -107,13 +124,14 @@ function initialize() {
 				icon : '../icons/icon_motor.png',
 			});
 
-			var infocontent = '<b>FROM:</b> ' + value['start_address'] + '<br><b>TO:</b> ' + 
-				value['end_address'] + '<br><b>DRIVER: </b>' + value['fullname'] + 
-				'<br><div><img src="data:image/jpeg;base64,' + value['link_avatar'] + 
-				'" style="height: 50px; width: 6	0px;"/></div><b>DISTANCE: </b>' + 
-				value['distance'] + ' KM<br><b>COST:</b> VND ' + value['cost'] + 
-				'<br><a href="detail_itinerary.php?itinerary_id=' + value['customer_id'] + 
-				'&driver=' + value['fullname'] + '">View Itinerary Information	........</a>';
+			var infocontent = '<b><?php echo $lang['FROM']?></b> ' + value['start_address'] + '<br><b><?php echo $lang['TO']?></b> ' + 
+			value['end_address'] + '<br><b><?php echo $lang['DRIVER']?>: </b>' + value['fullname'] + 
+			'<br><div><img src="data:image/jpeg;base64,' + value['link_avatar'] + 
+			'" style="height: 50px; width: 6	0px;"/></div><b><?php echo $lang['PHONE']?> </b>' + 
+			value['phone'] + '<br><b><?php echo $lang['DISTANCE']?>: </b>' + 
+			value['distance'] + ' KM<br><b><?php echo $lang['COST']?>:</b> ' + value['cost'] + 
+				'<br><a href="detail_itinerary.php?itinerary_id=' + value['itinerary_id'] + 
+				'&driver=' + value['fullname'] + '"><?php echo $lang['VIEW_CUSTOMER_INFOR'];?>';
 
 			marker.info = new google.maps.InfoWindow({
 				  content: infocontent,
@@ -125,6 +143,8 @@ function initialize() {
 			google.maps.event.addListener(marker,'click',function() {
 
 				marker.info.open(map, marker);
+				var end_address = "("+value['end_address_lat']+", "+value['end_address_long']+")";
+				calcRoute(marker.getPosition(),end_address);
 			  
 			});
 		}
@@ -132,6 +152,26 @@ function initialize() {
 	});
 
 
+}
+
+function calcRoute(start_address, end_address) {
+
+	var request = {
+	    origin: start_address,
+	    destination: end_address,
+	    travelMode: google.maps.TravelMode.DRIVING
+	};
+	  
+	directionsService.route(request, function(response, status) {
+	    if (status == google.maps.DirectionsStatus.OK) {
+	      directionsDisplay.setDirections(response);
+	      
+	     var myRoute = response.routes[0].legs[0];
+	      
+	     end_marker.setPosition(myRoute.steps[myRoute.steps.length-1].end_point);
+	      
+	    }
+	  });
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
