@@ -23,7 +23,7 @@ require_once '../header_master.php';
 <!-- Section -->
 <section class="full-content">
 	<div class="row">
-		<h4 style="text-align: center;"><?php echo $lang['LIST_ACCEPT_ITINERARY']?></h1>
+		<h4 style="text-align: center;"><?php echo $lang['LIST_ACCEPT_ITINERARY'] ?></h1>
 	</div>
 	<div class="row">
 		<div class="col-lg-4 no-padding">
