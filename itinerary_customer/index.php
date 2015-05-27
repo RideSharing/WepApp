@@ -101,8 +101,23 @@ require_once '../footer_master.php';
 var list_itinerary = <?php echo json_encode($res);?>;
 var list_content = "";
 var content = "";
-var map;
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
 var danang = new google.maps.LatLng(16.054144447313266, 108.20207118988037);
+var rendererOptions = {
+		
+		  suppressMarkers : true
+		  
+};
+var map = new google.maps.Map(document.getElementById('map'), {
+    center : danang,
+    map : map,
+    zoom : 13
+});
+var end_marker = new google.maps.Marker({
+    icon: '../icons/end_marker.png',
+    map : map
+		});
 var geocoder;
 var markers = [];
 var locationPos;
@@ -111,6 +126,9 @@ var start, end;
 function initialize() {
 	if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
+            
+        directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+        directionsDisplay.setMap(map);
         start = new google.maps.LatLng(position.coords.latitude, position.coords.longitude) + "";
         end = "<?php if(isset($_REQUEST{'End_Address'})) echo $_REQUEST{'End_Address'};?>";
 	
@@ -118,11 +136,6 @@ function initialize() {
 		var end_place = new google.maps.places.Autocomplete((document.getElementById('end-place')), { types: ['geocode'] });
 	
 	    geocoder = new google.maps.Geocoder();
-		
-		map = new google.maps.Map(document.getElementById('map'), {
-		    center : danang,
-		    zoom : 13
-		});
 	
 		var control = document.getElementById('control');
 	
@@ -318,6 +331,8 @@ function search() {
             			google.maps.event.addListener(marker,'click',function() {
 
             				marker.info.open(map, marker);
+            				var end_address = "("+value['end_address_lat']+", "+value['end_address_long']+")";
+            				calcRoute(marker.getPosition(),end_address);
             			  
             			});
 
@@ -325,8 +340,8 @@ function search() {
             			content = '<a href="detail_itinerary.php?itinerary_id='+
             			value["itinerary_id"]+'&driver='+value["fullname"]+'&driver_id='+
             			value["driver_id"]+'" class="list-group-item"><h6 class="list-group-item-heading">'+
-            			'<label style="color: red;"><?php echo $lang['FROM']?></label>'+
-            			value["start_address"]+'<br> <label style="color: red;"><?php echo $lang['TO']?></label>'+
+            			'<label style="color: red;"><?php echo $lang['FROM']?></label> '+
+            			value["start_address"]+'<br> <label style="color: red;"><?php echo $lang['TO']?></label> '+
             			value["end_address"]+'</h6><b><?php echo $lang['DRIVER']?>: </b>'+value["fullname"]+
             			'<br> <b><?php echo $lang['PHONE']?> </b>'+value["phone"]+	
             			'<br> <b><?php echo $lang['DISTANCE']?>: </b>'+value["distance"]+	
@@ -355,60 +370,80 @@ function search() {
 	  
 	}
 
-function getListAll() {
+// function getListAll() {
 
-list_itinerary.forEach (function(value){
+// list_itinerary.forEach (function(value){
 		
-		if(value['status'] == 1){
+// 		if(value['status'] == 1){
 
-			//list icon on map
-			var latLng = new google.maps.LatLng(value['start_address_lat'], value['start_address_long']);
+// 			//list icon on map
+// 			var latLng = new google.maps.LatLng(value['start_address_lat'], value['start_address_long']);
 
-			var marker = new google.maps.Marker({
-				position : latLng,	
-				icon : '../icons/icon_motor.png'
-			});
+// 			var marker = new google.maps.Marker({
+// 				position : latLng,	
+// 				icon : '../icons/icon_motor.png'
+// 			});
 
-			var infocontent = '<b>FROM:</b> ' + value['start_address'] + '<br><b>TO:</b> ' + 
-				value['end_address'] + '<br><b>DRIVER: </b>' + value['fullname'] + 
-				'<br><div><img src="data:image/jpeg;base64,' + value['link_avatar'] + 
-				'" style="height: 50px; width: 6	0px;"/></div><b>DISTANCE: </b>' + 
-				value['distance'] + ' KM<br><b>COST:</b> VND ' + value['cost'] + 
-				'<br><a href="detail_itinerary.php?itinerary_id=' + value['itinerary_id'] + 
-				'&driver=' + value['fullname'] + '">View Detail Information	........</a>';
+// 			var infocontent = '<b>FROM:</b> ' + value['start_address'] + '<br><b>TO:</b> ' + 
+// 				value['end_address'] + '<br><b>DRIVER: </b>' + value['fullname'] + 
+// 				'<br><div><img src="data:image/jpeg;base64,' + value['link_avatar'] + 
+// 				'" style="height: 50px; width: 6	0px;"/></div><b>DISTANCE: </b>' + 
+// 				value['distance'] + ' KM<br><b>COST:</b> VND ' + value['cost'] + 
+// 				'<br><a href="detail_itinerary.php?itinerary_id=' + value['itinerary_id'] + 
+// 				'&driver=' + value['fullname'] + '">View Detail Information	........</a>';
 
-			marker.info = new google.maps.InfoWindow({
-				  content: infocontent,
-				  maxWidth: 200
-			});
+// 			marker.info = new google.maps.InfoWindow({
+// 				  content: infocontent,
+// 				  maxWidth: 200
+// 			});
 			
-			markers.push(marker);
+// 			markers.push(marker);
 		
-			google.maps.event.addListener(marker,'click',function() {
+// 			google.maps.event.addListener(marker,'click',function() {
 
-				marker.info.open(map, marker);
+// 				marker.info.open(map, marker);
 			  
-			});
+// 			});
 
-			//list with list group
-			content = '<a href="detail_itinerary.php?itinerary_id='+
-			value["itinerary_id"]+'&driver='+value["fullname"]+'&driver_id='+
-			value["driver_id"]+'" class="list-group-item"><h6 class="list-group-item-heading">'+
-			'<label style="color: red;">FROM:</label>'+
-			value["start_address"]+'<br> <label style="color: red;">TO:</label>'+
-			value["end_address"]+'</h6><b>Driver: </b>'+value["fullname"]+
-			'<br> <b>Phone: </b>'+value["phone"]+									
-			'</a>  ';
+// 			//list with list group
+// 			content = '<a href="detail_itinerary.php?itinerary_id='+
+// 			value["itinerary_id"]+'&driver='+value["fullname"]+'&driver_id='+
+// 			value["driver_id"]+'" class="list-group-item"><h6 class="list-group-item-heading">'+
+// 			'<label style="color: red;">FROM:</label>'+
+// 			value["start_address"]+'<br> <label style="color: red;">TO:</label>'+
+// 			value["end_address"]+'</h6><b>Driver: </b>'+value["fullname"]+
+// 			'<br> <b>Phone: </b>'+value["phone"]+									
+// 			'</a>  ';
 			
-			list_content = list_content.concat(content);
-		}
+// 			list_content = list_content.concat(content);
+// 		}
 
-	});
+// 	});
 
-	$('#list-group').html(list_content);
+// 	$('#list-group').html(list_content);
 	
 	  
-	}
+// 	}
+
+function calcRoute(start_address, end_address) {
+
+	var request = {
+	    origin: start_address,
+	    destination: end_address,
+	    travelMode: google.maps.TravelMode.DRIVING
+	};
+	  
+	directionsService.route(request, function(response, status) {
+	    if (status == google.maps.DirectionsStatus.OK) {
+	      directionsDisplay.setDirections(response);
+	      
+	     var myRoute = response.routes[0].legs[0];
+	      
+	     end_marker.setPosition(myRoute.steps[myRoute.steps.length-1].end_point);
+	      
+	    }
+	  });
+}
 </script>
 </body>
 </html>

@@ -31,37 +31,37 @@ require_once '../header_master.php';
 								<b><?php echo $lang['DETAILS_ITINERARY']?></b>
 							</legend>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['DRIVER_NAME']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DRIVER_NAME']?>:</label>
 								<div class="col-sm-4 control-label" style="text-align: left;">
 									<a href="#" style="color: blue; text-decoration: underline;"><?php echo $_REQUEST{'driver'}?></a>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['DEPARTURE']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DEPARTURE']?>:</label>
 								<label class="col-sm-4 control-label" id="start_address" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['DESTINATION']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DESTINATION']?>:</label>
 								<label class="col-sm-4 control-label" id="end_address" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['STARTING_TIME']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['STARTING_TIME']?>:</label>
 								<label class="col-sm-4 control-label" id="time" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['DURATION']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DURATION']?>:</label>
 								<label class="col-sm-4 control-label" id="duration" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['DISTANCE']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DISTANCE']?>:</label>
 								<label class="col-sm-4 control-label" id="distance" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['COST']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['COST']?>:</label>
 								<label class="col-sm-4 control-label" id="cost" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $lang['DESCRIPTION']?></label>
+								<label class="col-sm-5 control-label"><?php echo $lang['DESCRIPTION']?>:</label>
 								<label class="col-sm-4 control-label" id="description" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
@@ -107,9 +107,9 @@ $("document").ready(function(){
         		document.getElementById("start_address").innerHTML = getData['start_address'];
         		document.getElementById("end_address").innerHTML = getData['end_address'];
         		document.getElementById("time").innerHTML = getData['leave_date'];
-        		document.getElementById("duration").innerHTML = getData['duration']+" minutes";
+        		document.getElementById("duration").innerHTML = getData['duration'];
         		document.getElementById("distance").innerHTML = getData['distance']+" km";
-        		document.getElementById("cost").innerHTML = "VND "+getData['cost'];
+        		document.getElementById("cost").innerHTML = getData['cost'];
         		document.getElementById("description").innerHTML = getData['description'];
         		document.getElementById("view_customer").href = "customer_profile.php?itinerary_id="+getData['itinerary_id']+"&customer_id="+getData['customer_id']+"&driver=<?php echo $_REQUEST{'driver'}?>";
         		

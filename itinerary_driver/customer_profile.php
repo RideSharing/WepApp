@@ -1,4 +1,5 @@
 <?php
+include_once '../controller/Constant.php';
 session_start ();
 
 if(isset($_COOKIE['lang'])) {
@@ -10,6 +11,8 @@ if(isset($_COOKIE['lang'])) {
 } else {
     setcookie('lang', 'en', time() + (86400 * 365), "/");
 }
+
+$api_key = $_SESSION["api_key"];
 
 if (! isset ( $_SESSION ["api_key"] )|| $_SESSION['driver'] == 'customer') {
 	header ( 'Location: ../' );
@@ -74,6 +77,47 @@ require_once '../header_master.php';
 							</div>		
 						</fieldset>
 					</form>
+					<div class="no-padding"><h5><?php echo $lang['COMMENT'];?></h5></div>
+					<div class="col-lg-offset-3 col-lg-6 no-padding" id="list-comment">
+						<ul class="list-group" style="text-align: left;">
+						  <?php
+						  $ch = curl_init();
+						  
+						  curl_setopt($ch,CURLOPT_URL,IP_ADDRESS."/RESTFul/v1/commentsofuser/".$_REQUEST{'customer_id'});
+						  
+						  curl_setopt( $ch,CURLOPT_RETURNTRANSFER,1);
+						  
+						  curl_setopt($ch,CURLOPT_HTTPHEADER, array('Authorization: '.$api_key));
+						  
+						  // Thiết lập sử dụng GET
+						  curl_setopt($ch,CURLOPT_CUSTOMREQUEST, "GET");
+						  
+						  
+						  // execute the request
+						  $result = curl_exec($ch);
+						  
+						  // close curl resource to free up system resources
+						  curl_close ( $ch );
+						  
+						  $json = json_decode ( $result );
+						  
+						  $res = $json->{'comments'};
+						  
+						  if(empty( $res ) ){
+						  ?>
+						  	<li class="list-group-item" style="font-style: italic; color: red; text-align: center;">No comment</li>
+						  <?php 
+						  } else{
+
+							  foreach ( $res as $value ) {
+							  ?>
+							  	<li class="list-group-item list-group-item-info"><?php echo $value->{'content'};?></li>
+							  <?php 
+							  }
+						  }
+						  ?>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -136,6 +180,12 @@ $("document").ready(function(){
 	        	if(!getData['error']){
 
 	        		showSuccess(getData['message']);
+	        		
+	        		setTimeout(function(){
+
+               			location.assign( 'schedule.php' );
+	    				
+		    		},500);
 	        		
 	            }else {
 

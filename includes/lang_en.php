@@ -114,5 +114,6 @@ $lang['POST']					 = "Post";
 $lang['CANCEL_ITINERARY']		 = "Cancel Itinerary";
 $lang['JOIN_ITINERARY']			 = "Join in Itinerary";
 $lang['REJECT_ITINERARY']		 = "Reject Itinerary";
+$lang['COMMENT']				 = "Comments";
 
 ?>

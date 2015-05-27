@@ -149,6 +149,29 @@
 <script>
 $('document').ready(function(){
 
+	<?php 
+	if(isset($_SESSION['showMessage'])){
+		if(isset($_COOKIE['lang'])) {
+			if ($_COOKIE['lang'] == "en") {
+			
+    ?>
+		showSuccess("You became the <?php echo $_SESSION['driver']; ?>!");
+	<?php 	
+
+			} else {
+	?>
+		showSuccess("Bạn đã trở thành <?php echo $_SESSION['driver']; ?>!");
+	<?php 
+			}
+		} else {
+	?>
+		showSuccess("You became the <?php echo $_SESSION['driver']; ?>!");
+	<?php 
+		}
+		$_SESSION['showMessage'] = null;
+	}
+	?>
+			
 	$.ajax({
 		url: '../controller/get_avatar.php', // point to server-side PHP script 
 	    dataType: 'text',  // what to expect back from the PHP script, if anything

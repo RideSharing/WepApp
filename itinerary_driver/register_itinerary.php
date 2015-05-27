@@ -108,7 +108,7 @@ require_once '../header_master.php';
 										name="register_itinerary" id="register_iti" value="<?php echo $lang['POST'];?>">
 								</div>
 							</div>
-							<div id="googleMap" style="height: 485px; width: 680px;"></div>
+							<div id="map" style="height: 545px; width: 680px;"></div>
 						</fieldset>
 					</form>
 				</div>
@@ -187,8 +187,7 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var rendererOptions = {
 		
-		  suppressMarkers : true,
-		  draggable: true
+		  suppressMarkers : true
 		  
 		};
 
@@ -208,7 +207,7 @@ function initialize() {
 
 	directionsService = new google.maps.DirectionsService();
 	
-	map = new google.maps.Map(document.getElementById('googleMap'), {
+	map = new google.maps.Map(document.getElementById('map'), {
 	    mapTypeId : google.maps.MapTypeId.ROADMAP,
 	    center : danang,
 	    zoom : 13
@@ -373,8 +372,15 @@ function calcRoute() {
 	  
 	directionsService.route(request, function(response, status) {
 	    if (status == google.maps.DirectionsStatus.OK) {
+		    
 	      directionsDisplay.setDirections(response);
-	      showSteps(response);
+	      
+	      var myRoute = response.routes[0].legs[0];
+
+	      start_marker.setPosition(myRoute.steps[0].start_point);
+
+	      end_marker.setPosition(myRoute.steps[myRoute.steps.length-1].end_point);
+	      
 	      $("#start_place_lat").val(start_marker.getPosition().lat());
 	      $("#start_place_lng").val(start_marker.getPosition().lng());
 	      $("#end_place_lat").val(end_marker.getPosition().lat());
@@ -407,56 +413,8 @@ function calcRoute() {
 	      showError('Geocoder failed due to: ' + status);
 	    }
 	});
-
-	
-	
+		
 }
-
-function showSteps(directionResult) {
-    // For each step, place a marker, and add the text to the marker's
-    // info window. Also attach the marker to an array so we
-    // can keep track of it and remove it when calculating new
-    // routes.
-    var myRoute = directionResult.routes[0].legs[0];
-    
-    for (var i = 0; i < myRoute.steps.length-1; i++) {
-      var icon = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + i + "|FF0000|000000";
-      if (i == 0) {
-
-    	  start_marker.setPosition(myRoute.steps[0].start_point);
-    	  markerArray.push(start_marker);
-          
-      }else {
-
-    	  var marker = new google.maps.Marker({
-    	        position: myRoute.steps[i].start_point, 
-    	        map: map,
-    	        icon: icon
-    	  });
-    	  
-    	  attachInstructionText(marker, myRoute.steps[i].instructions);
-
-    	  markerArray.push(marker);
-
-      }
-      
-    }
-
-    end_marker.setPosition(myRoute.steps[i].end_point);
-    
-    markerArray.push(end_marker);
-    
-    google.maps.event.trigger(markerArray[0], "click");
-  }
-
-  function attachInstructionText(marker, text) {
-    google.maps.event.addListener(marker, 'click', function() {
-      // Open an info window when the marker is clicked on,
-      // containing the text of the step.	
-      stepDisplay.setContent(text);
-      stepDisplay.open(map, marker);
-    });
-  }
 
   function computeTotalDistance(result) {
 

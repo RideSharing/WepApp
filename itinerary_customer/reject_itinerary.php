@@ -143,7 +143,12 @@ $("document").ready(function(){
 
                	} else {
                		showSuccess(getData['message']);
-               		location.assign( 'accepted_itinerary.php' );
+               		setTimeout(function(){
+
+               			location.assign( 'accepted_itinerary.php' );
+	    				
+		    		},500);
+               		
                 }
             		
             }

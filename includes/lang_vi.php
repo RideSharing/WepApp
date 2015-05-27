@@ -21,7 +21,7 @@ $lang['UPDATE_DRIVER']           = "Thông tin lái xe";
 $lang['BACK']                    = "Trở về";
 $lang['PROFILE']                 = "Hồ sơ";
 $lang['SEARCH']                  = "Tìm kiếm";
-$lang['CUSTOMER_FEEDBACK']       = "Phàn hồi khách hàng";
+$lang['CUSTOMER_FEEDBACK']       = "Phản hồi khách hàng";
 $lang['REGISTER']                = "Đăng ký";
 $lang['PASSWORD']                = "Mật khẩu";
 $lang['AUTHOR']                  = "Nhóm tác giả";
@@ -114,5 +114,6 @@ $lang['POST']					 = "Đăng";
 $lang['CANCEL_ITINERARY']		 = "Hủy hành trình";
 $lang['JOIN_ITINERARY']			 = "Tham gia hành trình";
 $lang['REJECT_ITINERARY']		 = "Hủy bỏ hành trình";
+$lang['COMMENT']				 = "Bình luận";
 
 ?>

@@ -102,15 +102,6 @@ require_once '../header_master.php';
 <script>
 $("document").ready(function(){
 
-	<?php 
-			if(isset($_SESSION['showMessage'])){
-			?>
-				showSuccess("You became to <?php echo $_SESSION['driver'];?>!");
-			<?php	
-				$_SESSION['showMessage'] = null;
-			}
-			?>
-
 	$.ajax({
 		url: '../controller/viewprofile.php', // point to server-side PHP script 
         dataType: 'text',  // what to expect back from the PHP script, if anything
