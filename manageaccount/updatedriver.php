@@ -39,7 +39,7 @@ require_once '../header_master.php';
 									<label class="col-sm-5 control-label"><?php echo $lang['DRIVER_LICENSE'] ?></label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="driver_license"
-											id="driver_license" placeholder="Driver License">
+											id="driver_license">
 									</div>
 								</div>
 								<div class="form-group">

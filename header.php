@@ -176,9 +176,6 @@
 										</div>
 									</ul>
 								</li>
-								<li role="presentation">
-									<a role="menuitem" tabindex="-1" href="statistic"><?php echo $lang['STATISTIC']?></a>
-								</li>
 								<li role="presentation" class="divider"></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"
 									href="controller/logout.php"><?php echo $lang['LOGOUT']?></a></li>

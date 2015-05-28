@@ -60,9 +60,12 @@ require_once '../header_master.php';
 										<br> <label style="color: red;"><?php echo $lang['TO']?></label>
 										<?php echo $value->{'end_address'}==NULL?' ':$value->{'end_address'}?>
 									</h6> 
+									<b><?php echo $lang['STARTING_TIME']?></b> <?php echo $value->{'leave_date'}==NULL?' ':$value->{'leave_date'}?>
 									<b><?php echo $lang['DRIVER']?></b> <?php echo $value->{'fullname'}==NULL?' ':$value->{'fullname'}?>
 									<br> <b><?php echo $lang['EMAIL']?> </b> <?php echo $value->{'email'}==NULL?' ':$value->{'email'} ?>	
-									<br> <b><?php echo $lang['PHONE']?> </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>									
+									<br> <b><?php echo $lang['PHONE']?> </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>
+									<br> <b><?php echo $lang['DISTANCE']?>:</b> <?php echo $value->{'distance'}==NULL?' ':$value->{'distance'}?> km
+									<br> <b><?php echo $lang['COST']?>:</b> <?php echo $value->{'cost'}==NULL?' ':$value->{'cost'}?>									
 								</a> 
 						<?php
 							} 
@@ -120,13 +123,15 @@ function initialize() {
 				icon : '../icons/icon_motor.png',
 			});
 
-			var infocontent = '<b>FROM:</b> ' + value['start_address'] + '<br><b>TO:</b> ' + 
-				value['end_address'] + '<br><b>DRIVER: </b>' + value['fullname'] + 
-				'<br><div><img src="data:image/jpeg;base64,' + value['link_avatar'] + 
-				'" style="height: 50px; width: 6	0px;"/></div><b>DISTANCE: </b>' + 
-				value['distance'] + ' KM<br><b>COST:</b> VND ' + value['cost'] + 
-				'<br><a href="reject_itinerary.php?itinerary_id=' + value['itinerary_id'] + 
-				'&driver=' + value['fullname'] + '">View Detail Information	........</a>';
+			var infocontent = '<b><?php echo $lang['FROM']?></b> ' + value['start_address'] + 
+			'<br><b><?php echo $lang['TO']?></b> ' + value['end_address'] + 
+			'<br><b><?php echo $lang['STARTING_TIME']?>: </b>' + value['leave_date'] + 
+			'<br><b><?php echo $lang['DRIVER']?>: </b>' + value['fullname'] + 
+			'<br><div><img src="data:image/jpeg;base64,' + value['link_avatar'] + 
+			'" style="height: 50px; width: 6	0px;"/></div><b><?php echo $lang['DISTANCE']?>: </b>' + 
+			value['distance'] + ' KM<br><b><?php echo $lang['COST']?>:</b> ' + value['cost'] + 
+			'<br><a href="detail_itinerary.php?itinerary_id=' + value['itinerary_id'] + 
+			'&driver=' + value['fullname'] + '&driver_id='+value['driver_id']+'"><?php echo $lang['VIEW_INFOR'];?></a>';
 
 			marker.info = new google.maps.InfoWindow({
 				  content: infocontent,

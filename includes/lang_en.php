@@ -115,5 +115,8 @@ $lang['CANCEL_ITINERARY']		 = "Cancel Itinerary";
 $lang['JOIN_ITINERARY']			 = "Join in Itinerary";
 $lang['REJECT_ITINERARY']		 = "Reject Itinerary";
 $lang['COMMENT']				 = "Comments";
+$lang['OK']						 = "OK";
+$lang['REQUIREMENT']			 = "REQUIREMENT";
+$lang['REQUIREMENT_CONTENT']	 = "You have to update driver information to use this function. Click OK to update!";
 
 ?>

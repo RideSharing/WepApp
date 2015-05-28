@@ -60,8 +60,8 @@ require_once '../header_master.php';
 										<br> <label style="color: red;"><?php echo $lang['TO']?></label>
 										<?php echo $value->{'end_address'}==NULL?' ':$value->{'end_address'}?>
 									</h6> 
-									<b><?php echo $lang['DRIVER']?> </b> <?php echo $value->{'fullname'}==NULL?' ':$value->{'fullname'}?>
-									<br> <b><?php echo $lang['EMAIL']?> </b> <?php echo $value->{'email'}==NULL?' ':$value->{'email'} ?>	
+									<b><?php echo $lang['DRIVER']?>: </b> <?php echo $value->{'fullname'}==NULL?' ':$value->{'fullname'}?>
+									<br> <b><?php echo $lang['EMAIL']?>: </b> <?php echo $value->{'email'}==NULL?' ':$value->{'email'} ?>	
 									<br> <b><?php echo $lang['PHONE']?> </b> <?php echo $value->{'phone'}==NULL?' ':$value->{'phone'} ?>
 									<br> <b><?php echo $lang['DISTANCE']?>:</b> <?php echo $value->{'distance'}==NULL?' ':$value->{'distance'}?> km
 									<br> <b><?php echo $lang['COST']?>:</b> <?php echo $value->{'cost'}==NULL?' ':$value->{'cost'}?>	

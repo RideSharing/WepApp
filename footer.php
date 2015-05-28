@@ -160,6 +160,39 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="upgradeDriver" tabindex="-1" role="dialog" aria-labelledby="upgradeDriver" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+            <h4 class="modal-title" id="myModalLabel"><?php echo $lang['REQUIREMENT']?></h4>
+            </div>
+            <form novalidate>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                            <div class="row control-group">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                     <?php echo $lang['REQUIREMENT_CONTENT'];?>                      			
+                                </div>
+                        		
+                    		</div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <a href="manageaccount/updatedriver.php" class="btn btn-lg btn-outline1"><?php echo $lang['OK'];?></a>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
     
 
 <!-- jQuery -->
@@ -306,7 +339,7 @@ $('document').ready(function(){
 
 			} else {
 	?>
-		showSuccess("Bạn đã trở thành <?php echo $_SESSION['driver']; ?>!");
+		showSuccess("Bạn đã trở thành <?php echo $_SESSION['driver']=='driver'?'Tài xế':'Người tìm xe chung'; ?>!");
 	<?php 
 			}
 		} else {
@@ -337,7 +370,7 @@ $('document').ready(function(){
 	});
 
 	$('#driver').click(function(){
-	
+		
 		if("<?php echo $_SESSION['driver'];?>" == 'driver') {
 			<?php 
 				
@@ -350,7 +383,7 @@ $('document').ready(function(){
 
 					} else {
 			?>
-						showSuccess("Bạn hiện đang là Driver!");
+						showSuccess("Bạn hiện đang là Tài xế!");
 			<?php 
 					}
 				} else {
@@ -360,9 +393,33 @@ $('document').ready(function(){
 				}
 			?>
 		} else {
-			
-			change_mode();
-			
+
+			$.ajax({
+				url: 'controller/getdriverinform.php', // point to server-side PHP script 
+			    dataType: 'text',  // what to expect back from the PHP script, if anything
+			    cache: false,
+			    data: "nothing",         	                
+			    type: 'post',
+			    success: function(string){
+			        
+			    	var getData = $.parseJSON(string);
+			    	
+			    	if(!getData['error']){
+
+			    		if(getData['driver_license'] == null){
+
+			    			$('#upgradeDriver').modal('show'); 
+
+				    	} else {
+
+				    		change_mode();
+
+					    }
+			    		
+			        }
+			    }
+			});
+						
 		}
 		 
 	});
@@ -382,7 +439,7 @@ $('document').ready(function(){
 
 						} else {
 				?>
-							showSuccess("Bạn hiện đang là Customer!");
+							showSuccess("Bạn hiện đang là Người tìm xe chung!");
 				<?php 
 						}
 					} else {

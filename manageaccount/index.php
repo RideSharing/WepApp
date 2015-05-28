@@ -42,7 +42,7 @@ require_once '../header_master.php';
 									<label class="col-sm-5 control-label"><?php echo $lang['FULLNAME'] ?></label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="fullname"
-											id="fullname" placeholder="Full Name">
+											id="fullname">
 									</div>
 								</div>
 								<div class="form-group">
@@ -55,14 +55,14 @@ require_once '../header_master.php';
 									<label class="col-sm-5 control-label"><?php echo $lang['PHONE'] ?></label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="phonenumber"
-											id="phonenumber" placeholder="Phone Number">
+											id="phonenumber">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-5 control-label"><?php echo $lang['PERSONAL_ID'] ?></label>
 									<div class="col-sm-4">
 										<input type="text" class="form-control" name="numberID"
-											id="numberID" placeholder="Personal ID">
+											id="numberID">
 									</div>
 								</div>
 								<div class="form-group">

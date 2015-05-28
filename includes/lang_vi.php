@@ -115,5 +115,8 @@ $lang['CANCEL_ITINERARY']		 = "Hủy hành trình";
 $lang['JOIN_ITINERARY']			 = "Tham gia hành trình";
 $lang['REJECT_ITINERARY']		 = "Hủy bỏ hành trình";
 $lang['COMMENT']				 = "Bình luận";
+$lang['OK']						 = "Đồng ý";
+$lang['REQUIREMENT']			 = "YÊU CẦU";
+$lang['REQUIREMENT_CONTENT']	 = "Bạn phải cập nhật thông tin lái xe để thực hiện được chức năng này. Nhấn đồng ý để cập nhật!";
 
 ?>
