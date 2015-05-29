@@ -56,6 +56,32 @@ require_once '../header_master.php';
 										<label class="col-lg-4" id="driver_id" style="text-align: left; color:#2C3E50; "></label>
 									</div>
 									<div class="col-lg-7" style="text-align: left;">
+									<?php 
+										$user_id = $_REQUEST{'driver_id'};
+
+
+										$ch = curl_init();
+										
+										curl_setopt($ch,CURLOPT_URL,IP_ADDRESS."/RESTFul/v1/average_rating/$user_id");
+										
+										curl_setopt( $ch,CURLOPT_RETURNTRANSFER,1);
+										
+										curl_setopt($ch,CURLOPT_HTTPHEADER, array('Authorization: '.$api_key));
+										
+										// Thiết lập sử dụng GET
+										curl_setopt($ch,CURLOPT_CUSTOMREQUEST, "GET");
+										
+										
+										// execute the request
+										$result = curl_exec($ch);
+										
+										// close curl resource to free up system resources
+										curl_close($ch);
+										
+										$json = json_decode ( $result );
+										
+										$rating = $json->{'average_rating'};
+									?>
 										<label class="col-lg-3"><?php echo $lang['RATING']?>:</label>
 										<div class="col-lg-4" id="rating"></div>
 									</div>
@@ -154,7 +180,7 @@ $("document").ready(function(){
 	$('#rating').raty({
 
 	  readOnly:true,
-	  score: 3.3
+	  score: <?php echo $rating;?>
 	  
 	});
 	

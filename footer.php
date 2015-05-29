@@ -256,12 +256,7 @@
 
                 }
             	
-            },
-            error: function(){
-
-            	showError("Error unknow!");
-
-                }
+            }
         });
         
     }
@@ -291,12 +286,7 @@
 
                 }
             	
-            },
-            error: function(){
-
-            	showError("Error unknow!");
-
-                }
+            }
         });
         
     }

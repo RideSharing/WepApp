@@ -28,30 +28,6 @@ require_once '../header_master.php';
 	<div class="row">
 		<div class="col-lg-4 no-padding">
 			<div id="list-itinerary">
-						<?php
-						$api_key = $_SESSION ["api_key"];
-						$ch = curl_init ();
-						
-						curl_setopt ( $ch, CURLOPT_URL, IP_ADDRESS."/RESTFul/v1/itineraries" );
-						curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
-						curl_setopt ( $ch, CURLOPT_HTTPHEADER, array (
-								'Authorization: ' . $api_key 
-						) );
-						
-						// Thiết lập sử dụng GET
-						curl_setopt($ch,CURLOPT_CUSTOMREQUEST, "GET");
-						
-						// execute the request
-						$result = curl_exec ( $ch );
-						
-						// close curl resource to free up system resources
-						curl_close ( $ch );
-						
-						$json = json_decode ( $result );
-						
-						$res = $json->{'itineraries'};
-						
-						?>
 				<div class="list-group" id="list-group">
 					<!-- Start: list_row -->
 					<!-- End: list_row -->
@@ -69,27 +45,26 @@ require_once '../header_master.php';
 			<div class="input-group input-group-sm">
 				<span class="input-group-addon" id="sizing-addon3"
 					style="color: #FFF; background-color: #F39C12"><?php echo $lang['DEPARTURE']?>&nbsp;&nbsp;&nbsp;</span>
-				<input id="start-place" type="text"
-					class="form-control" placeholder="Enter the Start Place ..."
-					aria-describedby="sizing-addon3">
+				<input id="start-place" type="text" class="form-control" aria-describedby="sizing-addon3">
 			</div>
 		</div>
 		<div class="col-lg-12">
 			<div class="input-group input-group-sm">
 				<span class="input-group-addon" id="sizing-addon3"
 					style="color: #FFF; background-color: #F39C12"><?php echo $lang['DESTINATION']?></span>
-				<input id="end-place" type="text" class="form-control"
-					placeholder="Enter the End Place ..." aria-describedby="sizing-addon3">
+				<input id="end-place" type="text" class="form-control" aria-describedby="sizing-addon3">
 			</div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="input-group input-group-sm">
+			<div id="datetimepicker" class="input-group input-group-sm date">
 				<span class="input-group-addon" id="sizing-addon3"
 					style="color: #FFF; background-color: #F39C12"><?php echo $lang['STARTING_DAY']?></span> 
-				<input type="text" id="date_departure" data-beatpicker="true" data-beatpicker-position="['*','*']"
-					data-beatpicker-disable="{from:[2014,1,1],to:'<'}" />
+				<input id="date_departure" class="form-control" type="text" placeholder="<?php echo $lang['STARTING_TIME'];?> - <?php echo $lang['TIME_FORMAT']?>" ></input> 
+				<span class="input-group-addon add-on"> 
+					<span class="glyphicon glyphicon-calendar"></span>
+				</span>
 			</div>
 		</div>
 	</div>
@@ -98,7 +73,6 @@ require_once '../header_master.php';
 require_once '../footer_master.php';
 ?>
 <script>
-var list_itinerary = <?php echo json_encode($res);?>;
 var list_content = "";
 var content = "";
 var directionsDisplay;
@@ -121,7 +95,7 @@ var end_marker = new google.maps.Marker({
 var geocoder;
 var markers = [];
 var locationPos;
-var start, end;
+var start, end = "";
 
 function initialize() {
 	if(navigator.geolocation) {
@@ -129,9 +103,10 @@ function initialize() {
             
         directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
         directionsDisplay.setMap(map);
-        start = new google.maps.LatLng(position.coords.latitude, position.coords.longitude) + "";
-        end = "<?php if(isset($_REQUEST{'End_Address'})) echo $_REQUEST{'End_Address'};?>";
-	
+        locationPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude) + "";
+        start = locationPos;
+        $('#end-place').val("<?php if(isset($_REQUEST{'End_Address'})) echo $_REQUEST{'End_Address'};?>");
+        
 		var start_place = new google.maps.places.Autocomplete((document.getElementById('start-place')), { types: ['geocode'] });
 		var end_place = new google.maps.places.Autocomplete((document.getElementById('end-place')), { types: ['geocode'] });
 	
@@ -140,92 +115,19 @@ function initialize() {
 		var control = document.getElementById('control');
 	
 	    map.controls[google.maps.ControlPosition.TOP_LEFT].push(control);
-
-	    start = start.replace("(","");
-    	start = start.replace(")","");
 	    
-	    geocoder.geocode( {'address': end}, function(results, status) {
-    	    
-			if(end != ""){
-
-				var tmp = results[0].geometry.location+"";
-
-			    end = tmp.replace("(","");
-		    	end = end.replace(")","");
-
-			}
-
-	    	search();	    
-    	    	
-	    	//Set marker on MAP	
-    		setAllMap(map);	
-    	      
-    	  });
+	    get_change();
 		 
 		google.maps.event.addListener(start_place, 'place_changed', function() {	
 
-			start = $('#start-place').val();
-			end = $('#end-place').val();
-			
-			geocoder.geocode( {'address': $('#start-place').val()}, function(results, status) {
-
-			    if(start != ""){
-
-			    	var tmp = results[0].geometry.location+"";
-			    	start = tmp.replace("(","");
-			    	start = start.replace(")","");
-
-				}
-			    	
-	
-		    	geocoder.geocode( {'address': $('#end-place').val()}, function(results, status) {
-
-			    	if(end != ""){
-
-			    		var tmp = results[0].geometry.location+"";
-		    		    end = tmp.replace("(","");
-		    	    	end = end.replace(")","");
-			    		
-				    }    
-
-	    	    	search();	    	
-
-		    	});
-
-			});
+			get_change();
 			  
 		});
 	
 		google.maps.event.addListener(end_place, 'place_changed', function() {
 
-			start = $('#start-place').val();
-			end = $('#end-place').val();
-	
-			geocoder.geocode( {'address': $('#start-place').val()}, function(results, status) {
-
-			    if(start != ""){
-
-			    	var tmp = results[0].geometry.location+"";
-			    	start = tmp.replace("(","");
-			    	start = start.replace(")","");
-
-				}
-			    	
-		    	geocoder.geocode( {'address': $('#end-place').val()}, function(results, status) {
-
-			    	if(end != ""){
-
-			    		var tmp = results[0].geometry.location+"";
-		    		    end = tmp.replace("(","");
-		    	    	end = end.replace(")","");
-			    		
-				    }    
-
-	    	    	search();	    	
-
-		    	});
-
-			});
+			get_change();
+			
 		});
    }, function() {
             handleNoGeolocation(true);
@@ -268,7 +170,6 @@ function search() {
 	
 	start_Lat = tmp[0];
 	start_Lng = tmp[1];
-	
 
 	tmp = end.split(", ");
 	end_Lat = tmp[0];
@@ -280,6 +181,7 @@ function search() {
 	form_data.append('start_place_Lng',start_Lng);
 	form_data.append('end_place_Lat',end_Lat);
 	form_data.append('end_place_Lng',end_Lng);
+	form_data.append('leave_date',$('#date_departure').val());
 
 	$.ajax({
 		url: "../controller/getListItinerary.php", // point to server-side PHP script 
@@ -370,62 +272,43 @@ function search() {
         }
     });	
 	  
-	}
+}
 
-// function getListAll() {
+function get_change(){
 
-// list_itinerary.forEach (function(value){
-		
-// 		if(value['status'] == 1){
+	directionsDisplay.setMap(null);
+	end_marker.setMap(null);
+	geocoder.geocode( {'address': $('#start-place').val()}, function(results, status) {
 
-// 			//list icon on map
-// 			var latLng = new google.maps.LatLng(value['start_address_lat'], value['start_address_long']);
+		start = locationPos;
+		start = start.replace("(","");
+    	start = start.replace(")","");
 
-// 			var marker = new google.maps.Marker({
-// 				position : latLng,	
-// 				icon : '../icons/icon_motor.png'
-// 			});
+	    if($('#start-place').val() != ""){
 
-// 			var infocontent = '<b>FROM:</b> ' + value['start_address'] + '<br><b>TO:</b> ' + 
-// 				value['end_address'] + '<br><b>DRIVER: </b>' + value['fullname'] + 
-// 				'<br><div><img src="data:image/jpeg;base64,' + value['link_avatar'] + 
-// 				'" style="height: 50px; width: 6	0px;"/></div><b>DISTANCE: </b>' + 
-// 				value['distance'] + ' KM<br><b>COST:</b> VND ' + value['cost'] + 
-// 				'<br><a href="detail_itinerary.php?itinerary_id=' + value['itinerary_id'] + 
-// 				'&driver=' + value['fullname'] + '">View Detail Information	........</a>';
+	    	var tmp = results[0].geometry.location+"";
+	    	start = tmp.replace("(","");
+	    	start = start.replace(")","");
 
-// 			marker.info = new google.maps.InfoWindow({
-// 				  content: infocontent,
-// 				  maxWidth: 200
-// 			});
-			
-// 			markers.push(marker);
-		
-// 			google.maps.event.addListener(marker,'click',function() {
+		}
 
-// 				marker.info.open(map, marker);
-			  
-// 			});
+    	geocoder.geocode( {'address': $('#end-place').val()}, function(results, status) {
 
-// 			//list with list group
-// 			content = '<a href="detail_itinerary.php?itinerary_id='+
-// 			value["itinerary_id"]+'&driver='+value["fullname"]+'&driver_id='+
-// 			value["driver_id"]+'" class="list-group-item"><h6 class="list-group-item-heading">'+
-// 			'<label style="color: red;">FROM:</label>'+
-// 			value["start_address"]+'<br> <label style="color: red;">TO:</label>'+
-// 			value["end_address"]+'</h6><b>Driver: </b>'+value["fullname"]+
-// 			'<br> <b>Phone: </b>'+value["phone"]+									
-// 			'</a>  ';
-			
-// 			list_content = list_content.concat(content);
-// 		}
+	    	if($('#end-place').val() != ""){
 
-// 	});
+	    		var tmp = results[0].geometry.location+"";
+    		    end = tmp.replace("(","");
+    	    	end = end.replace(")","");
+	    		
+		    }    
 
-// 	$('#list-group').html(list_content);
+	    	search();	    	
+
+    	});
+
+	});
 	
-	  
-// 	}
+}
 
 function calcRoute(start_address, end_address) {
 
@@ -438,14 +321,19 @@ function calcRoute(start_address, end_address) {
 	directionsService.route(request, function(response, status) {
 	    if (status == google.maps.DirectionsStatus.OK) {
 	      directionsDisplay.setDirections(response);
-	      
+	      directionsDisplay.setMap(map);
 	     var myRoute = response.routes[0].legs[0];
 	      
 	     end_marker.setPosition(myRoute.steps[myRoute.steps.length-1].end_point);
-	      
+	     end_marker.setMap(map); 
 	    }
 	  });
 }
+
+$('#datetimepicker').datetimepicker({
+	format: 'yyyy/MM/dd'
+}).on('changeDate', function(){get_change();});
+
 </script>
 </body>
 </html>
