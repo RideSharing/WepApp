@@ -19,7 +19,7 @@ if (! isset ( $_SESSION ["api_key"] ) || $_SESSION ['driver'] == 'customer') {
 require_once '../header_master.php';
 ?>
 
-<title><?php echo $lang['REGISTER_ITINERARY']?></title>
+<title><?php echo $lang['EDIT_ITINERARY']?></title>
 
 <body>
 	<!-- Header -->
@@ -30,7 +30,7 @@ require_once '../header_master.php';
 					<form>
 						<fieldset>
 							<legend style="text-align: center;">
-								<b><?php echo $lang['REGISTER_ITINERARY']?></b>
+								<b><?php echo $lang['EDIT_ITINERARY']?></b>
 							</legend>
 							<div class="col-lg-5">
 								<div class="form-group">
@@ -105,7 +105,7 @@ require_once '../header_master.php';
 								</div>
 								<div class="form-group">
 									<input class="btn btn-primary btn-block" type="button"
-										name="register_itinerary" id="register_iti" value="<?php echo $lang['POST'];?>">
+										name="update_itinerary" id="update_itinerary" value="<?php echo $lang['UPDATE'];?>">
 								</div>
 							</div>
 							<div id="map" style="height: 545px; width: 680px;"></div>
@@ -120,59 +120,101 @@ require_once '../header_master.php';
 	?>
 <script>
 $('document').ready(function(){
-	$("#register_iti").click(function(){
 
+	var form_data = new FormData();
+	
+	form_data.append("itinerary_id","<?php echo $_REQUEST{'itinerary_id'}?>");
+	
+	$.ajax({
+		url: '../controller/detail_itinerary.php', // point to server-side PHP script 
+		dataType: 'text',  // what to expect back from the PHP script, if anything
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,         	                
+        type: 'post',
+        success: function(string){
+                
+           var getData = $.parseJSON(string);
+
+        	if(!getData['error']) {
+
+        		$("#start_place").val(getData['start_address']);
+        		$("#start_place_lat").val(getData['start_address_lat']);
+        		$("#start_place_lng").val(getData['start_address_long']);
+        		$("#end_place").val(getData['end_address']);
+        		$("#end_place_lat").val(getData['end_address_lat']);
+        		$("#end_place_lng").val(getData['end_address_long']);
+        		$("#leave_date").val(getData['leave_date']);
+        		$("#description").val(getData['description']);
+        		$("#distance").val(getData['distance']);
+        		$("#duration").val(getData['duration']);
+        		$("#cost").val(getData['cost']);
+        		
+
+			}else {
+
+				showError(getData['message']);
+				
+			}       	
+        	
+        }
+    
+    });
+    
+	$("#update_itinerary").click(function(){
+		
 		var currentDay = new Date();
 		var pickedDay = Date.parse($("#leave_date").val());
 
 		if(pickedDay <= currentDay){
+			
 			showError("<?php echo $lang['DAY_ERROR'];?>");
+			
 		 } else{
 
-			 var e = document.getElementById("list_vehicle");
-				var form_data = new FormData();
-				
-				form_data.append("start_address",$("#start_place").val());
-				form_data.append("start_address_lat",$("#start_place_lat").val());
-				form_data.append("start_address_long",$("#start_place_lng").val());
-				form_data.append("end_address",$("#end_place").val());
-				form_data.append("end_address_lat",$("#end_place_lat").val());
-				form_data.append("end_address_long",$("#end_place_lng").val());
-				form_data.append("leave_date",$("#leave_date").val());
-				form_data.append("duration",$("#duration").val());
-				form_data.append("distance",$("#distance").val());
-				form_data.append("cost",$("#cost").val());
-				form_data.append("description",$("#description").val());
-				form_data.append("vehicle_id",e.options[e.selectedIndex].value);
-
-				$.ajax({
-					url: '../controller/register_itinerary.php', // point to server-side PHP script 
-					dataType: 'text',  // what to expect back from the PHP script, if anything
-			        cache: false,
-			        contentType: false,
-			        processData: false,
-			        data: form_data,         	                
-			        type: 'post',
-			        success: function(string){
-			                
-			           var getData = $.parseJSON(string);
-
-			        	if(!getData['error']) {
-
-			        		showSuccess(getData['message']);
-
-						}else {
-
-							showError(getData['message']);
-							
-						}       	
-			        	
-			        }
-			    
-			    });
-		  
-		 }
-
+			var e = document.getElementById("list_vehicle");
+			var form_data = new FormData();
+			form_data.append("itinerary_id","<?php echo $_REQUEST{'itinerary_id'}?>");
+			form_data.append("start_address",$("#start_place").val());
+			form_data.append("start_address_lat",$("#start_place_lat").val());
+			form_data.append("start_address_long",$("#start_place_lng").val());
+			form_data.append("end_address",$("#end_place").val());
+			form_data.append("end_address_lat",$("#end_place_lat").val());
+			form_data.append("end_address_long",$("#end_place_lng").val());
+			form_data.append("leave_date",$("#leave_date").val());
+			form_data.append("duration",$("#duration").val());
+			form_data.append("distance",$("#distance").val());
+			form_data.append("cost",$("#cost").val());
+			form_data.append("description",$("#description").val());
+			form_data.append("vehicle_id",e.options[e.selectedIndex].value);
+	
+			$.ajax({
+				url: '../controller/update_itinerary.php', // point to server-side PHP script 
+				dataType: 'text',  // what to expect back from the PHP script, if anything
+		        cache: false,
+		        contentType: false,
+		        processData: false,
+		        data: form_data,         	                
+		        type: 'post',
+		        success: function(string){
+			        
+		           var getData = $.parseJSON(string);
+	
+		        	if(!getData['error']) {
+	
+		        		showSuccess(getData['message']);
+	
+					}else {
+	
+						showError(getData['message']);
+						
+					}       	
+		        	
+		        }
+		    
+		    });
+		}
 
 	});
 

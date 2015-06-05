@@ -54,6 +54,7 @@ $lang['TO']                      = "Đến:";
 $lang['DRIVER']                  = "Lái xe";
 $lang['VIEW_INFOR']              = "Nhấp vào để xem thông tin.............";
 $lang['REGISTER_ITINERARY']      = "Đăng ký hành trình";
+$lang['EDIT_ITINERARY']     	 = "Chỉnh sửa hành trình";
 $lang['LIST_REGISTER_ITINERARY'] = "Hành trình đã đăng ký";
 $lang['DETAILS_ITINERARY']       = "Chi tiết hành trình";
 $lang['DRIVER_NAME']             = "Tên lái xe";
@@ -118,5 +119,6 @@ $lang['COMMENT']				 = "Bình luận";
 $lang['OK']						 = "Đồng ý";
 $lang['REQUIREMENT']			 = "YÊU CẦU";
 $lang['REQUIREMENT_CONTENT']	 = "Bạn phải cập nhật thông tin lái xe để thực hiện được chức năng này. Nhấn đồng ý để cập nhật!";
-
+$lang['EDIT']					 = "Sửa đổi";
+$lang['DAY_ERROR']				 = "Thời gian chọn không được trước thời gian hiện tại!";
 ?>

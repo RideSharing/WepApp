@@ -54,6 +54,7 @@ $lang['TO']                      = "To:";
 $lang['DRIVER']                  = "Driver";
 $lang['VIEW_INFOR']              = "Click to view information.............";
 $lang['REGISTER_ITINERARY']      = "Itinerary registration";
+$lang['EDIT_ITINERARY']     	 = "Edit Itinerary";
 $lang['LIST_REGISTER_ITINERARY'] = "Itinerary registered List";
 $lang['DETAILS_ITINERARY']       = "Details of itinerary";
 $lang['DRIVER_NAME']             = "Driver name";
@@ -118,5 +119,6 @@ $lang['COMMENT']				 = "Comments";
 $lang['OK']						 = "OK";
 $lang['REQUIREMENT']			 = "REQUIREMENT";
 $lang['REQUIREMENT_CONTENT']	 = "You have to update driver information to use this function. Click OK to update!";
-
+$lang['EDIT']					 = "Edit";
+$lang['DAY_ERROR']				 = "The time has to be not before the current time!";
 ?>

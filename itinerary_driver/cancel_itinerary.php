@@ -65,8 +65,11 @@ require_once '../header_master.php';
 								<label class="col-sm-4 control-label" id="description" style="text-align: left; color:#2C3E50; "></label>
 							</div>
 							<div class="form-group">
-								<div class="col-sm-offset-4 col-sm-3">
+								<div class="col-sm-offset-3 col-sm-3">
 									<input class="btn btn-primary btn-block" id="cancel_itinerary" type="button" value="<?php echo $lang['CANCEL_ITINERARY'];?>">
+								</div>
+								<div class="col-sm-2">
+									<a class="btn btn-primary btn-block" href="update_itinerary.php?itinerary_id=<?php echo $_REQUEST{'itinerary_id'}?>"><?php echo $lang['EDIT']?></a>
 								</div>
 								<div class="col-sm-2">
 									<a class="btn btn-primary btn-block" href="../itinerary_driver"><?php echo $lang['BACK']?></a>
