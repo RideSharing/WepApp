@@ -142,9 +142,15 @@ $('document').ready(function(){
         		$("#start_place").val(getData['start_address']);
         		$("#start_place_lat").val(getData['start_address_lat']);
         		$("#start_place_lng").val(getData['start_address_long']);
+
+        		start = $("#start_place_lat").val() + ", " + $("#start_place_lng").val();
+
         		$("#end_place").val(getData['end_address']);
         		$("#end_place_lat").val(getData['end_address_lat']);
         		$("#end_place_lng").val(getData['end_address_long']);
+
+        		end = $("#end_place_lat").val() + ", " + $("#end_place_lng").val();
+				calcRoute();
         		$("#leave_date").val(getData['leave_date']);
         		$("#description").val(getData['description']);
         		$("#distance").val(getData['distance']);

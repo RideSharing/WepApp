@@ -1,3 +1,3 @@
 <?php
-define('IP_ADDRESS', '192.168.10.107');
+define('IP_ADDRESS', 'localhost:8080');
 ?>
